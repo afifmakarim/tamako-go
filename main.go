@@ -1,51 +1,45 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
-	"strconv"
 
 	"github.com/line/line-bot-sdk-go/linebot"
+	"github.com/line/line-bot-sdk-go/linebot/httphandler"
 )
 
-var bot *linebot.Client
-
 func main() {
-	var err error
-	bot, err = linebot.New(os.Getenv("CHANNEL_SECRET"), os.Getenv("CHANNEL_TOKEN"))
-	log.Println("Bot:", bot, " err:", err)
-	http.HandleFunc("/", callbackHandler)
-	port := os.Getenv("PORT")
-	addr := fmt.Sprintf(":%s", port)
-	http.ListenAndServe(addr, nil)
-}
-
-func callbackHandler(w http.ResponseWriter, r *http.Request) {
-	events, err := bot.ParseRequest(r)
-
+	handler, err := httphandler.New(
+		os.Getenv("CHANNEL_SECRET"),
+		os.Getenv("CHANNEL_TOKEN"),
+	)
 	if err != nil {
-		if err == linebot.ErrInvalidSignature {
-			w.WriteHeader(400)
-		} else {
-			w.WriteHeader(500)
-		}
-		return
+		log.Fatal(err)
 	}
 
-	for _, event := range events {
-		if event.Type == linebot.EventTypeMessage {
-			switch message := event.Message.(type) {
-			case *linebot.TextMessage:
-				quota, err := bot.GetMessageQuota().Do()
-				if err != nil {
-					log.Println("Quota err:", err)
-				}
-				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.ID+":"+message.Text+" OK! remain message:"+strconv.FormatInt(quota.Value, 10))).Do(); err != nil {
-					log.Print(err)
+	// Setup HTTP Server for receiving requests from LINE platform
+	handler.HandleEvents(func(events []*linebot.Event, r *http.Request) {
+		bot, err := handler.NewClient()
+		if err != nil {
+			log.Print(err)
+			return
+		}
+		for _, event := range events {
+			if event.Type == linebot.EventTypeMessage {
+				switch message := event.Message.(type) {
+				case *linebot.TextMessage:
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text)).Do(); err != nil {
+						log.Print(err)
+					}
 				}
 			}
 		}
+	})
+	http.Handle("/callback", handler)
+	// This is just a sample code.
+	// For actually use, you must support HTTPS by using `ListenAndServeTLS`, reverse proxy or etc.
+	if err := http.ListenAndServe(":"+os.Getenv("PORT"), nil); err != nil {
+		log.Fatal(err)
 	}
 }
