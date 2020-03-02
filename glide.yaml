@@ -1,0 +1,6 @@
+package: github.com/afifmakarim/golang-bot
+import:
+- package: github.com/line/line-bot-sdk-go
+  version: ~7.2.0
+  subpackages:
+  - linebot
