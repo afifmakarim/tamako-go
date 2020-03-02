@@ -10,8 +10,8 @@ import (
 )
 
 func main() {
-	// os.Setenv("CHANNEL_SECRET", "1be4fbd94dd56738610507b0c20de840")
-	// os.Setenv("CHANNEL_TOKEN", "SnCXDhD8ZOMoDJv4+JdRIT/XVjkOIhdY2/v/YECnPH1hJx+ttwK0pqXsXyfemvWPadHCnqZNEIRWx/j6VzxGw4zBM1ahAJIIJyfODtGCTS2YipB0r+1NF1efb/NvGGuCFc6Kut6x6oa4J4zoX0jTyQdB04t89/1O/w1cDnyilFU=")
+	os.Setenv("CHANNEL_SECRET", "1be4fbd94dd56738610507b0c20de840")
+	os.Setenv("CHANNEL_TOKEN", "SnCXDhD8ZOMoDJv4+JdRIT/XVjkOIhdY2/v/YECnPH1hJx+ttwK0pqXsXyfemvWPadHCnqZNEIRWx/j6VzxGw4zBM1ahAJIIJyfODtGCTS2YipB0r+1NF1efb/NvGGuCFc6Kut6x6oa4J4zoX0jTyQdB04t89/1O/w1cDnyilFU=")
 
 	bot, err := linebot.New(
 		os.Getenv("CHANNEL_SECRET"),
