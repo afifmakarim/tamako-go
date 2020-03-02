@@ -27,7 +27,7 @@ func main() {
 			} else {
 				w.WriteHeader(500)
 			}
-			return
+			return fmt.Println("Hello World")
 		}
 		for _, event := range events {
 			if event.Type == linebot.EventTypeMessage {
