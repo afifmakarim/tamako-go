@@ -11,6 +11,8 @@ import (
 
 func main() {
 	bot, err := linebot.New(
+		os.Setenv("CHANNEL_SECRET","b54b13e54172b7798711da6dc37089cf")
+		os.Setenv("CHANNEL_TOKEN","4KNSn8qgfy9/9XmP8Yqs3Vi6bRNa7Q4Xes/50bZvRZizpnDkaj6oaQSsTAP9N6DFadHCnqZNEIRWx/j6VzxGw4zBM1ahAJIIJyfODtGCTS2rAqGQfQT+/pn1Eyg8/7lZCaDtWciPmT6NOBaGrF46uwdB04t89/1O/w1cDnyilFU=")
 		os.Getenv("CHANNEL_SECRET"),
 		os.Getenv("CHANNEL_TOKEN"),
 	)
@@ -24,6 +26,7 @@ func main() {
 		if err != nil {
 			if err == linebot.ErrInvalidSignature {
 				w.WriteHeader(400)
+				fmt.Fprint(w, "ok")
 			} else {
 				w.WriteHeader(500)
 				fmt.Fprint(w, "ok")
