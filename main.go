@@ -31,7 +31,8 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 		} else {
 			w.WriteHeader(500)
 		}
-		return
+		total := "Hello"
+		return total
 	}
 
 	for _, event := range events {
