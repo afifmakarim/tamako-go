@@ -36,6 +36,7 @@ func callBack(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		if err == linebot.ErrInvalidSignature {
 			w.WriteHeader(400)
+			fmt.Fprint(w, "ok")
 		} else {
 			w.WriteHeader(500)
 		}
