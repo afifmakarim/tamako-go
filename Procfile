@@ -1,1 +1,1 @@
-web: github.com/afifmakarim/golang-bot 
+web: golang-bot 
