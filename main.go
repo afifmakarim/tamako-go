@@ -21,7 +21,7 @@ func main() {
 
 	http.HandleFunc("/", hello)
 	http.HandleFunc("/callback", callBack)
-	log.Fatal(http.ListenAndServe(":8000", nil))
+	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
 
 }
 
