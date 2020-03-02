@@ -1,16 +1,16 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
 
 	"github.com/line/line-bot-sdk-go/linebot"
-	"github.com/line/line-bot-sdk-go/linebot/httphandler"
 )
 
 func main() {
-	handler, err := httphandler.New(
+	bot, err := linebot.New(
 		os.Getenv("CHANNEL_SECRET"),
 		os.Getenv("CHANNEL_TOKEN"),
 	)
@@ -19,10 +19,15 @@ func main() {
 	}
 
 	// Setup HTTP Server for receiving requests from LINE platform
-	handler.HandleEvents(func(events []*linebot.Event, r *http.Request) {
-		bot, err := handler.NewClient()
+	http.HandleFunc("/callback", func(w http.ResponseWriter, req *http.Request) {
+		events, err := bot.ParseRequest(req)
 		if err != nil {
-			log.Print(err)
+			if err == linebot.ErrInvalidSignature {
+				w.WriteHeader(400)
+			} else {
+				w.WriteHeader(500)
+				fmt.Fprint(w, "ok")
+			}
 			return
 		}
 		for _, event := range events {
@@ -32,13 +37,18 @@ func main() {
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text)).Do(); err != nil {
 						log.Print(err)
 					}
+				case *linebot.StickerMessage:
+					replyMessage := fmt.Sprintf(
+						"sticker id is %s, stickerResourceType is %s", message.StickerID, message.StickerResourceType)
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(replyMessage)).Do(); err != nil {
+						log.Print(err)
+					}
 				}
 			}
 		}
 	})
-	http.Handle("/callback", handler)
-	// This is just a sample code.
-	// For actually use, you must support HTTPS by using `ListenAndServeTLS`, reverse proxy or etc.
+	// This is just sample code.
+	// For actual use, you must support HTTPS by using `ListenAndServeTLS`, a reverse proxy or something else.
 	if err := http.ListenAndServe(":"+os.Getenv("PORT"), nil); err != nil {
 		log.Fatal(err)
 	}
