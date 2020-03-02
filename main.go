@@ -27,7 +27,7 @@ func main() {
 		if err != nil {
 			if err == linebot.ErrInvalidSignature {
 				w.WriteHeader(400)
-				fmt.Fprint(w, "ok")
+				//fmt.Fprint(w, "ok")
 			} else {
 				w.WriteHeader(500)
 				fmt.Fprint(w, "ok")
