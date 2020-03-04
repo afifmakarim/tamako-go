@@ -45,10 +45,12 @@ func callBack(w http.ResponseWriter, req *http.Request) {
 
 	for _, event := range events {
 		if event.Type == linebot.EventTypeMessage {
-			message := event.Message
-			if message == "help" {
+			switch message := event.Message.(type) {
+			case *linebot.TextMessage:
+
 				// extract message details
-				fmt.Printf("reply channel:%s, msg:%s, user id:%s\n", event.ReplyToken, message.Text, event.Source.UserID)
+				fmt.Printf("reply channel:%s, msg:%s, user id:%s\n", event.ReplyToken, message.Text,
+					event.Source.UserID)
 
 				// reply
 				// if _, err = bot.ReplyMessage(event.ReplyToken,
