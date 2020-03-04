@@ -25,6 +25,13 @@ func main() {
 
 }
 
+// KitchenSink app
+type KitchenSink struct {
+	bot         *linebot.Client
+	appBaseURL  string
+	downloadDir string
+}
+
 func hello(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("hello"))
 	w.WriteHeader(200)
@@ -57,9 +64,11 @@ func callBack(w http.ResponseWriter, req *http.Request) {
 				// 	linebot.NewTextMessage(message.Text)).Do(); err != nil {
 				// 	log.Print(err)
 				// }
+				// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Halooo!")).Do(); err != nil {
+				// 	log.Print(err)
+				// }
 				if err := app.handleText(message, event.ReplyToken, event.Source); err != nil {
 					log.Print(err)
-				}
 				}
 			}
 		}
@@ -67,3 +76,10 @@ func callBack(w http.ResponseWriter, req *http.Request) {
 	}
 	return
 }
+
+func (bot *KitchenSink) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
+	switch message.Text {
+	case "profile":
+			return bot.replyText(replyToken, "Bot can't use profile API without user ID")
+		}
+
