@@ -37,7 +37,7 @@ func hello(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(200)
 }
 
-func callBack(w http.ResponseWriter, req *http.Request) {
+func (bot *KitchenSink) callBack(w http.ResponseWriter, req *http.Request) {
 	events, err := bot.ParseRequest(req)
 
 	if err != nil {
@@ -67,7 +67,7 @@ func callBack(w http.ResponseWriter, req *http.Request) {
 				// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Halooo!")).Do(); err != nil {
 				// 	log.Print(err)
 				// }
-				if err := app.handleText(message, event.ReplyToken, event.Source); err != nil {
+				if err := bot.handleText(message, event.ReplyToken, event.Source); err != nil {
 					log.Print(err)
 				}
 			}
