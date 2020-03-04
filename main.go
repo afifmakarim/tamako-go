@@ -57,8 +57,9 @@ func callBack(w http.ResponseWriter, req *http.Request) {
 				// 	linebot.NewTextMessage(message.Text)).Do(); err != nil {
 				// 	log.Print(err)
 				// }
-				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Halooo!")).Do(); err != nil {
+				if err := app.handleText(message, event.ReplyToken, event.Source); err != nil {
 					log.Print(err)
+				}
 				}
 			}
 		}
