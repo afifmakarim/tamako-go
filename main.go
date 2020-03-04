@@ -9,12 +9,17 @@ import (
 	"github.com/line/line-bot-sdk-go/linebot"
 )
 
-var bot *linebot.Client
+// KitchenSink app
+type KitchenSink struct {
+	bot         *linebot.Client
+	appBaseURL  string
+	downloadDir string
+}
 
-func main() {
+func (app *KitchenSink) main() {
 	// load configuration
 	var err error
-	bot, err = linebot.New(os.Getenv("CHANNEL_SECRET"), os.Getenv("CHANNEL_TOKEN"))
+	app.bot, err = linebot.New(os.Getenv("CHANNEL_SECRET"), os.Getenv("CHANNEL_TOKEN"))
 	if err != nil {
 		log.Println("Bot Initial Error:", err)
 	}
@@ -25,20 +30,13 @@ func main() {
 
 }
 
-// KitchenSink app
-type KitchenSink struct {
-	bot         *linebot.Client
-	appBaseURL  string
-	downloadDir string
-}
-
 func hello(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("hello"))
 	w.WriteHeader(200)
 }
 
-func (bot *KitchenSink) callBack(w http.ResponseWriter, req *http.Request) {
-	events, err := bot.ParseRequest(req)
+func (app *KitchenSink) callBack(w http.ResponseWriter, req *http.Request) {
+	events, err := app.bot.ParseRequest(req)
 
 	if err != nil {
 		if err == linebot.ErrInvalidSignature {
@@ -67,7 +65,7 @@ func (bot *KitchenSink) callBack(w http.ResponseWriter, req *http.Request) {
 				// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Halooo!")).Do(); err != nil {
 				// 	log.Print(err)
 				// }
-				if err := bot.handleText(message, event.ReplyToken, event.Source); err != nil {
+				if err := app.bot.handleText(message, event.ReplyToken, event.Source); err != nil {
 					log.Print(err)
 				}
 			}
@@ -77,9 +75,9 @@ func (bot *KitchenSink) callBack(w http.ResponseWriter, req *http.Request) {
 	return
 }
 
-func (bot *KitchenSink) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
+func (app *KitchenSink) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
 	switch message.Text {
 	case "profile":
-		return bot.replyText(replyToken, "Bot can't use profile API without user ID")
+		return app.bot.replyText(replyToken, "Bot can't use profile API without user ID")
 	}
 }
