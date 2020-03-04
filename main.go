@@ -46,7 +46,8 @@ func callBack(w http.ResponseWriter, req *http.Request) {
 	for _, event := range events {
 		if event.Type == linebot.EventTypeMessage {
 			// switch message := event.Message.(type) {
-			switch linebot.TextMessage.Text {
+			message := event.Message.(type)
+			switch message.Text {
 			case "help":
 
 				// extract message details
