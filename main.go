@@ -53,11 +53,13 @@ func callBack(w http.ResponseWriter, req *http.Request) {
 					event.Source.UserID)
 
 				// reply
-				if _, err = bot.ReplyMessage(event.ReplyToken,
-					linebot.NewTextMessage(message.Text)).Do(); err != nil {
+				// if _, err = bot.ReplyMessage(event.ReplyToken,
+				// 	linebot.NewTextMessage(message.Text)).Do(); err != nil {
+				// 	log.Print(err)
+				// }
+				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("Halooo!")).Do(); err != nil {
 					log.Print(err)
 				}
-
 			}
 		}
 
