@@ -9,17 +9,12 @@ import (
 	"github.com/line/line-bot-sdk-go/linebot"
 )
 
-// KitchenSink app
-type KitchenSink struct {
-	bot         *linebot.Client
-	appBaseURL  string
-	downloadDir string
-}
+var bot *linebot.Client
 
-func (app *KitchenSink) main() {
+func main() {
 	// load configuration
 	var err error
-	app.bot, err = linebot.New(os.Getenv("CHANNEL_SECRET"), os.Getenv("CHANNEL_TOKEN"))
+	bot, err = linebot.New(os.Getenv("CHANNEL_SECRET"), os.Getenv("CHANNEL_TOKEN"))
 	if err != nil {
 		log.Println("Bot Initial Error:", err)
 	}
@@ -30,13 +25,20 @@ func (app *KitchenSink) main() {
 
 }
 
+// KitchenSink app
+type KitchenSink struct {
+	bot         *linebot.Client
+	appBaseURL  string
+	downloadDir string
+}
+
 func hello(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("hello"))
 	w.WriteHeader(200)
 }
 
-func (app *KitchenSink) callBack(w http.ResponseWriter, req *http.Request) {
-	events, err := app.bot.ParseRequest(req)
+func callBack(w http.ResponseWriter, req *http.Request) {
+	events, err := bot.ParseRequest(req)
 
 	if err != nil {
 		if err == linebot.ErrInvalidSignature {
