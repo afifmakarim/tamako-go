@@ -80,6 +80,6 @@ func callBack(w http.ResponseWriter, req *http.Request) {
 func (bot *KitchenSink) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
 	switch message.Text {
 	case "profile":
-			return bot.replyText(replyToken, "Bot can't use profile API without user ID")
-		}
-
+		return bot.replyText(replyToken, "Bot can't use profile API without user ID")
+	}
+}
