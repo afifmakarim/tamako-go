@@ -622,7 +622,7 @@ func (app *KitchenSink) handleImage(message *linebot.ImageMessage, replyToken st
 			return err
 		}
 
-		var baseUrl := "https://go-tamako.herokuapp.com"
+		var baseUrl = "https://go-tamako.herokuapp.com"
 
 		originalContentURL := baseUrl + "/downloaded/" + filepath.Base(originalContent.Name())
 		previewImageURL := baseUrl + "/downloaded/" + filepath.Base(previewImagePath)
