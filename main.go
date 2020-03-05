@@ -47,7 +47,8 @@ type KitchenSink struct {
 
 // NewKitchenSink function
 func NewKitchenSink(channelSecret, channelToken, appBaseURL string) (*KitchenSink, error) {
-	apiEndpointBase := "https://go-tamako.herokuapp.com"
+
+	apiEndpointBase := os.Getenv("APP_BASE_URL")
 	if apiEndpointBase == "" {
 		apiEndpointBase = linebot.APIEndpointBase
 	}
