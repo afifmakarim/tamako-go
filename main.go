@@ -47,7 +47,7 @@ type KitchenSink struct {
 
 // NewKitchenSink function
 func NewKitchenSink(channelSecret, channelToken, appBaseURL string) (*KitchenSink, error) {
-	apiEndpointBase := os.Getenv("ENDPOINT_BASE")
+	apiEndpointBase := "https://go-tamako.herokuapp.com"
 	if apiEndpointBase == "" {
 		apiEndpointBase = linebot.APIEndpointBase
 	}
@@ -622,10 +622,8 @@ func (app *KitchenSink) handleImage(message *linebot.ImageMessage, replyToken st
 			return err
 		}
 
-		var baseUrl = "https://go-tamako.herokuapp.com"
-
-		originalContentURL := baseUrl + "/downloaded/" + filepath.Base(originalContent.Name())
-		previewImageURL := baseUrl + "/downloaded/" + filepath.Base(previewImagePath)
+		originalContentURL := app.appBaseURL + "/downloaded/" + filepath.Base(originalContent.Name())
+		previewImageURL := app.appBaseURL + "/downloaded/" + filepath.Base(previewImagePath)
 		if _, err := app.bot.ReplyMessage(
 			replyToken,
 			linebot.NewImageMessage(originalContentURL, previewImageURL),
