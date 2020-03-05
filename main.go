@@ -52,7 +52,7 @@ func NewKitchenSink(channelSecret, channelToken, appBaseURL string) (*KitchenSin
 	if apiEndpointBase == "" {
 		apiEndpointBase = linebot.APIEndpointBase
 	}
-	//fmt.Println(apiEndpointBase)
+	fmt.Println(apiEndpointBase)
 	bot, err := linebot.New(
 		channelSecret,
 		channelToken,
