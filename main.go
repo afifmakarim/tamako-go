@@ -52,6 +52,7 @@ func NewKitchenSink(channelSecret, channelToken, appBaseURL string) (*KitchenSin
 	if apiEndpointBase == "" {
 		apiEndpointBase = linebot.APIEndpointBase
 	}
+	fmt.Println(apiEndpointBase)
 	bot, err := linebot.New(
 		channelSecret,
 		channelToken,
@@ -197,7 +198,8 @@ func (app *KitchenSink) handleText(message *linebot.TextMessage, replyToken stri
 			return err
 		}
 	case "carousel":
-		imageURL := "https://go-tamako.herokuapp.com" + "/static/buttons/1040.jpg"
+		imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
+
 		template := linebot.NewCarouselTemplate(
 			linebot.NewCarouselColumn(
 				imageURL, "hoge", "fuga",
