@@ -197,7 +197,7 @@ func (app *KitchenSink) handleText(message *linebot.TextMessage, replyToken stri
 			return err
 		}
 	case "carousel":
-		imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
+		imageURL := "https://go-tamako.herokuapp.com" + "/static/buttons/1040.jpg"
 		template := linebot.NewCarouselTemplate(
 			linebot.NewCarouselColumn(
 				imageURL, "hoge", "fuga",
