@@ -48,7 +48,7 @@ type KitchenSink struct {
 // NewKitchenSink function
 func NewKitchenSink(channelSecret, channelToken, appBaseURL string) (*KitchenSink, error) {
 
-	apiEndpointBase := os.Getenv("ENDPOINT_BASE")
+	apiEndpointBase := appBaseURL //os.Getenv("ENDPOINT_BASE")
 	if apiEndpointBase == "" {
 		apiEndpointBase = linebot.APIEndpointBase
 	}
