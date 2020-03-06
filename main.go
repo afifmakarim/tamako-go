@@ -162,7 +162,7 @@ func (app *KitchenSink) handleText(message *linebot.TextMessage, replyToken stri
 			}
 			if _, err := app.bot.ReplyMessage(
 				replyToken,
-				linebot.NewTextMessage("Display name: "+profile.DisplayName+),
+				linebot.NewTextMessage("Display name: "+profile.DisplayName),
 				linebot.NewTextMessage("Status message: "+profile.StatusMessage),
 			).Do(); err != nil {
 				return err
