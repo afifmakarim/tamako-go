@@ -48,7 +48,7 @@ type KitchenSink struct {
 // NewKitchenSink function
 func NewKitchenSink(channelSecret, channelToken, appBaseURL string) (*KitchenSink, error) {
 
-	apiEndpointBase := appBaseURL //os.Getenv("ENDPOINT_BASE")
+	apiEndpointBase := os.Getenv("ENDPOINT_BASE")
 	if apiEndpointBase == "" {
 		apiEndpointBase = linebot.APIEndpointBase
 	}
@@ -157,12 +157,13 @@ func (app *KitchenSink) handleText(message *linebot.TextMessage, replyToken stri
 	case "profile":
 		if source.UserID != "" {
 			profile, err := app.bot.GetProfile(source.UserID).Do()
+			fmt.Println("INIII YAAA" + app.appBaseURL)
 			if err != nil {
 				return app.replyText(replyToken, err.Error())
 			}
 			if _, err := app.bot.ReplyMessage(
 				replyToken,
-				linebot.NewTextMessage("Display name: "+appBaseURL),
+				linebot.NewTextMessage("Display name: "+profile.DisplayName),
 				linebot.NewTextMessage("Status message: "+profile.StatusMessage),
 			).Do(); err != nil {
 				return err
