@@ -197,7 +197,8 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 	prefix := "!"
 	if strings.HasPrefix(message.Text, prefix) {
 		keyword := string(message.Text[1:])
-		switch keyword {
+		arg1 := strings.Split(keyword, " ")
+		switch arg1[0] {
 		case "help":
 			profile, err := app.bot.GetProfile(source.UserID).Do()
 			if err != nil {
@@ -237,7 +238,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			).Do(); err != nil {
 				return err
 			}
-		case "carousel":
+		case "write":
 			imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
 
 			template := linebot.NewCarouselTemplate(
