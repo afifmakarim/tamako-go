@@ -138,11 +138,41 @@ func (app *TamakoBot) Callback(w http.ResponseWriter, r *http.Request) {
 		case linebot.EventTypePostback:
 			data := event.Postback.Data
 			if data == "dmr" {
-				dmr := "https://sites.google.com/site/untukaudio1/directory/Dramatic%20Market%20Ride.m4a"
+				song := "https://sites.google.com/site/untukaudio1/directory/Dramatic%20Market%20Ride.m4a"
 				if _, err := app.bot.ReplyMessage(
 					event.ReplyToken,
-					linebot.NewAudioMessage(dmr, 100),
+					linebot.NewAudioMessage(song, 100),
 					linebot.NewTextMessage("Tamako Market Opening Song \nPerformed by : \nKitashirakawa Tamako (CV: Suzaki Aya)"),
+				).Do(); err != nil {
+					log.Print(err)
+				}
+			}
+			if data == "neguse" {
+				song := "https://sites.google.com/site/untukaudio1/directory/Neguse.m4a"
+				if _, err := app.bot.ReplyMessage(
+					event.ReplyToken,
+					linebot.NewAudioMessage(song, 100),
+					linebot.NewTextMessage("Tamako Market Ending Song \nPerformed by : \nKitashirakawa Tamako (CV: Suzaki Aya)"),
+				).Do(); err != nil {
+					log.Print(err)
+				}
+			}
+			if data == "principle" {
+				song := "https://sites.google.com/site/untukaudio1/directory/principle%20half.m4a"
+				if _, err := app.bot.ReplyMessage(
+					event.ReplyToken,
+					linebot.NewAudioMessage(song, 100),
+					linebot.NewTextMessage("Tamako Love Story\nPerformed by : \nKitashirakawa Tamako (CV: Suzaki Aya)"),
+				).Do(); err != nil {
+					log.Print(err)
+				}
+			}
+			if data == "koinouta" {
+				song := "https://sites.google.com/site/untukaudio1/directory/koinouta%20half.m4a"
+				if _, err := app.bot.ReplyMessage(
+					event.ReplyToken,
+					linebot.NewAudioMessage(song, 100),
+					linebot.NewTextMessage("Tamako Love Story Insert Song \nPerformed by : \nKitashirakawa Tamako (CV: Suzaki Aya)"),
 				).Do(); err != nil {
 					log.Print(err)
 				}
@@ -183,9 +213,9 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			template := linebot.NewButtonsTemplate(
 				imageURL, "Choose Tamako Song", "CV : Suzaki Aya",
 				linebot.NewPostbackAction("Dramatic Market Ride", "dmr", "", ""),
-				linebot.NewPostbackAction("Principle", "hello こんにちは", "", "hello こんにちは"),
-				linebot.NewPostbackAction("Koi no Uta", "hello こんにちは", "hello こんにちは", ""),
-				linebot.NewMessageAction("Neguse", "Rice=米"),
+				linebot.NewPostbackAction("Principle", "principle", "", ""),
+				linebot.NewPostbackAction("Koi no Uta", "koinouta", "", ""),
+				linebot.NewPostbackAction("Neguse", "neguse", "", ""),
 			)
 			if _, err := app.bot.ReplyMessage(
 				replyToken,
