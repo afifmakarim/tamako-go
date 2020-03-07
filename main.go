@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 
 	"github.com/line/line-bot-sdk-go/linebot"
 )
@@ -153,225 +154,228 @@ func (app *KitchenSink) Callback(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *KitchenSink) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
-	// var prefix = "!"
+	var prefix = "!"
 	// var keyword = prefix + message.Text
-	switch message.Text {
-	case "!help":
-		if source.UserID != "" {
-			profile, err := app.bot.GetProfile(source.UserID).Do()
-			//fmt.Println("INIII YAAA" + app.appBaseURL)
-			if err != nil {
-				return app.replyText(replyToken, err.Error())
+	if strings.HasPrefix(message.Text, prefix) {
+		// runes := []rune(message.Text)
+		var keyword = string(message.Text[1:])
+		switch keyword {
+		case "help":
+			if source.UserID != "" {
+				profile, err := app.bot.GetProfile(source.UserID).Do()
+				//fmt.Println("INIII YAAA" + app.appBaseURL)
+				if err != nil {
+					return app.replyText(replyToken, err.Error())
+				}
+				if _, err := app.bot.ReplyMessage(
+					replyToken,
+					linebot.NewTextMessage("Display name: "+profile.DisplayName),
+					linebot.NewTextMessage("Status message: "+profile.StatusMessage),
+				).Do(); err != nil {
+					return err
+				}
+			} else {
+				return app.replyText(replyToken, "Bot can't use profile API without user ID")
 			}
+		case "buttons":
+			imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
+			template := linebot.NewButtonsTemplate(
+				imageURL, "My button sample", "Hello, my button",
+				linebot.NewURIAction("Go to line.me", "https://line.me"),
+				linebot.NewPostbackAction("Say hello1", "hello こんにちは", "", "hello こんにちは"),
+				linebot.NewPostbackAction("言 hello2", "hello こんにちは", "hello こんにちは", ""),
+				linebot.NewMessageAction("Say message", "Rice=米"),
+			)
 			if _, err := app.bot.ReplyMessage(
 				replyToken,
-				linebot.NewTextMessage("Display name: "+profile.DisplayName),
-				linebot.NewTextMessage("Status message: "+profile.StatusMessage),
+				linebot.NewTemplateMessage("Buttons alt text", template),
 			).Do(); err != nil {
 				return err
 			}
-		} else {
-			return app.replyText(replyToken, "Bot can't use profile API without user ID")
-		}
-	case "buttons":
-		imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
-		template := linebot.NewButtonsTemplate(
-			imageURL, "My button sample", "Hello, my button",
-			linebot.NewURIAction("Go to line.me", "https://line.me"),
-			linebot.NewPostbackAction("Say hello1", "hello こんにちは", "", "hello こんにちは"),
-			linebot.NewPostbackAction("言 hello2", "hello こんにちは", "hello こんにちは", ""),
-			linebot.NewMessageAction("Say message", "Rice=米"),
-		)
-		if _, err := app.bot.ReplyMessage(
-			replyToken,
-			linebot.NewTemplateMessage("Buttons alt text", template),
-		).Do(); err != nil {
-			return err
-		}
-	case "confirm":
-		template := linebot.NewConfirmTemplate(
-			"Do it?",
-			linebot.NewMessageAction("Yes", "Yes!"),
-			linebot.NewMessageAction("No", "No!"),
-		)
-		if _, err := app.bot.ReplyMessage(
-			replyToken,
-			linebot.NewTemplateMessage("Confirm alt text", template),
-		).Do(); err != nil {
-			return err
-		}
-	case "carousel":
-		imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
+		case "confirm":
+			template := linebot.NewConfirmTemplate(
+				"Do it?",
+				linebot.NewMessageAction("Yes", "Yes!"),
+				linebot.NewMessageAction("No", "No!"),
+			)
+			if _, err := app.bot.ReplyMessage(
+				replyToken,
+				linebot.NewTemplateMessage("Confirm alt text", template),
+			).Do(); err != nil {
+				return err
+			}
+		case "carousel":
+			imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
 
-		template := linebot.NewCarouselTemplate(
-			linebot.NewCarouselColumn(
-				imageURL, "hoge", "fuga",
-				linebot.NewURIAction("Go to line.me", "https://line.me"),
-				linebot.NewPostbackAction("Say hello1", "hello こんにちは", "", ""),
-			),
-			linebot.NewCarouselColumn(
-				imageURL, "hoge", "fuga",
-				linebot.NewPostbackAction("言 hello2", "hello こんにちは", "hello こんにちは", ""),
-				linebot.NewMessageAction("Say message", "Rice=米"),
-			),
-		)
-		if _, err := app.bot.ReplyMessage(
-			replyToken,
-			linebot.NewTemplateMessage("Carousel alt text", template),
-		).Do(); err != nil {
-			return err
-		}
-	case "image carousel":
-		imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
-		template := linebot.NewImageCarouselTemplate(
-			linebot.NewImageCarouselColumn(
-				imageURL,
-				linebot.NewURIAction("Go to LINE", "https://line.me"),
-			),
-			linebot.NewImageCarouselColumn(
-				imageURL,
-				linebot.NewPostbackAction("Say hello1", "hello こんにちは", "", ""),
-			),
-			linebot.NewImageCarouselColumn(
-				imageURL,
-				linebot.NewMessageAction("Say message", "Rice=米"),
-			),
-			linebot.NewImageCarouselColumn(
-				imageURL,
+			template := linebot.NewCarouselTemplate(
+				linebot.NewCarouselColumn(
+					imageURL, "hoge", "fuga",
+					linebot.NewURIAction("Go to line.me", "https://line.me"),
+					linebot.NewPostbackAction("Say hello1", "hello こんにちは", "", ""),
+				),
+				linebot.NewCarouselColumn(
+					imageURL, "hoge", "fuga",
+					linebot.NewPostbackAction("言 hello2", "hello こんにちは", "hello こんにちは", ""),
+					linebot.NewMessageAction("Say message", "Rice=米"),
+				),
+			)
+			if _, err := app.bot.ReplyMessage(
+				replyToken,
+				linebot.NewTemplateMessage("Carousel alt text", template),
+			).Do(); err != nil {
+				return err
+			}
+		case "image carousel":
+			imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
+			template := linebot.NewImageCarouselTemplate(
+				linebot.NewImageCarouselColumn(
+					imageURL,
+					linebot.NewURIAction("Go to LINE", "https://line.me"),
+				),
+				linebot.NewImageCarouselColumn(
+					imageURL,
+					linebot.NewPostbackAction("Say hello1", "hello こんにちは", "", ""),
+				),
+				linebot.NewImageCarouselColumn(
+					imageURL,
+					linebot.NewMessageAction("Say message", "Rice=米"),
+				),
+				linebot.NewImageCarouselColumn(
+					imageURL,
+					linebot.NewDatetimePickerAction("datetime", "DATETIME", "datetime", "", "", ""),
+				),
+			)
+			if _, err := app.bot.ReplyMessage(
+				replyToken,
+				linebot.NewTemplateMessage("Image carousel alt text", template),
+			).Do(); err != nil {
+				return err
+			}
+		case "datetime":
+			template := linebot.NewButtonsTemplate(
+				"", "", "Select date / time !",
+				linebot.NewDatetimePickerAction("date", "DATE", "date", "", "", ""),
+				linebot.NewDatetimePickerAction("time", "TIME", "time", "", "", ""),
 				linebot.NewDatetimePickerAction("datetime", "DATETIME", "datetime", "", "", ""),
-			),
-		)
-		if _, err := app.bot.ReplyMessage(
-			replyToken,
-			linebot.NewTemplateMessage("Image carousel alt text", template),
-		).Do(); err != nil {
-			return err
-		}
-	case "datetime":
-		template := linebot.NewButtonsTemplate(
-			"", "", "Select date / time !",
-			linebot.NewDatetimePickerAction("date", "DATE", "date", "", "", ""),
-			linebot.NewDatetimePickerAction("time", "TIME", "time", "", "", ""),
-			linebot.NewDatetimePickerAction("datetime", "DATETIME", "datetime", "", "", ""),
-		)
-		if _, err := app.bot.ReplyMessage(
-			replyToken,
-			linebot.NewTemplateMessage("Datetime pickers alt text", template),
-		).Do(); err != nil {
-			return err
-		}
-	case "flex":
-		// {
-		//   "type": "bubble",
-		//   "body": {
-		//     "type": "box",
-		//     "layout": "horizontal",
-		//     "contents": [
-		//       {
-		//         "type": "text",
-		//         "text": "Hello,"
-		//       },
-		//       {
-		//         "type": "text",
-		//         "text": "World!"
-		//       }
-		//     ]
-		//   }
-		// }
-		contents := &linebot.BubbleContainer{
-			Type: linebot.FlexContainerTypeBubble,
-			Body: &linebot.BoxComponent{
-				Type:   linebot.FlexComponentTypeBox,
-				Layout: linebot.FlexBoxLayoutTypeHorizontal,
-				Contents: []linebot.FlexComponent{
-					&linebot.TextComponent{
-						Type: linebot.FlexComponentTypeText,
-						Text: "Hello,",
-					},
-					&linebot.TextComponent{
-						Type: linebot.FlexComponentTypeText,
-						Text: "World!",
+			)
+			if _, err := app.bot.ReplyMessage(
+				replyToken,
+				linebot.NewTemplateMessage("Datetime pickers alt text", template),
+			).Do(); err != nil {
+				return err
+			}
+		case "flex":
+			// {
+			//   "type": "bubble",
+			//   "body": {
+			//     "type": "box",
+			//     "layout": "horizontal",
+			//     "contents": [
+			//       {
+			//         "type": "text",
+			//         "text": "Hello,"
+			//       },
+			//       {
+			//         "type": "text",
+			//         "text": "World!"
+			//       }
+			//     ]
+			//   }
+			// }
+			contents := &linebot.BubbleContainer{
+				Type: linebot.FlexContainerTypeBubble,
+				Body: &linebot.BoxComponent{
+					Type:   linebot.FlexComponentTypeBox,
+					Layout: linebot.FlexBoxLayoutTypeHorizontal,
+					Contents: []linebot.FlexComponent{
+						&linebot.TextComponent{
+							Type: linebot.FlexComponentTypeText,
+							Text: "Hello,",
+						},
+						&linebot.TextComponent{
+							Type: linebot.FlexComponentTypeText,
+							Text: "World!",
+						},
 					},
 				},
-			},
-		}
-		if _, err := app.bot.ReplyMessage(
-			replyToken,
-			linebot.NewFlexMessage("Flex message alt text", contents),
-		).Do(); err != nil {
-			return err
-		}
-	case "flex carousel":
-		// {
-		//   "type": "carousel",
-		//   "contents": [
-		//     {
-		//       "type": "bubble",
-		//       "body": {
-		//         "type": "box",
-		//         "layout": "vertical",
-		//         "contents": [
-		//           {
-		//             "type": "text",
-		//             "text": "First bubble"
-		//           }
-		//         ]
-		//       }
-		//     },
-		//     {
-		//       "type": "bubble",
-		//       "body": {
-		//         "type": "box",
-		//         "layout": "vertical",
-		//         "contents": [
-		//           {
-		//             "type": "text",
-		//             "text": "Second bubble"
-		//           }
-		//         ]
-		//       }
-		//     }
-		//   ]
-		// }
-		contents := &linebot.CarouselContainer{
-			Type: linebot.FlexContainerTypeCarousel,
-			Contents: []*linebot.BubbleContainer{
-				{
-					Type: linebot.FlexContainerTypeBubble,
-					Body: &linebot.BoxComponent{
-						Type:   linebot.FlexComponentTypeBox,
-						Layout: linebot.FlexBoxLayoutTypeVertical,
-						Contents: []linebot.FlexComponent{
-							&linebot.TextComponent{
-								Type: linebot.FlexComponentTypeText,
-								Text: "First bubble",
+			}
+			if _, err := app.bot.ReplyMessage(
+				replyToken,
+				linebot.NewFlexMessage("Flex message alt text", contents),
+			).Do(); err != nil {
+				return err
+			}
+		case "flex carousel":
+			// {
+			//   "type": "carousel",
+			//   "contents": [
+			//     {
+			//       "type": "bubble",
+			//       "body": {
+			//         "type": "box",
+			//         "layout": "vertical",
+			//         "contents": [
+			//           {
+			//             "type": "text",
+			//             "text": "First bubble"
+			//           }
+			//         ]
+			//       }
+			//     },
+			//     {
+			//       "type": "bubble",
+			//       "body": {
+			//         "type": "box",
+			//         "layout": "vertical",
+			//         "contents": [
+			//           {
+			//             "type": "text",
+			//             "text": "Second bubble"
+			//           }
+			//         ]
+			//       }
+			//     }
+			//   ]
+			// }
+			contents := &linebot.CarouselContainer{
+				Type: linebot.FlexContainerTypeCarousel,
+				Contents: []*linebot.BubbleContainer{
+					{
+						Type: linebot.FlexContainerTypeBubble,
+						Body: &linebot.BoxComponent{
+							Type:   linebot.FlexComponentTypeBox,
+							Layout: linebot.FlexBoxLayoutTypeVertical,
+							Contents: []linebot.FlexComponent{
+								&linebot.TextComponent{
+									Type: linebot.FlexComponentTypeText,
+									Text: "First bubble",
+								},
+							},
+						},
+					},
+					{
+						Type: linebot.FlexContainerTypeBubble,
+						Body: &linebot.BoxComponent{
+							Type:   linebot.FlexComponentTypeBox,
+							Layout: linebot.FlexBoxLayoutTypeVertical,
+							Contents: []linebot.FlexComponent{
+								&linebot.TextComponent{
+									Type: linebot.FlexComponentTypeText,
+									Text: "Second bubble",
+								},
 							},
 						},
 					},
 				},
-				{
-					Type: linebot.FlexContainerTypeBubble,
-					Body: &linebot.BoxComponent{
-						Type:   linebot.FlexComponentTypeBox,
-						Layout: linebot.FlexBoxLayoutTypeVertical,
-						Contents: []linebot.FlexComponent{
-							&linebot.TextComponent{
-								Type: linebot.FlexComponentTypeText,
-								Text: "Second bubble",
-							},
-						},
-					},
-				},
-			},
-		}
-		if _, err := app.bot.ReplyMessage(
-			replyToken,
-			linebot.NewFlexMessage("Flex message alt text", contents),
-		).Do(); err != nil {
-			return err
-		}
-	case "flex json":
-		jsonString := `{
+			}
+			if _, err := app.bot.ReplyMessage(
+				replyToken,
+				linebot.NewFlexMessage("Flex message alt text", contents),
+			).Do(); err != nil {
+				return err
+			}
+		case "flex json":
+			jsonString := `{
   "type": "bubble",
   "hero": {
     "type": "image",
@@ -524,101 +528,101 @@ func (app *KitchenSink) handleText(message *linebot.TextMessage, replyToken stri
     "flex": 0
   }
 }`
-		contents, err := linebot.UnmarshalFlexMessageJSON([]byte(jsonString))
-		if err != nil {
-			return err
-		}
-		if _, err := app.bot.ReplyMessage(
-			replyToken,
-			linebot.NewFlexMessage("Flex message alt text", contents),
-		).Do(); err != nil {
-			return err
-		}
-	case "imagemap":
-		if _, err := app.bot.ReplyMessage(
-			replyToken,
-			linebot.NewImagemapMessage(
-				app.appBaseURL+"/static/rich",
-				"Imagemap alt text",
-				linebot.ImagemapBaseSize{Width: 1040, Height: 1040},
-				linebot.NewURIImagemapAction("LINE Store Manga", "https://store.line.me/family/manga/en", linebot.ImagemapArea{X: 0, Y: 0, Width: 520, Height: 520}),
-				linebot.NewURIImagemapAction("LINE Store Music", "https://store.line.me/family/music/en", linebot.ImagemapArea{X: 520, Y: 0, Width: 520, Height: 520}),
-				linebot.NewURIImagemapAction("LINE Store Play", "https://store.line.me/family/play/en", linebot.ImagemapArea{X: 0, Y: 520, Width: 520, Height: 520}),
-				linebot.NewMessageImagemapAction("URANAI!", "URANAI!", linebot.ImagemapArea{X: 520, Y: 520, Width: 520, Height: 520}),
-			),
-		).Do(); err != nil {
-			return err
-		}
-	case "imagemap video":
-		if _, err := app.bot.ReplyMessage(
-			replyToken,
-			linebot.NewImagemapMessage(
-				app.appBaseURL+"/static/rich",
-				"Imagemap with video alt text",
-				linebot.ImagemapBaseSize{Width: 1040, Height: 1040},
-				linebot.NewURIImagemapAction("LINE Store Manga", "https://store.line.me/family/manga/en", linebot.ImagemapArea{X: 0, Y: 0, Width: 520, Height: 520}),
-				linebot.NewURIImagemapAction("LINE Store Music", "https://store.line.me/family/music/en", linebot.ImagemapArea{X: 520, Y: 0, Width: 520, Height: 520}),
-				linebot.NewURIImagemapAction("LINE Store Play", "https://store.line.me/family/play/en", linebot.ImagemapArea{X: 0, Y: 520, Width: 520, Height: 520}),
-				linebot.NewMessageImagemapAction("URANAI!", "URANAI!", linebot.ImagemapArea{X: 520, Y: 520, Width: 520, Height: 520}),
-			).WithVideo(&linebot.ImagemapVideo{
-				OriginalContentURL: app.appBaseURL + "/static/imagemap/video.mp4",
-				PreviewImageURL:    app.appBaseURL + "/static/imagemap/preview.jpg",
-				Area:               linebot.ImagemapArea{X: 280, Y: 385, Width: 480, Height: 270},
-				ExternalLink:       &linebot.ImagemapVideoExternalLink{LinkURI: "https://line.me", Label: "LINE"},
-			}),
-		).Do(); err != nil {
-			return err
-		}
-	case "quick":
-		if _, err := app.bot.ReplyMessage(
-			replyToken,
-			linebot.NewTextMessage("Select your favorite food category or send me your location!").
-				WithQuickReplies(linebot.NewQuickReplyItems(
-					linebot.NewQuickReplyButton(
-						app.appBaseURL+"/static/quick/sushi.png",
-						linebot.NewMessageAction("Sushi", "Sushi")),
-					linebot.NewQuickReplyButton(
-						app.appBaseURL+"/static/quick/tempura.png",
-						linebot.NewMessageAction("Tempura", "Tempura")),
-					linebot.NewQuickReplyButton(
-						"",
-						linebot.NewLocationAction("Send location")),
-				)),
-		).Do(); err != nil {
-			return err
-		}
-	case "bye":
-		switch source.Type {
-		case linebot.EventSourceTypeUser:
-			return app.replyText(replyToken, "Bot can't leave from 1:1 chat")
-		case linebot.EventSourceTypeGroup:
-			if err := app.replyText(replyToken, "Leaving group"); err != nil {
+			contents, err := linebot.UnmarshalFlexMessageJSON([]byte(jsonString))
+			if err != nil {
 				return err
 			}
-			if _, err := app.bot.LeaveGroup(source.GroupID).Do(); err != nil {
-				return app.replyText(replyToken, err.Error())
-			}
-		case linebot.EventSourceTypeRoom:
-			if err := app.replyText(replyToken, "Leaving room"); err != nil {
+			if _, err := app.bot.ReplyMessage(
+				replyToken,
+				linebot.NewFlexMessage("Flex message alt text", contents),
+			).Do(); err != nil {
 				return err
 			}
-			if _, err := app.bot.LeaveRoom(source.RoomID).Do(); err != nil {
-				return app.replyText(replyToken, err.Error())
+		case "imagemap":
+			if _, err := app.bot.ReplyMessage(
+				replyToken,
+				linebot.NewImagemapMessage(
+					app.appBaseURL+"/static/rich",
+					"Imagemap alt text",
+					linebot.ImagemapBaseSize{Width: 1040, Height: 1040},
+					linebot.NewURIImagemapAction("LINE Store Manga", "https://store.line.me/family/manga/en", linebot.ImagemapArea{X: 0, Y: 0, Width: 520, Height: 520}),
+					linebot.NewURIImagemapAction("LINE Store Music", "https://store.line.me/family/music/en", linebot.ImagemapArea{X: 520, Y: 0, Width: 520, Height: 520}),
+					linebot.NewURIImagemapAction("LINE Store Play", "https://store.line.me/family/play/en", linebot.ImagemapArea{X: 0, Y: 520, Width: 520, Height: 520}),
+					linebot.NewMessageImagemapAction("URANAI!", "URANAI!", linebot.ImagemapArea{X: 520, Y: 520, Width: 520, Height: 520}),
+				),
+			).Do(); err != nil {
+				return err
+			}
+		case "imagemap video":
+			if _, err := app.bot.ReplyMessage(
+				replyToken,
+				linebot.NewImagemapMessage(
+					app.appBaseURL+"/static/rich",
+					"Imagemap with video alt text",
+					linebot.ImagemapBaseSize{Width: 1040, Height: 1040},
+					linebot.NewURIImagemapAction("LINE Store Manga", "https://store.line.me/family/manga/en", linebot.ImagemapArea{X: 0, Y: 0, Width: 520, Height: 520}),
+					linebot.NewURIImagemapAction("LINE Store Music", "https://store.line.me/family/music/en", linebot.ImagemapArea{X: 520, Y: 0, Width: 520, Height: 520}),
+					linebot.NewURIImagemapAction("LINE Store Play", "https://store.line.me/family/play/en", linebot.ImagemapArea{X: 0, Y: 520, Width: 520, Height: 520}),
+					linebot.NewMessageImagemapAction("URANAI!", "URANAI!", linebot.ImagemapArea{X: 520, Y: 520, Width: 520, Height: 520}),
+				).WithVideo(&linebot.ImagemapVideo{
+					OriginalContentURL: app.appBaseURL + "/static/imagemap/video.mp4",
+					PreviewImageURL:    app.appBaseURL + "/static/imagemap/preview.jpg",
+					Area:               linebot.ImagemapArea{X: 280, Y: 385, Width: 480, Height: 270},
+					ExternalLink:       &linebot.ImagemapVideoExternalLink{LinkURI: "https://line.me", Label: "LINE"},
+				}),
+			).Do(); err != nil {
+				return err
+			}
+		case "quick":
+			if _, err := app.bot.ReplyMessage(
+				replyToken,
+				linebot.NewTextMessage("Select your favorite food category or send me your location!").
+					WithQuickReplies(linebot.NewQuickReplyItems(
+						linebot.NewQuickReplyButton(
+							app.appBaseURL+"/static/quick/sushi.png",
+							linebot.NewMessageAction("Sushi", "Sushi")),
+						linebot.NewQuickReplyButton(
+							app.appBaseURL+"/static/quick/tempura.png",
+							linebot.NewMessageAction("Tempura", "Tempura")),
+						linebot.NewQuickReplyButton(
+							"",
+							linebot.NewLocationAction("Send location")),
+					)),
+			).Do(); err != nil {
+				return err
+			}
+		case "bye":
+			switch source.Type {
+			case linebot.EventSourceTypeUser:
+				return app.replyText(replyToken, "Bot can't leave from 1:1 chat")
+			case linebot.EventSourceTypeGroup:
+				if err := app.replyText(replyToken, "Leaving group"); err != nil {
+					return err
+				}
+				if _, err := app.bot.LeaveGroup(source.GroupID).Do(); err != nil {
+					return app.replyText(replyToken, err.Error())
+				}
+			case linebot.EventSourceTypeRoom:
+				if err := app.replyText(replyToken, "Leaving room"); err != nil {
+					return err
+				}
+				if _, err := app.bot.LeaveRoom(source.RoomID).Do(); err != nil {
+					return app.replyText(replyToken, err.Error())
+				}
+			}
+		default:
+			log.Printf("Echo message to %s: %s", replyToken, message.Text)
+			if _, err := app.bot.ReplyMessage(
+				replyToken,
+				linebot.NewTextMessage(message.Text),
+			).Do(); err != nil {
+				return err
 			}
 		}
-	default:
-		log.Printf("Echo message to %s: %s", replyToken, message.Text)
-		if _, err := app.bot.ReplyMessage(
-			replyToken,
-			linebot.NewTextMessage(message.Text),
-		).Do(); err != nil {
-			return err
-		}
-	}
 
+	}
 	return nil
 }
-
 func (app *KitchenSink) handleImage(message *linebot.ImageMessage, replyToken string) error {
 	return app.handleHeavyContent(message.ID, func(originalContent *os.File) error {
 		// You need to install ImageMagick.
