@@ -156,7 +156,7 @@ func (app *KitchenSink) handleText(message *linebot.TextMessage, replyToken stri
 	var prefix = "!"
 	var keyword string = prefix + message.Text
 	switch keyword {
-	case prefix + "help":
+	case "!help":
 		if source.UserID != "" {
 			profile, err := app.bot.GetProfile(source.UserID).Do()
 			//fmt.Println("INIII YAAA" + app.appBaseURL)
