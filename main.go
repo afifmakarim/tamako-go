@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -193,6 +194,10 @@ func (app *TamakoBot) Callback(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func Rawurlencode(str string) string {
+	return strings.Replace(url.QueryEscape(str), "+", "%20", -1)
+}
+
 func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
 	prefix := "!"
 	if strings.HasPrefix(message.Text, prefix) {
@@ -240,9 +245,24 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			}
 		case "write":
 			sentence := arg1[1]
+			rawEncoded := Rawurlencode(sentence)
+			var imageUrl string
+
+			if sentence == "" {
+				return app.replyText(replyToken, "Nothing to write")
+			}
+
+			if len(rawEncoded) >= 8 && len(rawEncoded) <= 55 {
+				imageUrl = "https://res.cloudinary.com/dftovjqdo/image/upload/a_-27,g_west,l_text:dark_name:" + rawEncoded + ",w_450,x_280,y_100/anime_notebook_yhekwa.jpg"
+			} else if len(rawEncoded) <= 8 && len(rawEncoded) <= 55 {
+				imageUrl = "https://res.cloudinary.com/dftovjqdo/image/upload/a_-27,g_west,l_text:dark_name:" + rawEncoded + ",w_200,x_250,y_100/anime_notebook_yhekwa.jpg"
+			} else {
+				return app.replyText(replyToken, "Text too long :(")
+			}
+
 			if _, err := app.bot.ReplyMessage(
 				replyToken,
-				linebot.NewTextMessage(sentence),
+				linebot.NewImageMessage(imageUrl, imageUrl),
 			).Do(); err != nil {
 				return err
 			}
