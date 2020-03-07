@@ -177,7 +177,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			imageURL := "https://s-media-cache-ak0.pinimg.com/564x/9e/fa/18/9efa18b56cd5057101bf72a0b023ad7f.jpg"
 			template := linebot.NewButtonsTemplate(
 				imageURL, "Choose Tamako Song", "CV : Suzaki Aya",
-				linebot.NewPostbackAction("Dramatic Market Ride", "dmr", "", "hello こんにちは"),
+				linebot.NewPostbackAction("Dramatic Market Ride", "dmr", "hello こんにちは", ""),
 				linebot.NewPostbackAction("Principle", "hello こんにちは", "", "hello こんにちは"),
 				linebot.NewPostbackAction("Koi no Uta", "hello こんにちは", "hello こんにちは", ""),
 				linebot.NewMessageAction("Neguse", "Rice=米"),
