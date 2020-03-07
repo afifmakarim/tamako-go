@@ -154,9 +154,9 @@ func (app *TamakoBot) Callback(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
-	var prefix = "!"
+	prefix := "!"
 	if strings.HasPrefix(message.Text, prefix) {
-		var keyword = string(message.Text[1:])
+		keyword := string(message.Text[1:])
 		switch keyword {
 		case "help":
 			profile, err := app.bot.GetProfile(source.UserID).Do()
@@ -165,23 +165,21 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			}
 
 			var help = "Hello " + profile.DisplayName + ", nice to meet you ^_^ \nKeywords: help, sing, about, write, dota, games, manga, motw, ynm, chs, osu, steam, urban, lovecalc, anime, weather, stalk, music, youtubemp3, yt-dl, usage, leave.\n\n	For help type : \n!usage <available keyword>"
-			if _, err := app.bot.ReplyMessage(
-				replyToken,
-				linebot.NewTextMessage(help)).Do(); err != nil {
+			if _, err := app.bot.ReplyMessage(replyToken, linebot.NewTextMessage(help)).Do(); err != nil {
 				return err
 			}
-		case "buttons":
-			imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
+		case "sing":
+			imageURL := "https://s-media-cache-ak0.pinimg.com/564x/9e/fa/18/9efa18b56cd5057101bf72a0b023ad7f.jpg"
 			template := linebot.NewButtonsTemplate(
-				imageURL, "My button sample", "Hello, my button",
-				linebot.NewURIAction("Go to line.me", "https://line.me"),
-				linebot.NewPostbackAction("Say hello1", "hello こんにちは", "", "hello こんにちは"),
-				linebot.NewPostbackAction("言 hello2", "hello こんにちは", "hello こんにちは", ""),
-				linebot.NewMessageAction("Say message", "Rice=米"),
+				imageURL, "Choose Tamako Song", "CV : Suzaki Aya",
+				linebot.NewURIAction("Dramatic Market Ride", "https://line.me"),
+				linebot.NewPostbackAction("Principle", "hello こんにちは", "", "hello こんにちは"),
+				linebot.NewPostbackAction("Koi no Uta", "hello こんにちは", "hello こんにちは", ""),
+				linebot.NewMessageAction("Neguse", "Rice=米"),
 			)
 			if _, err := app.bot.ReplyMessage(
 				replyToken,
-				linebot.NewTemplateMessage("Buttons alt text", template),
+				linebot.NewTemplateMessage("Song List", template),
 			).Do(); err != nil {
 				return err
 			}
