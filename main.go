@@ -39,15 +39,15 @@ func main() {
 	}
 }
 
-// KitchenSink app
-type KitchenSink struct {
+// TamakoBot app
+type TamakoBot struct {
 	bot         *linebot.Client
 	appBaseURL  string
 	downloadDir string
 }
 
 // NewTamakoBot function
-func NewTamakoBot(channelSecret, channelToken, appBaseURL string) (*KitchenSink, error) {
+func NewTamakoBot(channelSecret, channelToken, appBaseURL string) (*TamakoBot, error) {
 
 	apiEndpointBase := os.Getenv("ENDPOINT_BASE")
 	if apiEndpointBase == "" {
@@ -69,7 +69,7 @@ func NewTamakoBot(channelSecret, channelToken, appBaseURL string) (*KitchenSink,
 			return nil, err
 		}
 	}
-	return &KitchenSink{
+	return &TamakoBot{
 		bot:         bot,
 		appBaseURL:  appBaseURL,
 		downloadDir: downloadDir,
@@ -77,7 +77,7 @@ func NewTamakoBot(channelSecret, channelToken, appBaseURL string) (*KitchenSink,
 }
 
 // Callback function for http server
-func (app *KitchenSink) Callback(w http.ResponseWriter, r *http.Request) {
+func (app *TamakoBot) Callback(w http.ResponseWriter, r *http.Request) {
 	events, err := app.bot.ParseRequest(r)
 	if err != nil {
 		if err == linebot.ErrInvalidSignature {
@@ -153,7 +153,7 @@ func (app *KitchenSink) Callback(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (app *KitchenSink) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
+func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
 	var prefix = "!"
 	// var keyword = prefix + message.Text
 	if strings.HasPrefix(message.Text, prefix) {
@@ -623,7 +623,7 @@ func (app *KitchenSink) handleText(message *linebot.TextMessage, replyToken stri
 	}
 	return nil
 }
-func (app *KitchenSink) handleImage(message *linebot.ImageMessage, replyToken string) error {
+func (app *TamakoBot) handleImage(message *linebot.ImageMessage, replyToken string) error {
 	return app.handleHeavyContent(message.ID, func(originalContent *os.File) error {
 		// You need to install ImageMagick.
 		// And you should consider about security and scalability.
@@ -645,7 +645,7 @@ func (app *KitchenSink) handleImage(message *linebot.ImageMessage, replyToken st
 	})
 }
 
-func (app *KitchenSink) handleVideo(message *linebot.VideoMessage, replyToken string) error {
+func (app *TamakoBot) handleVideo(message *linebot.VideoMessage, replyToken string) error {
 	return app.handleHeavyContent(message.ID, func(originalContent *os.File) error {
 		// You need to install FFmpeg and ImageMagick.
 		// And you should consider about security and scalability.
@@ -667,7 +667,7 @@ func (app *KitchenSink) handleVideo(message *linebot.VideoMessage, replyToken st
 	})
 }
 
-func (app *KitchenSink) handleAudio(message *linebot.AudioMessage, replyToken string) error {
+func (app *TamakoBot) handleAudio(message *linebot.AudioMessage, replyToken string) error {
 	return app.handleHeavyContent(message.ID, func(originalContent *os.File) error {
 		originalContentURL := app.appBaseURL + "/downloaded/" + filepath.Base(originalContent.Name())
 		if _, err := app.bot.ReplyMessage(
@@ -680,11 +680,11 @@ func (app *KitchenSink) handleAudio(message *linebot.AudioMessage, replyToken st
 	})
 }
 
-func (app *KitchenSink) handleFile(message *linebot.FileMessage, replyToken string) error {
+func (app *TamakoBot) handleFile(message *linebot.FileMessage, replyToken string) error {
 	return app.replyText(replyToken, fmt.Sprintf("File `%s` (%d bytes) received.", message.FileName, message.FileSize))
 }
 
-func (app *KitchenSink) handleLocation(message *linebot.LocationMessage, replyToken string) error {
+func (app *TamakoBot) handleLocation(message *linebot.LocationMessage, replyToken string) error {
 	if _, err := app.bot.ReplyMessage(
 		replyToken,
 		linebot.NewLocationMessage(message.Title, message.Address, message.Latitude, message.Longitude),
@@ -694,7 +694,7 @@ func (app *KitchenSink) handleLocation(message *linebot.LocationMessage, replyTo
 	return nil
 }
 
-func (app *KitchenSink) handleSticker(message *linebot.StickerMessage, replyToken string) error {
+func (app *TamakoBot) handleSticker(message *linebot.StickerMessage, replyToken string) error {
 	if _, err := app.bot.ReplyMessage(
 		replyToken,
 		linebot.NewStickerMessage(message.PackageID, message.StickerID),
@@ -704,7 +704,7 @@ func (app *KitchenSink) handleSticker(message *linebot.StickerMessage, replyToke
 	return nil
 }
 
-func (app *KitchenSink) replyText(replyToken, text string) error {
+func (app *TamakoBot) replyText(replyToken, text string) error {
 	if _, err := app.bot.ReplyMessage(
 		replyToken,
 		linebot.NewTextMessage(text),
@@ -714,7 +714,7 @@ func (app *KitchenSink) replyText(replyToken, text string) error {
 	return nil
 }
 
-func (app *KitchenSink) handleHeavyContent(messageID string, callback func(*os.File) error) error {
+func (app *TamakoBot) handleHeavyContent(messageID string, callback func(*os.File) error) error {
 	content, err := app.bot.GetMessageContent(messageID).Do()
 	if err != nil {
 		return err
@@ -728,7 +728,7 @@ func (app *KitchenSink) handleHeavyContent(messageID string, callback func(*os.F
 	return callback(originalConent)
 }
 
-func (app *KitchenSink) saveContent(content io.ReadCloser) (*os.File, error) {
+func (app *TamakoBot) saveContent(content io.ReadCloser) (*os.File, error) {
 	file, err := ioutil.TempFile(app.downloadDir, "")
 	if err != nil {
 		return nil, err
