@@ -167,9 +167,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			var help = "Hello " + profile.DisplayName + ", nice to meet you ^_^ \nKeywords: help, sing, about, write, dota, games, manga, motw, ynm, chs, osu, steam, urban, lovecalc, anime, weather, stalk, music, youtubemp3, yt-dl, usage, leave.\n\n	For help type : \n!usage <available keyword>"
 			if _, err := app.bot.ReplyMessage(
 				replyToken,
-				linebot.NewTextMessage(help),
-				linebot.NewTextMessage("Status message: "),
-			).Do(); err != nil {
+				linebot.NewTextMessage(help)).Do(); err != nil {
 				return err
 			}
 		case "buttons":
