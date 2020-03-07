@@ -154,7 +154,7 @@ func (app *KitchenSink) Callback(w http.ResponseWriter, r *http.Request) {
 
 func (app *KitchenSink) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
 	var prefix = "!"
-	var keyword string = prefix + message.Text
+	var keyword = prefix + message.Text
 	switch keyword {
 	case "!help":
 		if source.UserID != "" {
