@@ -245,7 +245,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 				return err
 			}
 		case "write":
-			sentence := string(keyword[5:])
+			sentence := string(keyword[6:])
 			rawEncoded := Rawurlencode(sentence)
 			var imageUrl string
 
