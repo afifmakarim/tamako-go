@@ -195,7 +195,7 @@ func (app *TamakoBot) Callback(w http.ResponseWriter, r *http.Request) {
 }
 
 func Rawurlencode(str string) string {
-	return strings.Replace(url.QueryEscape(str), "+", "%20", -1)
+	return strings.Replace(url.QueryEscape(str), " ", "%20", -1)
 }
 
 func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
