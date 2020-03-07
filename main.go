@@ -223,15 +223,17 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			).Do(); err != nil {
 				return err
 			}
-		case "confirm":
-			template := linebot.NewConfirmTemplate(
-				"Do it?",
-				linebot.NewMessageAction("Yes", "Yes!"),
-				linebot.NewMessageAction("No", "No!"),
+		case "about":
+			imageURL := "https://01d54fec-a-62cb3a1a-s-sites.googlegroups.com/site/untukaudio1/directory/tamakomem.jpg"
+			template := linebot.NewButtonsTemplate(
+				imageURL, "About Developer", "Mr. Rojokundo",
+				linebot.NewURIAction("Youtube", "https://www.youtube.com/rojofactory"),
+				linebot.NewURIAction("Line@", "https://line.me/R/ti/p/%40wfq6948b"),
+				linebot.NewURIAction("Instagram", "https://www.instagram.com/afifmakarim88"),
 			)
 			if _, err := app.bot.ReplyMessage(
 				replyToken,
-				linebot.NewTemplateMessage("Confirm alt text", template),
+				linebot.NewTemplateMessage("About Developer", template),
 			).Do(); err != nil {
 				return err
 			}
