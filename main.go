@@ -245,11 +245,11 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 				return err
 			}
 		case "write":
-			sentence := string(message.Text[7:])
-			rawEncoded := Rawurlencode(sentence)
+			sentence := string(keyword[5:])
+			rawEncoded := Rawurlencode(string(sentence[1:]))
 			var imageUrl string
 
-			if rawEncoded == "" {
+			if sentence == "" {
 				return app.replyText(replyToken, "Nothing to write")
 			}
 
