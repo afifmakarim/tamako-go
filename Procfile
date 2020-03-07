@@ -1,1 +1,1 @@
-web: golang-bot 
+web: tamako-go 
