@@ -155,27 +155,22 @@ func (app *TamakoBot) Callback(w http.ResponseWriter, r *http.Request) {
 
 func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
 	var prefix = "!"
-	// var keyword = prefix + message.Text
 	if strings.HasPrefix(message.Text, prefix) {
-		// runes := []rune(message.Text)
 		var keyword = string(message.Text[1:])
 		switch keyword {
 		case "help":
-			if source.UserID != "" {
-				profile, err := app.bot.GetProfile(source.UserID).Do()
-				//fmt.Println("INIII YAAA" + app.appBaseURL)
-				if err != nil {
-					return app.replyText(replyToken, err.Error())
-				}
-				if _, err := app.bot.ReplyMessage(
-					replyToken,
-					linebot.NewTextMessage("Display name: "+profile.DisplayName),
-					linebot.NewTextMessage("Status message: "+profile.StatusMessage),
-				).Do(); err != nil {
-					return err
-				}
-			} else {
-				return app.replyText(replyToken, "Bot can't use profile API without user ID")
+			profile, err := app.bot.GetProfile(source.UserID).Do()
+			if err != nil {
+				return app.replyText(replyToken, "add me as a friend")
+			}
+
+			var help = "Hello " + profile.DisplayName + ", nice to meet you ^_^ \nKeywords: help, sing, about, write, dota, games, manga, motw, ynm, chs, osu, steam, urban, lovecalc, anime, weather, stalk, music, youtubemp3, yt-dl, usage, leave.\n\n	For help type : \n!usage <available keyword>"
+			if _, err := app.bot.ReplyMessage(
+				replyToken,
+				linebot.NewTextMessage(help),
+				linebot.NewTextMessage("Status message: "),
+			).Do(); err != nil {
+				return err
 			}
 		case "buttons":
 			imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
