@@ -157,7 +157,7 @@ func (app *KitchenSink) handleText(message *linebot.TextMessage, replyToken stri
 	case "profile":
 		if source.UserID != "" {
 			profile, err := app.bot.GetProfile(source.UserID).Do()
-			fmt.Println("INIII YAAA" + app.appBaseURL)
+			//fmt.Println("INIII YAAA" + app.appBaseURL)
 			if err != nil {
 				return app.replyText(replyToken, err.Error())
 			}

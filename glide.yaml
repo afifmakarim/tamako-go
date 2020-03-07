@@ -1,4 +1,4 @@
-package: github.com/afifmakarim/golang-bot
+package: github.com/afifmakarim/tamako-g0
 import:
 - package: github.com/line/line-bot-sdk-go
   version: ~7.2.0
