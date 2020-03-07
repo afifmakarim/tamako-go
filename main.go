@@ -14,7 +14,7 @@ import (
 )
 
 func main() {
-	app, err := NewKitchenSink(
+	app, err := NewTamakoBot(
 		os.Getenv("CHANNEL_SECRET"),
 		os.Getenv("CHANNEL_TOKEN"),
 		os.Getenv("APP_BASE_URL"),
@@ -45,8 +45,8 @@ type KitchenSink struct {
 	downloadDir string
 }
 
-// NewKitchenSink function
-func NewKitchenSink(channelSecret, channelToken, appBaseURL string) (*KitchenSink, error) {
+// NewTamakoBot function
+func NewTamakoBot(channelSecret, channelToken, appBaseURL string) (*KitchenSink, error) {
 
 	apiEndpointBase := os.Getenv("ENDPOINT_BASE")
 	if apiEndpointBase == "" {
