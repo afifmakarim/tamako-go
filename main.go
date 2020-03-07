@@ -203,7 +203,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 	if strings.HasPrefix(message.Text, prefix) {
 		keyword := string(message.Text[1:])
 		arg1 := strings.Split(keyword, " ")
-		arg2 := arg1[1]
+		//arg2 := arg1[1]
 		switch arg1[0] {
 		case "help":
 			profile, err := app.bot.GetProfile(source.UserID).Do()
