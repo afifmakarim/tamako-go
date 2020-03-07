@@ -249,7 +249,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			rawEncoded := Rawurlencode(sentence)
 			var imageUrl string
 
-			if sentence == "" {
+			if rawEncoded == "" {
 				return app.replyText(replyToken, "Nothing to write")
 			}
 
