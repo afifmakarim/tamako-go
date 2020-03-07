@@ -138,7 +138,12 @@ func (app *TamakoBot) Callback(w http.ResponseWriter, r *http.Request) {
 		case linebot.EventTypePostback:
 			data := event.Postback.Data
 			if data == "dmr" {
-				if err := app.replyText(event.ReplyToken, "Lagu: "+data); err != nil {
+				dmr := "https://sites.google.com/site/untukaudio1/directory/Dramatic%20Market%20Ride.m4a"
+				if _, err := app.bot.ReplyMessage(
+					event.ReplyToken,
+					linebot.NewAudioMessage(dmr, 100),
+					linebot.NewTextMessage("Tamako Market Opening Song \nPerformed by : \nKitashirakawa Tamako (CV: Suzaki Aya)"),
+				).Do(); err != nil {
 					log.Print(err)
 				}
 			}
