@@ -153,8 +153,10 @@ func (app *KitchenSink) Callback(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *KitchenSink) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
-	switch message.Text {
-	case "profile":
+	var prefix = "!"
+	var keyword string = prefix + message.Text
+	switch keyword {
+	case prefix + "help":
 		if source.UserID != "" {
 			profile, err := app.bot.GetProfile(source.UserID).Do()
 			//fmt.Println("INIII YAAA" + app.appBaseURL)
@@ -613,6 +615,7 @@ func (app *KitchenSink) handleText(message *linebot.TextMessage, replyToken stri
 			return err
 		}
 	}
+
 	return nil
 }
 
