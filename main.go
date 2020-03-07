@@ -195,7 +195,7 @@ func (app *TamakoBot) Callback(w http.ResponseWriter, r *http.Request) {
 }
 
 func Rawurlencode(str string) string {
-	return strings.Replace(url.QueryEscape(str), " ", "%20", -1)
+	return strings.Replace(url.QueryEscape(str), "+", "%20", -1)
 }
 
 func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
@@ -203,6 +203,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 	if strings.HasPrefix(message.Text, prefix) {
 		keyword := string(message.Text[1:])
 		arg1 := strings.Split(keyword, " ")
+		arg2 := arg1[1]
 		switch arg1[0] {
 		case "help":
 			profile, err := app.bot.GetProfile(source.UserID).Do()
@@ -244,7 +245,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 				return err
 			}
 		case "write":
-			sentence := arg1[1]
+			sentence := arg2
 			rawEncoded := Rawurlencode(sentence)
 			var imageUrl string
 
