@@ -8,7 +8,6 @@ import (
 	"log"
 	"math/big"
 	"net/http"
-	"net/url"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -195,10 +194,6 @@ func (app *TamakoBot) Callback(w http.ResponseWriter, r *http.Request) {
 			log.Printf("Unknown event: %v", event)
 		}
 	}
-}
-
-func Rawurlencode(str string) string {
-	return strings.Replace(url.QueryEscape(str), "+", "%20", -1)
 }
 
 func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
@@ -740,15 +735,23 @@ func convert32bit(id_32 string) string {
 }
 
 func (app *TamakoBot) dotaMessage(message *linebot.TextMessage, replyToken string) error {
-	steamJson := getData("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=afifmakarim88")
 	var steam Steam
-	json.Unmarshal([]byte(steamJson), &steam)
+	var dotaProfile DotaProfile
 
+	// get 64bit SteamId
+	steamJson := getData("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=afifmakarim88")
+	json.Unmarshal([]byte(steamJson), &steam)
 	steam_64 := convert32bit(steam.Response.Steamid)
+
+	// get Dota 2 Player Profile
+	get_info_dota := getData("https://api.opendota.com/api/players/" + steam_64)
+	json.Unmarshal([]byte(get_info_dota), &dotaProfile)
+
+	// get_winrate := getData("https://api.opendota.com/api/players/" + steam_64 + "/wl")
 
 	if _, err := app.bot.ReplyMessage(
 		replyToken,
-		linebot.NewTextMessage(steam_64),
+		linebot.NewTextMessage(dota.Profile.Personaname),
 	).Do(); err != nil {
 		return err
 	}

@@ -4,6 +4,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/url"
+	"strings"
 )
 
 type SteamResponse struct {
@@ -13,6 +15,15 @@ type SteamResponse struct {
 
 type Steam struct {
 	Response SteamResponse
+}
+
+type Profile struct {
+	Personaname string
+	Avatarfull  string
+}
+
+type DotaProfile struct {
+	Profile Profile
 }
 
 func getData(url string) []byte {
@@ -29,4 +40,8 @@ func getData(url string) []byte {
 
 	log.Println(string(body))
 	return body
+}
+
+func Rawurlencode(str string) string {
+	return strings.Replace(url.QueryEscape(str), "+", "%20", -1)
 }
