@@ -286,13 +286,14 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 				return err
 			}
 		case "dota":
-			json, error := ServeHTTP()
-			if error != nil {
-				return error
-			}
-			// get_id := []byte(json)
-			// imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
-			return app.replyText(replyToken, string(json))
+			// json, error := ServeHTTP()
+			// if error != nil {
+			// 	return error
+			// }
+			// // get_id := []byte(json)
+			// // imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
+			// return app.replyText(replyToken, string(json))
+			ServeHTTP()
 		case "datetime":
 			template := linebot.NewButtonsTemplate(
 				"", "", "Select date / time !",
