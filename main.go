@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -775,9 +776,13 @@ func (app *TamakoBot) handleSticker(message *linebot.StickerMessage, replyToken 
 }
 
 func (app *TamakoBot) dotaMessage(message *linebot.TextMessage, replyToken string) error {
+	steamJson := getData()
+	var steam Steam
+	json.Unmarshal([]byte(steamJson), &steam)
+
 	if _, err := app.bot.ReplyMessage(
 		replyToken,
-		linebot.NewTextMessage("Bisa Handle Dota"),
+		linebot.NewTextMessage(steam.Response.Steamid),
 	).Do(); err != nil {
 		return err
 	}
