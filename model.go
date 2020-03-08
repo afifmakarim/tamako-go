@@ -27,8 +27,8 @@ type DotaProfile struct {
 }
 
 type DotaWinrate struct {
-	Win  string
-	Lose string
+	Win  int
+	Lose int
 }
 
 func getData(url string) []byte {

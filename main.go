@@ -11,6 +11,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strconv"
 	"strings"
 
 	"github.com/line/line-bot-sdk-go/linebot"
@@ -754,7 +755,7 @@ func (app *TamakoBot) dotaMessage(message *linebot.TextMessage, replyToken strin
 
 	if _, err := app.bot.ReplyMessage(
 		replyToken,
-		linebot.NewTextMessage(dotaWinrate.Win),
+		linebot.NewTextMessage(strconv.Itoa(dotaWinrate.Win)),
 	).Do(); err != nil {
 		return err
 	}
