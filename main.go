@@ -210,9 +210,9 @@ type Steam struct {
 	Response SteamResponse
 }
 
-func getData() []byte {
+func getData(url string) []byte {
 
-	resp, err := http.Get("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=afifmakarim88")
+	resp, err := http.Get(url)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -224,25 +224,7 @@ func getData() []byte {
 
 	log.Println(string(body))
 	return body
-	//return json.Marshal(body)
 }
-
-// type Steam struct {
-// 	steamid string
-// }
-
-// var myClient = &http.Client{Timeout: 10 * time.Second}
-
-// func getJson(url string, target interface{}) error {
-// 	r, err := myClient.Get(url)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	defer r.Body.Close()
-
-// 	log.Println("MANEEESIHHH" + r)
-// 	return json.NewDecoder(r.Body).Decode(target)
-// }
 
 func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
 	prefix := "!"
@@ -783,7 +765,7 @@ func convert32bit(id_32 string) string {
 }
 
 func (app *TamakoBot) dotaMessage(message *linebot.TextMessage, replyToken string) error {
-	steamJson := getData()
+	steamJson := getData("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=afifmakarim88")
 	var steam Steam
 	json.Unmarshal([]byte(steamJson), &steam)
 
