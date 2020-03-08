@@ -12,6 +12,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/line/line-bot-sdk-go/linebot"
 )
@@ -200,20 +201,37 @@ func Rawurlencode(str string) string {
 	return strings.Replace(url.QueryEscape(str), "+", "%20", -1)
 }
 
-func ServeHTTP() ([]byte, error) {
+// func ServeHTTP() (string, error) {
 
-	resp, err := http.Get("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=afifmakarim88")
+// 	resp, err := http.Get("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=afifmakarim88")
+// 	if err != nil {
+// 		log.Fatalln(err)
+// 	}
+
+// 	body, err := ioutil.ReadAll(resp.Body)
+// 	if err != nil {
+// 		log.Fatalln(err)
+// 	}
+
+// 	log.Println(string(body))
+// 	//return json.Marshal(body)
+// 	return "", body
+// }
+
+type Steam struct {
+	Steam32 string
+}
+
+var myClient = &http.Client{Timeout: 10 * time.Second}
+
+func getJson(url string, target interface{}) error {
+	r, err := myClient.Get(url)
 	if err != nil {
-		log.Fatalln(err)
+		return err
 	}
+	defer r.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	log.Println(json.Marshal(body))
-	return json.Marshal(body)
+	return json.NewDecoder(r.Body).Decode(target)
 }
 
 func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
@@ -293,7 +311,8 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			// // get_id := []byte(json)
 			// // imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
 			// return app.replyText(replyToken, string(json))
-			ServeHTTP()
+			get_id := &Steam{}
+			getJson("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=afifmakarim88", get_id)
 		case "datetime":
 			template := linebot.NewButtonsTemplate(
 				"", "", "Select date / time !",
