@@ -3,6 +3,7 @@ package main
 import (
 	"io/ioutil"
 	"log"
+	"math/big"
 	"net/http"
 	"net/url"
 	"strings"
@@ -64,6 +65,12 @@ func getData(url string) []byte {
 
 func Rawurlencode(str string) string {
 	return strings.Replace(url.QueryEscape(str), "+", "%20", -1)
+}
+
+func convert32bit(id_32 string) string {
+	a, _ := new(big.Int).SetString(id_32, 10)
+	b, _ := new(big.Int).SetString("76561197960265728", 10)
+	return big.NewInt(0).Sub(a, b).Text(10)
 }
 
 func hero_id_to_names(id string) string {

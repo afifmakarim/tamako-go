@@ -6,7 +6,6 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
-	"math/big"
 	"net/http"
 	"os"
 	"os/exec"
@@ -248,7 +247,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			rawEncoded := Rawurlencode(sentence)
 			var imageUrl string
 
-			if sentence == "" || message.Text == "!write" {
+			if rawEncoded == "" || message.Text == "!write" {
 				return app.replyText(replyToken, "Nothing to write")
 			}
 
@@ -725,13 +724,8 @@ func (app *TamakoBot) handleSticker(message *linebot.StickerMessage, replyToken 
 	return nil
 }
 
-func convert32bit(id_32 string) string {
-	a, _ := new(big.Int).SetString(id_32, 10)
-	b, _ := new(big.Int).SetString("76561197960265728", 10)
-	return big.NewInt(0).Sub(a, b).Text(10)
-}
-
 func (app *TamakoBot) dotaMessage(message string, replyToken string) error {
+
 	var steam Steam
 	var dotaProfile DotaProfile
 	var dotaWinrate DotaWinrate
