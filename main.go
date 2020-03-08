@@ -219,7 +219,7 @@ func Rawurlencode(str string) string {
 // }
 
 type Steam struct {
-	Steam32 string
+	steamid string
 }
 
 var myClient = &http.Client{Timeout: 10 * time.Second}
