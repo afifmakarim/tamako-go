@@ -267,6 +267,9 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			}
 		case "dota":
 			username := arg1[1]
+			if username == "" {
+				return app.replyText(replyToken, "Dota 2 information not found")
+			}
 			if err := app.dotaMessage(username, replyToken); err != nil {
 				log.Print(err)
 			}
@@ -733,7 +736,7 @@ func (app *TamakoBot) dotaMessage(message string, replyToken string) error {
 	var recentMatch []DotaMatch
 
 	if message == "" {
-		return app.replyText(replyToken, "Nothing to search")
+		return app.replyText(replyToken, "Dota 2 information not found")
 	}
 
 	// Get 64bit SteamId
