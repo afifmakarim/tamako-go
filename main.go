@@ -311,8 +311,12 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			// // imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
 			// return app.replyText(replyToken, string(json))
 			json := []byte(getData())
+			var result map[string]interface{}
+			json.Unmarshal([]byte(json), &result)
 
-			return app.replyText(replyToken, string(json))
+			response := result["response"].(map[string]interface{})
+		
+			return app.replyText(replyToken, response['steamid'])
 		case "datetime":
 			template := linebot.NewButtonsTemplate(
 				"", "", "Select date / time !",
