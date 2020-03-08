@@ -760,7 +760,7 @@ func (app *TamakoBot) dotaMessage(message *linebot.TextMessage, replyToken strin
 	// Get Dota 2 Signature Hero
 	get_signature_hero := getData("https://api.opendota.com/api/players/" + steam_64 + "/heroes")
 	json.Unmarshal([]byte(get_signature_hero), &signatureHero)
-	signature_hero := hero_id_to_names(signatureHero[0].hero_id)
+	//signature_hero := hero_id_to_names(signatureHero[0].hero_id)
 
 	if _, err := app.bot.ReplyMessage(
 		replyToken,
