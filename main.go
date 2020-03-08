@@ -738,6 +738,10 @@ func (app *TamakoBot) dotaMessage(message string, replyToken string) error {
 	var signatureHero []DotaHero
 	var recentMatch []DotaMatch
 
+	if message == "" {
+		return app.replyText(replyToken, "Nothing to search")
+	}
+
 	// Get 64bit SteamId
 	steamJson := getData("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=" + message)
 	json.Unmarshal([]byte(steamJson), &steam)
