@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -314,10 +313,13 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			}
 		case "dota":
 
-			steamJson := getData()
-			var steam Steam
-			json.Unmarshal([]byte(steamJson), &steam)
-			return app.replyText(replyToken, steam.Response.Steamid)
+			// steamJson := getData()
+			// var steam Steam
+			// json.Unmarshal([]byte(steamJson), &steam)
+			// return app.replyText(replyToken, steam.Response.Steamid)
+			if err := app.dotaMessage(message, replyToken); err != nil {
+				log.Print(err)
+			}
 
 		case "datetime":
 			template := linebot.NewButtonsTemplate(
@@ -766,6 +768,16 @@ func (app *TamakoBot) handleSticker(message *linebot.StickerMessage, replyToken 
 	if _, err := app.bot.ReplyMessage(
 		replyToken,
 		linebot.NewStickerMessage(message.PackageID, message.StickerID),
+	).Do(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (app *TamakoBot) dotaMessage(message *linebot.TextMessage, replyToken string) error {
+	if _, err := app.bot.ReplyMessage(
+		replyToken,
+		linebot.NewTextMessage("Bisa Handle Dota"),
 	).Do(); err != nil {
 		return err
 	}
