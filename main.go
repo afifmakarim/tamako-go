@@ -201,7 +201,7 @@ func Rawurlencode(str string) string {
 }
 
 type Steam struct {
-	steamid string
+	steamid string `json:"steamid"`
 }
 
 func getData() []byte {
@@ -321,10 +321,14 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			// response := result["response"].(map[string]interface{})
 			// test := string(response["steamid"])
 			steamJson := []byte(getData())
-			var steam Steam
-			json.Unmarshal(steamJson, &steam)
+			// var data Steam
 
-			fmt.Println("DIMANAAXZZXC", steam)
+			// json.Unmarshal([]byte(steamJson), &data)
+			// fmt.Println("user 1:", data.response)
+
+			structJson := make([]Steam, 0)
+			json.Unmarshal(steamJson, &structJson)
+			fmt.Println(structJson[0])
 
 		case "datetime":
 			template := linebot.NewButtonsTemplate(
