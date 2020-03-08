@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -199,7 +200,7 @@ func Rawurlencode(str string) string {
 	return strings.Replace(url.QueryEscape(str), "+", "%20", -1)
 }
 
-func ServeHTTP() {
+func ServeHTTP() ([]byte, error) {
 
 	resp, err := http.Get("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=afifmakarim88")
 	if err != nil {
@@ -211,8 +212,8 @@ func ServeHTTP() {
 		log.Fatalln(err)
 	}
 
-	log.Println(string(body))
-
+	// log.Println(string(body))
+	return json.Marshal(body)
 }
 
 func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
@@ -285,10 +286,13 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 				return err
 			}
 		case "dota":
-			ServeHTTP()
+			json, error := ServeHTTP()
+			if error != nil {
+				return error
+			}
+			get_id := []byte(json)
 			// imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
-			//
-			// return app.replyText(replyToken, get_id)
+			return app.replyText(replyToken, string(get_id))
 		case "datetime":
 			template := linebot.NewButtonsTemplate(
 				"", "", "Select date / time !",
