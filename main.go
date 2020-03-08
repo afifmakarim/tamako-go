@@ -200,8 +200,13 @@ func Rawurlencode(str string) string {
 	return strings.Replace(url.QueryEscape(str), "+", "%20", -1)
 }
 
+type SteamResponse struct {
+	Steamid string
+	Success int
+}
+
 type Steam struct {
-	steamid string `json:"steamid"`
+	Response SteamResponse
 }
 
 func getData() []byte {
@@ -308,27 +313,11 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 				return err
 			}
 		case "dota":
-			// json, error := ServeHTTP()
-			// if error != nil {
-			// 	return error
-			// }
-			// // get_id := []byte(json)
-			// // imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
-			// return app.replyText(replyToken, string(json))
 
-			// var result map[string]interface{}
-			// json.Unmarshal(steamJson, &result)
-			// response := result["response"].(map[string]interface{})
-			// test := string(response["steamid"])
-			steamJson := []byte(getData())
-			// var data Steam
-
-			// json.Unmarshal([]byte(steamJson), &data)
-			// fmt.Println("user 1:", data.response)
-
-			structJson := make([]Steam, 0)
-			json.Unmarshal(steamJson, &structJson)
-			fmt.Println("DMANANNAA " + structJson[0])
+			steamJson := getData()
+			var steam Steam
+			json.Unmarshal([]byte(steamJson), &steam)
+			return app.replyText(replyToken, steam.Response.Steamid)
 
 		case "datetime":
 			template := linebot.NewButtonsTemplate(
