@@ -328,7 +328,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 
 			structJson := make([]Steam, 0)
 			json.Unmarshal(steamJson, &structJson)
-			fmt.Println(structJson[0])
+			fmt.Println("DMANANNAA " + structJson[0])
 
 		case "datetime":
 			template := linebot.NewButtonsTemplate(
