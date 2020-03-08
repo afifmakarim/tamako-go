@@ -310,7 +310,8 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			// // get_id := []byte(json)
 			// // imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
 			// return app.replyText(replyToken, string(json))
-			json := getData()
+			json := []byte(getData())
+
 			return app.replyText(replyToken, string(json))
 		case "datetime":
 			template := linebot.NewButtonsTemplate(
