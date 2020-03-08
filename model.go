@@ -36,6 +36,16 @@ type DotaHero struct {
 	Last_played int
 }
 
+type DotaMatch struct {
+	Match_id     int
+	Kills        int
+	Deaths       int
+	Assists      int
+	Hero_id      int
+	Gold_per_min int
+	Last_hits    int
+}
+
 func getData(url string) []byte {
 
 	resp, err := http.Get(url)

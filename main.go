@@ -740,6 +740,7 @@ func (app *TamakoBot) dotaMessage(message *linebot.TextMessage, replyToken strin
 	var dotaProfile DotaProfile
 	var dotaWinrate DotaWinrate
 	var signatureHero []DotaHero
+	var recentMatch []DotaMatch
 
 	// Get 64bit SteamId
 	steamJson := getData("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=afifmakarim88")
@@ -754,7 +755,7 @@ func (app *TamakoBot) dotaMessage(message *linebot.TextMessage, replyToken strin
 	get_winrate := getData("https://api.opendota.com/api/players/" + steam_64 + "/wl")
 	json.Unmarshal([]byte(get_winrate), &dotaWinrate)
 	win := strconv.Itoa(dotaWinrate.Win)
-	lose := strconv.Itoa(dotaWinrate.Lose)
+	// lose := strconv.Itoa(dotaWinrate.Lose)
 	totalMatch := strconv.Itoa(dotaWinrate.Win + dotaWinrate.Lose)
 
 	// Get Dota 2 Signature Hero
@@ -762,9 +763,30 @@ func (app *TamakoBot) dotaMessage(message *linebot.TextMessage, replyToken strin
 	json.Unmarshal([]byte(get_signature_hero), &signatureHero)
 	signature_hero := hero_id_to_names(signatureHero[0].Hero_id)
 
+	// Get Dota 2 Recent Match
+	get_recent_match := getData("https://api.opendota.com/api/players/" + steam_64 + "/recentMatches")
+	json.Unmarshal([]byte(get_recent_match), &recentMatch)
+	hero := "Hero : " + hero_id_to_names(strconv.Itoa(recentMatch[0].Hero_id))
+	kda := "K/D/A : " + strconv.Itoa(recentMatch[0].Kills) + "/" + strconv.Itoa(recentMatch[0].Deaths) + "/" + strconv.Itoa(recentMatch[0].Assists)
+	lh_gpm := "LH/GPM : " + strconv.Itoa(recentMatch[0].Last_hits) + "/" + strconv.Itoa(recentMatch[0].Gold_per_min)
+
+	imageURL := dotaProfile.Profile.Avatarfull
+	template := linebot.NewCarouselTemplate(
+		linebot.NewCarouselColumn(
+			imageURL, dotaProfile.Profile.Personaname, "Win : "+win+"\nTotal Match : "+totalMatch+"\nSignature Hero : "+signature_hero,
+			linebot.NewURIAction("Go to line.me", "https://line.me"),
+			linebot.NewPostbackAction("Say hello1", "hello こんにちは", "", ""),
+		),
+		linebot.NewCarouselColumn(
+			imageURL, "Recent Match Played", hero+"\n"+kda+"\n"+lh_gpm,
+			linebot.NewPostbackAction("言 hello2", "hello こんにちは", "hello こんにちは", ""),
+			linebot.NewMessageAction("Say message", "Rice=米"),
+		),
+	)
+
 	if _, err := app.bot.ReplyMessage(
 		replyToken,
-		linebot.NewTextMessage(win+lose+totalMatch+"hero: "+signature_hero),
+		linebot.NewTemplateMessage("Carousel alt text", template),
 	).Do(); err != nil {
 		return err
 	}
