@@ -285,7 +285,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 				return err
 			}
 		case "dota":
-			imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
+			// imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
 			get_id := ServeHTTP()
 			return app.replyText(replyToken, get_id)
 		case "datetime":
