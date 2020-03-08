@@ -198,6 +198,23 @@ func Rawurlencode(str string) string {
 	return strings.Replace(url.QueryEscape(str), "+", "%20", -1)
 }
 
+func ServeHTTP(w http.ResponseWriter, r *http.Request, str string) {
+	    url := str
+	    response, err := http.Get(url)
+	    if err != nil {
+	        log.Fatal(err)
+	    }
+	    defer response.Body.Close()
+	 
+	    responseData, err := ioutil.ReadAll(response.Body)
+	    if err != nil {
+	        log.Fatal(err)
+	    }
+	 
+	    responseString := string(responseData)
+	    fmt.Fprint(w, responseString)
+	}
+
 func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
 	prefix := "!"
 	if strings.HasPrefix(message.Text, prefix) {
@@ -267,32 +284,10 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			).Do(); err != nil {
 				return err
 			}
-		case "image carousel":
+		case "dota":
 			imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
-			template := linebot.NewImageCarouselTemplate(
-				linebot.NewImageCarouselColumn(
-					imageURL,
-					linebot.NewURIAction("Go to LINE", "https://line.me"),
-				),
-				linebot.NewImageCarouselColumn(
-					imageURL,
-					linebot.NewPostbackAction("Say hello1", "hello こんにちは", "", ""),
-				),
-				linebot.NewImageCarouselColumn(
-					imageURL,
-					linebot.NewMessageAction("Say message", "Rice=米"),
-				),
-				linebot.NewImageCarouselColumn(
-					imageURL,
-					linebot.NewDatetimePickerAction("datetime", "DATETIME", "datetime", "", "", ""),
-				),
-			)
-			if _, err := app.bot.ReplyMessage(
-				replyToken,
-				linebot.NewTemplateMessage("Image carousel alt text", template),
-			).Do(); err != nil {
-				return err
-			}
+			get_id := ServeHTTP("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=afifmakarim88")
+			return app.replyText(replyToken, get_id)
 		case "datetime":
 			template := linebot.NewButtonsTemplate(
 				"", "", "Select date / time !",
