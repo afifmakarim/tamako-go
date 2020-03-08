@@ -38,6 +38,8 @@ func main() {
 	if err := http.ListenAndServe(":"+os.Getenv("PORT"), nil); err != nil {
 		log.Fatal(err)
 	}
+
+	ServeHTTP()
 }
 
 // TamakoBot app
@@ -198,22 +200,21 @@ func Rawurlencode(str string) string {
 	return strings.Replace(url.QueryEscape(str), "+", "%20", -1)
 }
 
-func ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	    url := "https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=afifmakarim88"
-	    response, err := http.Get(url)
-	    if err != nil {
-	        log.Fatal(err)
-	    }
-	    defer response.Body.Close()
-	 
-	    responseData, err := ioutil.ReadAll(response.Body)
-	    if err != nil {
-	        log.Fatal(err)
-	    }
-	 
-	    responseString := string(responseData)
-	    fmt.Fprint(w, responseString)
+func ServeHTTP() {
+
+	resp, err := http.Get("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=afifmakarim88")
+	if err != nil {
+		log.Fatalln(err)
 	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	log.Println(string(body))
+
+}
 
 func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
 	prefix := "!"
@@ -286,8 +287,8 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			}
 		case "dota":
 			// imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
-			get_id := ServeHTTP()
-			return app.replyText(replyToken, get_id)
+			//
+			// return app.replyText(replyToken, get_id)
 		case "datetime":
 			template := linebot.NewButtonsTemplate(
 				"", "", "Select date / time !",
