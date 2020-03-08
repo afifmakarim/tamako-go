@@ -739,6 +739,7 @@ func (app *TamakoBot) dotaMessage(message *linebot.TextMessage, replyToken strin
 	var steam Steam
 	var dotaProfile DotaProfile
 	var dotaWinrate DotaWinrate
+	var signatureHero []DotaHero
 
 	// Get 64bit SteamId
 	steamJson := getData("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=afifmakarim88")
@@ -752,10 +753,18 @@ func (app *TamakoBot) dotaMessage(message *linebot.TextMessage, replyToken strin
 	// Get Dota 2 Win Rate
 	get_winrate := getData("https://api.opendota.com/api/players/" + steam_64 + "/wl")
 	json.Unmarshal([]byte(get_winrate), &dotaWinrate)
+	win := strconv.Itoa(dotaWinrate.Win)
+	lose := strconv.Itoa(dotaWinrate.Lose)
+	totalMatch := strconv.Itoa(dotaWinrate.Win + dotaWinrate.Lose)
+
+	// Get Dota 2 Signature Hero
+	get_signature_hero := getData("https://api.opendota.com/api/players/" + steam_64 + "/heroes")
+	json.Unmarshal([]byte(get_signature_hero), &signatureHero)
+	signature_hero := signatureHero[0].hero_id
 
 	if _, err := app.bot.ReplyMessage(
 		replyToken,
-		linebot.NewTextMessage(strconv.Itoa(dotaWinrate.Win)),
+		linebot.NewTextMessage(win+lose+totalMatch+signature_hero),
 	).Do(); err != nil {
 		return err
 	}

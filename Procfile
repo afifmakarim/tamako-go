@@ -1,1 +1,1 @@
-web: tamako-go 
+web: go-tamako 

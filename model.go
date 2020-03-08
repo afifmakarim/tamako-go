@@ -31,6 +31,11 @@ type DotaWinrate struct {
 	Lose int
 }
 
+type DotaHero struct {
+	hero_id     string
+	last_played int
+}
+
 func getData(url string) []byte {
 
 	resp, err := http.Get(url)
