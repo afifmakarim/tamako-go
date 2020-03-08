@@ -290,9 +290,9 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			if error != nil {
 				return error
 			}
-			get_id := []byte(json)
+			// get_id := []byte(json)
 			// imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
-			return app.replyText(replyToken, string(get_id))
+			return app.replyText(replyToken, string(json))
 		case "datetime":
 			template := linebot.NewButtonsTemplate(
 				"", "", "Select date / time !",
