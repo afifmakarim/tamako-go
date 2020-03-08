@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -12,7 +11,6 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
-	"time"
 
 	"github.com/line/line-bot-sdk-go/linebot"
 )
@@ -201,39 +199,39 @@ func Rawurlencode(str string) string {
 	return strings.Replace(url.QueryEscape(str), "+", "%20", -1)
 }
 
-// func ServeHTTP() (string, error) {
+func getData() []byte {
 
-// 	resp, err := http.Get("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=afifmakarim88")
-// 	if err != nil {
-// 		log.Fatalln(err)
-// 	}
+	resp, err := http.Get("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=afifmakarim88")
+	if err != nil {
+		log.Fatalln(err)
+	}
 
-// 	body, err := ioutil.ReadAll(resp.Body)
-// 	if err != nil {
-// 		log.Fatalln(err)
-// 	}
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalln(err)
+	}
 
-// 	log.Println(string(body))
-// 	//return json.Marshal(body)
-// 	return "", body
+	log.Println(string(body))
+	return body
+	//return json.Marshal(body)
+}
+
+// type Steam struct {
+// 	steamid string
 // }
 
-type Steam struct {
-	steamid string
-}
+// var myClient = &http.Client{Timeout: 10 * time.Second}
 
-var myClient = &http.Client{Timeout: 10 * time.Second}
+// func getJson(url string, target interface{}) error {
+// 	r, err := myClient.Get(url)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	defer r.Body.Close()
 
-func getJson(url string, target interface{}) error {
-	r, err := myClient.Get(url)
-	if err != nil {
-		return err
-	}
-	defer r.Body.Close()
-
-	log.Println(r)
-	return json.NewDecoder(r.Body).Decode(target)
-}
+// 	log.Println("MANEEESIHHH" + r)
+// 	return json.NewDecoder(r.Body).Decode(target)
+// }
 
 func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
 	prefix := "!"
@@ -312,9 +310,8 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			// // get_id := []byte(json)
 			// // imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
 			// return app.replyText(replyToken, string(json))
-			get_id := new(Steam)
-			getJson("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=afifmakarim88", get_id)
-			fmt.Println("DIMANAAAAAA" + get_id)
+			json := getData()
+			return app.replyText(replyToken, string(json))
 		case "datetime":
 			template := linebot.NewButtonsTemplate(
 				"", "", "Select date / time !",
