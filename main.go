@@ -267,9 +267,6 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			}
 		case "dota":
 			username := arg1[1]
-			if message.Text == "!dota" {
-				return app.replyText(replyToken, "Dota 2 information not found")
-			}
 			if err := app.dotaMessage(username, replyToken); err != nil {
 				log.Print(err)
 			}
