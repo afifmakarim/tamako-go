@@ -231,7 +231,7 @@ func getJson(url string, target interface{}) error {
 	}
 	defer r.Body.Close()
 
-	fmt.Println(json.NewDecoder(r.Body).Decode(target))
+	log.Println(json.NewDecoder(r.Body).Decode(target))
 	return json.NewDecoder(r.Body).Decode(target)
 }
 
