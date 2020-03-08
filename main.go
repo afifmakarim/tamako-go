@@ -200,6 +200,10 @@ func Rawurlencode(str string) string {
 	return strings.Replace(url.QueryEscape(str), "+", "%20", -1)
 }
 
+type Steam struct {
+	steamid string
+}
+
 func getData() []byte {
 
 	resp, err := http.Get("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=afifmakarim88")
@@ -311,14 +315,17 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			// // get_id := []byte(json)
 			// // imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
 			// return app.replyText(replyToken, string(json))
+
+			// var result map[string]interface{}
+			// json.Unmarshal(steamJson, &result)
+			// response := result["response"].(map[string]interface{})
+			// test := string(response["steamid"])
 			steamJson := []byte(getData())
-			var result map[string]interface{}
-			json.Unmarshal(steamJson, &result)
+			var steam Steam
+			json.Unmarshal(steamJson, &steam)
 
-			response := result["response"].(map[string]interface{})
-			fmt.Println(response["steamid"])
+			fmt.Println("DIMANAAXZZXC", steam)
 
-			return app.replyText(replyToken, "eh ayam")
 		case "datetime":
 			template := linebot.NewButtonsTemplate(
 				"", "", "Select date / time !",
