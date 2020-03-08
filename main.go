@@ -212,7 +212,7 @@ func ServeHTTP() ([]byte, error) {
 		log.Fatalln(err)
 	}
 
-	// log.Println(string(body))
+	log.Println(json.Marshal(body))
 	return json.Marshal(body)
 }
 
