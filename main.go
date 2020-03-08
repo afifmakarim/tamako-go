@@ -198,7 +198,7 @@ func Rawurlencode(str string) string {
 	return strings.Replace(url.QueryEscape(str), "+", "%20", -1)
 }
 
-func ServeHTTP(w http.ResponseWriter, r *http.Request, str string) {
+func ServeHTTP(str string) {
 	    url := str
 	    response, err := http.Get(url)
 	    if err != nil {
