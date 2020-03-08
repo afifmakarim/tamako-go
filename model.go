@@ -26,6 +26,11 @@ type DotaProfile struct {
 	Profile Profile
 }
 
+type DotaWinrate struct {
+	Win  string
+	Lose string
+}
+
 func getData(url string) []byte {
 
 	resp, err := http.Get(url)
