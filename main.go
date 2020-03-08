@@ -201,31 +201,6 @@ func Rawurlencode(str string) string {
 	return strings.Replace(url.QueryEscape(str), "+", "%20", -1)
 }
 
-type SteamResponse struct {
-	Steamid string
-	Success int
-}
-
-type Steam struct {
-	Response SteamResponse
-}
-
-func getData(url string) []byte {
-
-	resp, err := http.Get(url)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	log.Println(string(body))
-	return body
-}
-
 func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
 	prefix := "!"
 	if strings.HasPrefix(message.Text, prefix) {
