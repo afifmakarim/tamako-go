@@ -6,6 +6,7 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"math/big"
 	"net/http"
 	"net/url"
 	"os"
@@ -773,6 +774,12 @@ func (app *TamakoBot) handleSticker(message *linebot.StickerMessage, replyToken 
 		return err
 	}
 	return nil
+}
+
+func convert32bit(id_32 string) *big.Int {
+	a, _ := new(big.Int).SetString(id_32, 10)
+	b, _ := new(big.Int).SetString("76561197960265728", 10)
+	return big.NewInt(0).Sub(a, b)
 }
 
 func (app *TamakoBot) dotaMessage(message *linebot.TextMessage, replyToken string) error {
