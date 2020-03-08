@@ -764,7 +764,7 @@ func (app *TamakoBot) dotaMessage(message *linebot.TextMessage, replyToken strin
 
 	if _, err := app.bot.ReplyMessage(
 		replyToken,
-		linebot.NewTextMessage(win+lose+totalMatch+"hero: "+signatureHero[0].hero_id),
+		linebot.NewTextMessage(win+lose+totalMatch+"hero: "+signatureHero[0].Hero_id),
 	).Do(); err != nil {
 		return err
 	}

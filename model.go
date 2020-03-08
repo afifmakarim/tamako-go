@@ -32,8 +32,8 @@ type DotaWinrate struct {
 }
 
 type DotaHero struct {
-	hero_id     string
-	last_played int
+	Hero_id     string
+	Last_played int
 }
 
 func getData(url string) []byte {
