@@ -314,7 +314,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			// return app.replyText(replyToken, string(json))
 			get_id := new(Steam)
 			getJson("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=afifmakarim88", get_id)
-			fmt.Println("DIMANAAAAAA" + get_id.steamid)
+			fmt.Println("DIMANAAAAAA" + get_id)
 		case "datetime":
 			template := linebot.NewButtonsTemplate(
 				"", "", "Select date / time !",
