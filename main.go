@@ -39,7 +39,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	ServeHTTP()
 }
 
 // TamakoBot app
@@ -286,6 +285,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 				return err
 			}
 		case "dota":
+			ServeHTTP()
 			// imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
 			//
 			// return app.replyText(replyToken, get_id)
