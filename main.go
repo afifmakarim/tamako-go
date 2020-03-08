@@ -776,10 +776,10 @@ func (app *TamakoBot) handleSticker(message *linebot.StickerMessage, replyToken 
 	return nil
 }
 
-func convert32bit(id_32 string) *big.Int {
+func convert32bit(id_32 string) string {
 	a, _ := new(big.Int).SetString(id_32, 10)
 	b, _ := new(big.Int).SetString("76561197960265728", 10)
-	return big.NewInt(0).Sub(a, b)
+	return big.NewInt(0).Sub(a, b).Text(10)
 }
 
 func (app *TamakoBot) dotaMessage(message *linebot.TextMessage, replyToken string) error {
@@ -787,9 +787,11 @@ func (app *TamakoBot) dotaMessage(message *linebot.TextMessage, replyToken strin
 	var steam Steam
 	json.Unmarshal([]byte(steamJson), &steam)
 
+	steam_64 := convert32bit(steam.Response.Steamid)
+
 	if _, err := app.bot.ReplyMessage(
 		replyToken,
-		linebot.NewTextMessage(steam.Response.Steamid),
+		linebot.NewTextMessage(steam_64),
 	).Do(); err != nil {
 		return err
 	}
