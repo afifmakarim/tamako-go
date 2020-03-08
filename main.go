@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -310,13 +311,14 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			// // get_id := []byte(json)
 			// // imageURL := app.appBaseURL + "/static/buttons/1040.jpg"
 			// return app.replyText(replyToken, string(json))
-			json := []byte(getData())
+			steamJson := []byte(getData())
 			var result map[string]interface{}
-			json.Unmarshal([]byte(json), &result)
+			json.Unmarshal(steamJson, &result)
 
 			response := result["response"].(map[string]interface{})
-		
-			return app.replyText(replyToken, response['steamid'])
+			fmt.Println(response["steamid"])
+
+			return app.replyText(replyToken, "eh ayam")
 		case "datetime":
 			template := linebot.NewButtonsTemplate(
 				"", "", "Select date / time !",
