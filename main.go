@@ -267,12 +267,8 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 				return err
 			}
 		case "dota":
-
-			// steamJson := getData()
-			// var steam Steam
-			// json.Unmarshal([]byte(steamJson), &steam)
-			// return app.replyText(replyToken, steam.Response.Steamid)
-			if err := app.dotaMessage(message, replyToken); err != nil {
+			username := arg1[1]
+			if err := app.dotaMessage(username, replyToken); err != nil {
 				log.Print(err)
 			}
 
@@ -735,7 +731,7 @@ func convert32bit(id_32 string) string {
 	return big.NewInt(0).Sub(a, b).Text(10)
 }
 
-func (app *TamakoBot) dotaMessage(message *linebot.TextMessage, replyToken string) error {
+func (app *TamakoBot) dotaMessage(message string, replyToken string) error {
 	var steam Steam
 	var dotaProfile DotaProfile
 	var dotaWinrate DotaWinrate
@@ -743,7 +739,7 @@ func (app *TamakoBot) dotaMessage(message *linebot.TextMessage, replyToken strin
 	var recentMatch []DotaMatch
 
 	// Get 64bit SteamId
-	steamJson := getData("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=afifmakarim88")
+	steamJson := getData("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=" + message)
 	json.Unmarshal([]byte(steamJson), &steam)
 	steam_64 := convert32bit(steam.Response.Steamid)
 
@@ -766,27 +762,28 @@ func (app *TamakoBot) dotaMessage(message *linebot.TextMessage, replyToken strin
 	// Get Dota 2 Recent Match
 	get_recent_match := getData("https://api.opendota.com/api/players/" + steam_64 + "/recentMatches")
 	json.Unmarshal([]byte(get_recent_match), &recentMatch)
+	matchId := "https://www.dotabuff.com/matches/" + strconv.Itoa(recentMatch[0].Match_id)
 	hero := "Hero : " + hero_id_to_names(strconv.Itoa(recentMatch[0].Hero_id))
 	kda := "K/D/A : " + strconv.Itoa(recentMatch[0].Kills) + "/" + strconv.Itoa(recentMatch[0].Deaths) + "/" + strconv.Itoa(recentMatch[0].Assists)
 	lh_gpm := "LH/GPM : " + strconv.Itoa(recentMatch[0].Last_hits) + "/" + strconv.Itoa(recentMatch[0].Gold_per_min)
+
+	steamUrl := "https://steamcommunity.com/id/" + message
 
 	imageURL := dotaProfile.Profile.Avatarfull
 	template := linebot.NewCarouselTemplate(
 		linebot.NewCarouselColumn(
 			imageURL, dotaProfile.Profile.Personaname, "Win : "+win+"\nTotal Match : "+totalMatch+"\nSignature Hero : "+signature_hero,
-			linebot.NewURIAction("Go to line.me", "https://line.me"),
-			linebot.NewPostbackAction("Say hello1", "hello こんにちは", "", ""),
+			linebot.NewURIAction("Open Steam", steamUrl),
 		),
 		linebot.NewCarouselColumn(
 			imageURL, "Recent Match Played", hero+"\n"+kda+"\n"+lh_gpm,
-			linebot.NewPostbackAction("言 hello2", "hello こんにちは", "hello こんにちは", ""),
-			linebot.NewMessageAction("Say message", "Rice=米"),
+			linebot.NewURIAction("Open Dotabuff", matchId),
 		),
 	)
 
 	if _, err := app.bot.ReplyMessage(
 		replyToken,
-		linebot.NewTemplateMessage("Carousel alt text", template),
+		linebot.NewTemplateMessage("Info Dota", template),
 	).Do(); err != nil {
 		return err
 	}
