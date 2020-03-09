@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"math/big"
@@ -48,6 +47,20 @@ type DotaMatch struct {
 	Last_hits    int
 }
 
+type GameList struct {
+	Id   int
+	Name string
+}
+
+type GameImage struct {
+	Small_url string
+}
+
+type GamePlatform struct {
+	Name         string
+	Abbreviation string
+}
+
 func getData(url string) []byte {
 
 	resp, err := http.Get(url)
@@ -79,7 +92,7 @@ func Request(url string, contentType string) []byte {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(body)
+	//fmt.Println(body)
 	return body
 }
 

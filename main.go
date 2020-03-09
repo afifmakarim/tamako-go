@@ -717,13 +717,14 @@ func (app *TamakoBot) handleSticker(message *linebot.StickerMessage, replyToken 
 }
 
 func (app *TamakoBot) gameMessage(message string, replyToken string) error {
+	var gameList []GameList
 	queryGame := "Naruto"
 	gameApi := Request("https://www.giantbomb.com/api/search/?api_key=a0bede1760f86f2f59ff3ac477c953fed643ea0b&resources=game&query="+queryGame+"&format=json&limit=5", "lashaparesha api script")
-	fmt.Println(string(gameApi))
+	json.Unmarshal([]byte(gameApi), &gameList)
 
 	if _, err := app.bot.ReplyMessage(
 		replyToken,
-		linebot.NewTextMessage(string(gameApi)),
+		linebot.NewTextMessage(string(gameList[0].Name)),
 	).Do(); err != nil {
 		return err
 	}
