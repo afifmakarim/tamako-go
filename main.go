@@ -810,7 +810,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			}
 		  ],
 		  "paddingAll": "20px",
-		  "backgroundColor": "#464F69"
+		  "backgroundColor": "#111111"
 		}
 	  }`
 	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(jsonString))
