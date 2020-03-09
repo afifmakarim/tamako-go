@@ -48,8 +48,9 @@ type DotaMatch struct {
 }
 
 type GameList struct {
-	Id   int
-	Name string
+	Id                    int
+	Name                  string
+	Original_release_date string
 }
 
 type GameImage struct {
