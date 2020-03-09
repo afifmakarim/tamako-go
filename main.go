@@ -271,18 +271,10 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 				log.Print(err)
 			}
 
-		case "datetime":
-			template := linebot.NewButtonsTemplate(
-				"", "", "Select date / time !",
-				linebot.NewDatetimePickerAction("date", "DATE", "date", "", "", ""),
-				linebot.NewDatetimePickerAction("time", "TIME", "time", "", "", ""),
-				linebot.NewDatetimePickerAction("datetime", "DATETIME", "datetime", "", "", ""),
-			)
-			if _, err := app.bot.ReplyMessage(
-				replyToken,
-				linebot.NewTemplateMessage("Datetime pickers alt text", template),
-			).Do(); err != nil {
-				return err
+		case "games":
+			gamesKeyword := arg1[1]
+			if err := app.gameMessage(gamesKeyword, replyToken); err != nil {
+				log.Print(err)
 			}
 		case "flex":
 			// {
@@ -722,6 +714,21 @@ func (app *TamakoBot) handleSticker(message *linebot.StickerMessage, replyToken 
 		return err
 	}
 	return nil
+}
+
+func (app *TamakoBot) gameMessage(message string, replyToken string) error {
+	queryGame := "Naruto"
+	gameApi := Request("https://www.giantbomb.com/api/search/?api_key=a0bede1760f86f2f59ff3ac477c953fed643ea0b&resources=game&query="+queryGame+"&format=json&limit=5", "lashaparesha api script\r\n")
+	fmt.Println(string(gameApi))
+
+	if _, err := app.bot.ReplyMessage(
+		replyToken,
+		linebot.NewTextMessage(string(gameApi)),
+	).Do(); err != nil {
+		return err
+	}
+	return nil
+
 }
 
 func (app *TamakoBot) dotaMessage(message string, replyToken string) error {
