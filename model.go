@@ -48,6 +48,10 @@ type DotaMatch struct {
 }
 
 type GameList struct {
+	Results []GameObject
+}
+
+type GameObject struct {
 	Id                    int
 	Name                  string
 	Original_release_date string
