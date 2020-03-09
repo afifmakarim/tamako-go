@@ -272,7 +272,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			}
 
 		case "games":
-			gamesKeyword := arg1[1]
+			gamesKeyword := string(keyword[6:])
 			if err := app.gameMessage(gamesKeyword, replyToken); err != nil {
 				log.Print(err)
 			}
