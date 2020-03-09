@@ -236,6 +236,7 @@ func hero_id_to_names(id string) string {
 }
 
 func FlexGameJson(title string) string {
+
 	JsonString := `{
 		"type": "bubble",
 		"header": {
