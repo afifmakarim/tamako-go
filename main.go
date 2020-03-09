@@ -389,234 +389,155 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 		case "json":
 			jsonString := `{
 				"type": "bubble",
-				"header": {
-				  "type": "box",
-				  "layout": "vertical",
-				  "contents": [
-					{
-					  "type": "box",
-					  "layout": "horizontal",
-					  "contents": [
-						{
-						  "type": "image",
-						  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip4.jpg",
-						  "size": "full",
-						  "aspectMode": "cover",
-						  "aspectRatio": "150:196",
-						  "gravity": "center",
-						  "flex": 1
-						},
-						{
-						  "type": "box",
-						  "layout": "vertical",
-						  "contents": [
-							{
-							  "type": "image",
-							  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip5.jpg",
-							  "size": "full",
-							  "aspectMode": "cover",
-							  "aspectRatio": "150:98",
-							  "gravity": "center"
-							},
-							{
-							  "type": "image",
-							  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip6.jpg",
-							  "size": "full",
-							  "aspectMode": "cover",
-							  "aspectRatio": "150:98",
-							  "gravity": "center"
-							}
-						  ],
-						  "flex": 1
-						},
-						{
-						  "type": "box",
-						  "layout": "horizontal",
-						  "contents": [
-							{
-							  "type": "text",
-							  "text": "NEW",
-							  "size": "xs",
-							  "color": "#ffffff",
-							  "align": "center",
-							  "gravity": "center"
-							}
-						  ],
-						  "backgroundColor": "#EC3D44",
-						  "paddingAll": "2px",
-						  "paddingStart": "4px",
-						  "paddingEnd": "4px",
-						  "flex": 0,
-						  "position": "absolute",
-						  "offsetStart": "18px",
-						  "offsetTop": "18px",
-						  "cornerRadius": "100px",
-						  "width": "48px",
-						  "height": "25px"
-						}
-					  ]
-					}
-				  ],
-				  "paddingAll": "0px"
+				"hero": {
+				  "type": "image",
+				  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+				  "size": "full",
+				  "aspectRatio": "20:13",
+				  "aspectMode": "cover",
+				  "action": {
+					"type": "uri",
+					"uri": "http://linecorp.com/"
+				  }
 				},
 				"body": {
 				  "type": "box",
 				  "layout": "vertical",
 				  "contents": [
 					{
+					  "type": "text",
+					  "text": "Brown Cafe",
+					  "weight": "bold",
+					  "size": "xl"
+					},
+					{
+					  "type": "box",
+					  "layout": "baseline",
+					  "margin": "md",
+					  "contents": [
+						{
+						  "type": "icon",
+						  "size": "sm",
+						  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
+						},
+						{
+						  "type": "icon",
+						  "size": "sm",
+						  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
+						},
+						{
+						  "type": "icon",
+						  "size": "sm",
+						  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
+						},
+						{
+						  "type": "icon",
+						  "size": "sm",
+						  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
+						},
+						{
+						  "type": "icon",
+						  "size": "sm",
+						  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gray_star_28.png"
+						},
+						{
+						  "type": "text",
+						  "text": "4.0",
+						  "size": "sm",
+						  "color": "#999999",
+						  "margin": "md",
+						  "flex": 0
+						}
+					  ]
+					},
+					{
 					  "type": "box",
 					  "layout": "vertical",
-					  {
-						"type": "bubble",
-						"hero": {
-						  "type": "image",
-						  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
-						  "size": "full",
-						  "aspectRatio": "20:13",
-						  "aspectMode": "cover",
-						  "action": {
-							"type": "uri",
-							"uri": "http://linecorp.com/"
-						  }
-						},
-						"body": {
+					  "margin": "lg",
+					  "spacing": "sm",
+					  "contents": [
+						{
 						  "type": "box",
-						  "layout": "vertical",
-						  "contents": [
-							{
-							  "type": "text",
-							  "text": "Brown Cafe",
-							  "weight": "bold",
-							  "size": "xl"
-							},
-							{
-							  "type": "box",
-							  "layout": "baseline",
-							  "margin": "md",
-							  "contents": [
-								{
-								  "type": "icon",
-								  "size": "sm",
-								  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-								},
-								{
-								  "type": "icon",
-								  "size": "sm",
-								  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-								},
-								{
-								  "type": "icon",
-								  "size": "sm",
-								  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-								},
-								{
-								  "type": "icon",
-								  "size": "sm",
-								  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-								},
-								{
-								  "type": "icon",
-								  "size": "sm",
-								  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gray_star_28.png"
-								},
-								{
-								  "type": "text",
-								  "text": "4.0",
-								  "size": "sm",
-								  "color": "#999999",
-								  "margin": "md",
-								  "flex": 0
-								}
-							  ]
-							},
-							{
-							  "type": "box",
-							  "layout": "vertical",
-							  "margin": "lg",
-							  "spacing": "sm",
-							  "contents": [
-								{
-								  "type": "box",
-								  "layout": "baseline",
-								  "spacing": "sm",
-								  "contents": [
-									{
-									  "type": "text",
-									  "text": "Place",
-									  "color": "#aaaaaa",
-									  "size": "sm",
-									  "flex": 1
-									},
-									{
-									  "type": "text",
-									  "text": "Miraina Tower, 4-1-6 Shinjuku, Tokyo",
-									  "wrap": true,
-									  "color": "#666666",
-									  "size": "sm",
-									  "flex": 5
-									}
-								  ]
-								},
-								{
-								  "type": "box",
-								  "layout": "baseline",
-								  "spacing": "sm",
-								  "contents": [
-									{
-									  "type": "text",
-									  "text": "Time",
-									  "color": "#aaaaaa",
-									  "size": "sm",
-									  "flex": 1
-									},
-									{
-									  "type": "text",
-									  "text": "10:00 - 23:00",
-									  "wrap": true,
-									  "color": "#666666",
-									  "size": "sm",
-									  "flex": 5
-									}
-								  ]
-								}
-							  ]
-							}
-						  ],
-						  "backgroundColor": "#11223333"
-						},
-						"footer": {
-						  "type": "box",
-						  "layout": "vertical",
+						  "layout": "baseline",
 						  "spacing": "sm",
 						  "contents": [
 							{
-							  "type": "button",
-							  "style": "link",
-							  "height": "sm",
-							  "action": {
-								"type": "uri",
-								"label": "CALL",
-								"uri": "https://linecorp.com"
-							  }
+							  "type": "text",
+							  "text": "Place",
+							  "color": "#aaaaaa",
+							  "size": "sm",
+							  "flex": 1
 							},
 							{
-							  "type": "button",
-							  "style": "link",
-							  "height": "sm",
-							  "action": {
-								"type": "uri",
-								"label": "WEBSITE",
-								"uri": "https://linecorp.com"
-							  }
-							},
-							{
-							  "type": "spacer",
-							  "size": "sm"
+							  "type": "text",
+							  "text": "Miraina Tower, 4-1-6 Shinjuku, Tokyo",
+							  "wrap": true,
+							  "color": "#666666",
+							  "size": "sm",
+							  "flex": 5
 							}
-						  ],
-						  "flex": 0
+						  ]
+						},
+						{
+						  "type": "box",
+						  "layout": "baseline",
+						  "spacing": "sm",
+						  "contents": [
+							{
+							  "type": "text",
+							  "text": "Time",
+							  "color": "#aaaaaa",
+							  "size": "sm",
+							  "flex": 1
+							},
+							{
+							  "type": "text",
+							  "text": "10:00 - 23:00",
+							  "wrap": true,
+							  "color": "#666666",
+							  "size": "sm",
+							  "flex": 5
+							}
+						  ]
 						}
-					  }`
+					  ]
+					}
+				  ],
+				  "backgroundColor": "#11223333"
+				},
+				"footer": {
+				  "type": "box",
+				  "layout": "vertical",
+				  "spacing": "sm",
+				  "contents": [
+					{
+					  "type": "button",
+					  "style": "link",
+					  "height": "sm",
+					  "action": {
+						"type": "uri",
+						"label": "CALL",
+						"uri": "https://linecorp.com"
+					  }
+					},
+					{
+					  "type": "button",
+					  "style": "link",
+					  "height": "sm",
+					  "action": {
+						"type": "uri",
+						"label": "WEBSITE",
+						"uri": "https://linecorp.com"
+					  }
+					},
+					{
+					  "type": "spacer",
+					  "size": "sm"
+					}
+				  ],
+				  "flex": 0
+				}
+			  }`
 			contents, err := linebot.UnmarshalFlexMessageJSON([]byte(jsonString))
 			if err != nil {
 				return err
