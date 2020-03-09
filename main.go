@@ -386,7 +386,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			).Do(); err != nil {
 				return err
 			}
-		case "flex json":
+		case "json":
 			jsonString := `{
 				"type": "bubble",
 				"header": {
