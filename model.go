@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"math/big"
@@ -78,6 +79,7 @@ func Request(url string, contentType string) []byte {
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println(body)
 	return body
 }
 
