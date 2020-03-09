@@ -234,3 +234,98 @@ func hero_id_to_names(id string) string {
 
 	return hero[id]
 }
+
+func FlexGameJson(title string) string {
+	JsonString := `{
+		"type": "bubble",
+		"header": {
+		  "type": "box",
+		  "layout": "vertical",
+		  "contents": [
+			{
+			  "type": "box",
+			  "layout": "horizontal",
+			  "contents": [
+				{
+				  "type": "image",
+				  "url": "https://giantbomb1.cbsistatic.com/uploads/scale_small/9/97089/2915098-main.jpg",
+				  "size": "full",
+				  "aspectMode": "cover",
+				  "aspectRatio": "4:3",
+				  "gravity": "center"
+				}
+			  ]
+			}
+		  ],
+		  "paddingAll": "0px"
+		},
+		"body": {
+		  "type": "box",
+		  "layout": "vertical",
+		  "contents": [
+			{
+			  "type": "box",
+			  "layout": "vertical",
+			  "contents": [
+				{
+				  "type": "box",
+				  "layout": "vertical",
+				  "contents": [
+					{
+					  "type": "text",
+					  "contents": [],
+					  "size": "xl",
+					  "wrap": true,
+					  "text": ` + title + `,
+					  "color": "#ffffff",
+					  "weight": "bold"
+					},
+					{
+					  "type": "text",
+					  "text": "Release Date : 2016-08-18",
+					  "color": "#ffffffcc",
+					  "size": "sm"
+					},
+					{
+					  "type": "text",
+					  "text": "Platform : PC, PS4, Nintendo Switch",
+					  "color": "#ffffffcc",
+					  "size": "sm"
+					}
+				  ],
+				  "spacing": "sm"
+				},
+				{
+				  "type": "box",
+				  "layout": "vertical",
+				  "contents": [
+					{
+					  "type": "box",
+					  "layout": "vertical",
+					  "contents": [
+						{
+						  "type": "text",
+						  "contents": [],
+						  "size": "sm",
+						  "wrap": true,
+						  "margin": "lg",
+						  "color": "#ffffffde",
+						  "text": "The sixteenth mainline entry in the long-running Tales action-RPG series, following the exploits of a pirate named Velvet."
+						}
+					  ]
+					}
+				  ],
+				  "paddingAll": "13px",
+				  "backgroundColor": "#ffffff1A",
+				  "cornerRadius": "2px",
+				  "margin": "xl"
+				}
+			  ]
+			}
+		  ],
+		  "paddingAll": "20px",
+		  "backgroundColor": "#464F69"
+		}
+	  }`
+	return JsonString
+}
