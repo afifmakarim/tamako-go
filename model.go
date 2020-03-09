@@ -277,7 +277,7 @@ func FlexGameJson(title string) string {
 					  "contents": [],
 					  "size": "xl",
 					  "wrap": true,
-					  "text": ` + title + `,
+					  "text": "tkte",
 					  "color": "#ffffff",
 					  "weight": "bold"
 					},
