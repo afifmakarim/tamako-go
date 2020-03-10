@@ -467,7 +467,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 							}
 						  ],
 						  "paddingAll": "13px",
-						  "backgroundColor": "#aaaaaa",
+						  "backgroundColor": "#EC3D44",
 						  "cornerRadius": "2px",
 						  "margin": "xl"
 						}
@@ -475,7 +475,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 					}
 				  ],
 				  "paddingAll": "20px",
-				  "backgroundColor": "#464F69"
+				  "backgroundColor": "#EC3D44"
 				}
 			  }`
 			contents, err := linebot.UnmarshalFlexMessageJSON([]byte(jsonString))
