@@ -389,153 +389,93 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 		case "json":
 			jsonString := `{
 				"type": "bubble",
-				"hero": {
-				  "type": "image",
-				  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
-				  "size": "full",
-				  "aspectRatio": "20:13",
-				  "aspectMode": "cover",
-				  "action": {
-					"type": "uri",
-					"uri": "http://linecorp.com/"
-				  }
+				"header": {
+				  "type": "box",
+				  "layout": "vertical",
+				  "contents": [
+					{
+					  "type": "box",
+					  "layout": "horizontal",
+					  "contents": [
+						{
+						  "type": "image",
+						  "url": "https://giantbomb1.cbsistatic.com/uploads/scale_small/9/97089/2915098-main.jpg",
+						  "size": "full",
+						  "aspectMode": "cover",
+						  "aspectRatio": "4:3",
+						  "gravity": "center"
+						}
+					  ]
+					}
+				  ],
+				  "paddingAll": "0px"
 				},
 				"body": {
 				  "type": "box",
 				  "layout": "vertical",
 				  "contents": [
 					{
-					  "type": "text",
-					  "text": "Brown Cafe",
-					  "weight": "bold",
-					  "size": "xl"
-					},
-					{
-					  "type": "box",
-					  "layout": "baseline",
-					  "margin": "md",
-					  "contents": [
-						{
-						  "type": "icon",
-						  "size": "sm",
-						  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-						},
-						{
-						  "type": "icon",
-						  "size": "sm",
-						  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-						},
-						{
-						  "type": "icon",
-						  "size": "sm",
-						  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-						},
-						{
-						  "type": "icon",
-						  "size": "sm",
-						  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
-						},
-						{
-						  "type": "icon",
-						  "size": "sm",
-						  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gray_star_28.png"
-						},
-						{
-						  "type": "text",
-						  "text": "4.0",
-						  "size": "sm",
-						  "color": "#999999",
-						  "margin": "md",
-						  "flex": 0
-						}
-					  ]
-					},
-					{
 					  "type": "box",
 					  "layout": "vertical",
-					  "margin": "lg",
-					  "spacing": "sm",
 					  "contents": [
 						{
 						  "type": "box",
-						  "layout": "baseline",
-						  "spacing": "sm",
+						  "layout": "vertical",
 						  "contents": [
 							{
 							  "type": "text",
-							  "text": "Place",
-							  "color": "#aaaaaa",
-							  "size": "sm",
-							  "flex": 1
+							  "contents": [],
+							  "size": "xl",
+							  "wrap": true,
+							  "text": "tkte",
+							  "color": "#ffffff",
+							  "weight": "bold"
 							},
 							{
 							  "type": "text",
-							  "text": "Miraina Tower, 4-1-6 Shinjuku, Tokyo",
-							  "wrap": true,
-							  "color": "#666666",
-							  "size": "sm",
-							  "flex": 5
+							  "text": "Release Date : 2016-08-18",
+							  "color": "#ffffffcc",
+							  "size": "sm"
+							},
+							{
+							  "type": "text",
+							  "text": "Platform : PC, PS4, Nintendo Switch",
+							  "color": "#ffffffcc",
+							  "size": "sm"
 							}
-						  ]
+						  ],
+						  "spacing": "sm"
 						},
 						{
 						  "type": "box",
-						  "layout": "baseline",
-						  "spacing": "sm",
+						  "layout": "vertical",
 						  "contents": [
 							{
-							  "type": "text",
-							  "text": "Time",
-							  "color": "#aaaaaa",
-							  "size": "sm",
-							  "flex": 1
-							},
-							{
-							  "type": "text",
-							  "text": "10:00 - 23:00",
-							  "wrap": true,
-							  "color": "#666666",
-							  "size": "sm",
-							  "flex": 5
+							  "type": "box",
+							  "layout": "vertical",
+							  "contents": [
+								{
+								  "type": "text",
+								  "contents": [],
+								  "size": "sm",
+								  "wrap": true,
+								  "margin": "lg",
+								  "color": "#ffffffde",
+								  "text": "The sixteenth mainline entry in the long-running Tales action-RPG series, following the exploits of a pirate named Velvet."
+								}
+							  ]
 							}
-						  ]
+						  ],
+						  "paddingAll": "13px",
+						  "backgroundColor": "#aaaaaa",
+						  "cornerRadius": "2px",
+						  "margin": "xl"
 						}
 					  ]
 					}
 				  ],
-				  "backgroundColor": "#11223333"
-				},
-				"footer": {
-				  "type": "box",
-				  "layout": "vertical",
-				  "spacing": "sm",
-				  "contents": [
-					{
-					  "type": "button",
-					  "style": "link",
-					  "height": "sm",
-					  "action": {
-						"type": "uri",
-						"label": "CALL",
-						"uri": "https://linecorp.com"
-					  }
-					},
-					{
-					  "type": "button",
-					  "style": "link",
-					  "height": "sm",
-					  "action": {
-						"type": "uri",
-						"label": "WEBSITE",
-						"uri": "https://linecorp.com"
-					  }
-					},
-					{
-					  "type": "spacer",
-					  "size": "sm"
-					}
-				  ],
-				  "flex": 0
+				  "paddingAll": "20px",
+				  "backgroundColor": "#464F69"
 				}
 			  }`
 			contents, err := linebot.UnmarshalFlexMessageJSON([]byte(jsonString))
