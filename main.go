@@ -460,7 +460,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 								  "size": "sm",
 								  "wrap": true,
 								  "margin": "lg",
-								  "color": "#ffffffde",
+								  "color": "#aaaaaa",
 								  "text": "The sixteenth mainline entry in the long-running Tales action-RPG series, following the exploits of a pirate named Velvet."
 								}
 							  ]
