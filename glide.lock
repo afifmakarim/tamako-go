@@ -1,5 +1,5 @@
-hash: 96e0d5a65b2bd9bb2f85bf165757ee4b918633104d6ed05e91b89473665237ae
-updated: 2020-03-02T21:48:02.8688744+07:00
+hash: 27daf177ab66d62215a3333d0f90a7f4c3bb7bbc8ac5f25b713076f9295c640f
+updated: 2020-03-10T19:29:12.907175+07:00
 imports:
 - name: github.com/line/line-bot-sdk-go
   version: d6dc20bb3d2bd5bcaaedee372507b736e68fa2e5
