@@ -861,7 +861,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 		"contents": [ %s ]
 	  }`, strinx)
 	runes := []rune(resultz)
-	exe := string(runes[3:])
+	exe := string(runes[5:])
 
 	// fmt.Println(string(runes[3:]))
 	// fmt.Print("INIIII DIA" + result)
