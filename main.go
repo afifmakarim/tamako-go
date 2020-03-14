@@ -710,12 +710,12 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	json.Unmarshal([]byte(gameApi), &gameList)
 
 	//return app.replyText(replyToken, gameList.Results[0].Image.Small_url)
-	//var values []string
+	var hubb string
 	for i := 0; i <= len(gameList.Results); i++ {
 		//values := []string{}
 		title := gameList.Results[i].Name
 
-		hubb := fmt.Sprintf(`{
+		hubb = fmt.Sprintf(`{
 		  "type": "bubble",
 		  "hero": {
 			"type": "image",
@@ -845,28 +845,26 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			"flex": 0
 		  }
 		}`, title)
-		fmt.Print(hubb)
 	}
 	//value := strings.Join(values, ",")
 
-	return app.replyText(replyToken, "NAMEK")
-	// ea := strings.Join(konten, ", ")
-	// result := fmt.Sprintf(`{
-	// 	"type": "carousel",
-	// 	"contents": [ %s ]
-	//   }`, ea)
-	// fmt.Println(result)
-	// contents, err := linebot.UnmarshalFlexMessageJSON([]byte(result))
-	// if err != nil {
-	// 	return err
-	// }
-	// if _, err := app.bot.ReplyMessage(
-	// 	replyToken,
-	// 	linebot.NewFlexMessage("Flex message alt text", contents),
-	// ).Do(); err != nil {
-	// 	return err
-	// }
-	// return nil
+	//return app.replyText(replyToken, "NAMEK")
+	result := fmt.Sprintf(`{
+		"type": "carousel",
+		"contents": [ %s ]
+	  }`, hubb)
+	fmt.Println(result)
+	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(result))
+	if err != nil {
+		return err
+	}
+	if _, err := app.bot.ReplyMessage(
+		replyToken,
+		linebot.NewFlexMessage("Flex message alt text", contents),
+	).Do(); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (app *TamakoBot) dotaMessage(message string, replyToken string) error {
