@@ -704,7 +704,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	gameApi := Request("https://www.giantbomb.com/api/search/?api_key=a0bede1760f86f2f59ff3ac477c953fed643ea0b&resources=game&query="+queryGame+"&format=json&limit=5", "lashaparesha api script")
 	json.Unmarshal([]byte(gameApi), &gameList)
 
-	countArray := len(gameList.Results)
+	//countArray := len(gameList.Results)
 	jsonString := `{
 		"type": "carousel",
 		"contents": [
