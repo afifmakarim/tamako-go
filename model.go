@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"math/big"
@@ -262,7 +261,7 @@ func FlexGameJson(title string, Count int) string {
 			  "contents": [
 				{
 				  "type": "text",
-				  "text": ` + fmt.Println(title) + `,
+				  "text": ` + title + `,
 				  "weight": "bold",
 				  "size": "xl"
 				},
