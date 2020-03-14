@@ -858,7 +858,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 
 	resultz := fmt.Sprintf(`{
 		"type": "carousel",
-		"contents": [ %s ]
+		"contents": [%s]
 	  }`, strinx)
 	// runes := []rune(resultz)
 	// exe := string(runes[5:])
