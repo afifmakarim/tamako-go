@@ -727,7 +727,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			  "contents": [
 				{
 				  "type": "text",
-				  "text": ` + gameList.Results[0].Name + `,
+				  "text": "aaa",
 				  "weight": "bold",
 				  "size": "xl"
 				},
