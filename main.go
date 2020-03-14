@@ -708,7 +708,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	var konten []string
 	for i := 0; i <= len(gameList.Results); i++ {
 		//values := []string{}
-		title := gameList.Results[i].Name
+		//title := gameList.Results[i].Name
 
 		//return app.replyText(replyToken, title)
 		konten := []string{`{
@@ -730,7 +730,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			"contents": [
 			  {
 				"type": "text",
-				"text": "` + title + `",
+				"text": "aaaa",
 				"weight": "bold",
 				"size": "xl"
 			  },
