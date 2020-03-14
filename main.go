@@ -713,8 +713,9 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	//var result string
 	var hubb string
 	// var listView []byte
-
-	result := make([]string, len(gameList.Results))
+	hitung := len(gameList.Results)
+	fmt.Println("INIIIIIII NIHHH", hitung)
+	result := make([]string, 3)
 
 	for _, details := range gameList.Results {
 
