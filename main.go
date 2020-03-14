@@ -841,17 +841,17 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	// 	]
 	//   }`, gameList.Results2.Small_url, gameList.Results1[0].Name)
 
-	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(result))
-	if err != nil {
-		return err
-	}
-	if _, err := app.bot.ReplyMessage(
-		replyToken,
-		linebot.NewFlexMessage("Flex message alt text", contents),
-	).Do(); err != nil {
-		return err
-	}
-	return nil
+	// contents, err := linebot.UnmarshalFlexMessageJSON([]byte(result))
+	// if err != nil {
+	// 	return err
+	// }
+	// if _, err := app.bot.ReplyMessage(
+	// 	replyToken,
+	// 	linebot.NewFlexMessage("Flex message alt text", contents),
+	// ).Do(); err != nil {
+	// 	return err
+	// }
+	// return nil
 }
 
 func (app *TamakoBot) dotaMessage(message string, replyToken string) error {
