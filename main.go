@@ -711,7 +711,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 		title = gameList.Results[i].Name
 		fmt.Printf("%v", title)
 	}
-	return app.replyText(replyToken, title))
+	return app.replyText(replyToken, title)
 	// 	konten = fmt.Sprintf(`{
 	// 	  "type": "bubble",
 	// 	  "hero": {
