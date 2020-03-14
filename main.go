@@ -852,21 +852,23 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			"type": "carousel",
 			"contents": [ %s ]
 		  }`, hubb)
-	}
-	fmt.Printf("%v\n", result)
-	// fmt.Printf("%s", hubb)
-	// return app.replyText(replyToken, hubb)
 
-	//fmt.Println(result)
-	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(result))
-	if err != nil {
-		return err
-	}
-	if _, err := app.bot.ReplyMessage(
-		replyToken,
-		linebot.NewFlexMessage("Flex message alt text", contents),
-	).Do(); err != nil {
-		return err
+		fmt.Printf("%v\n", result)
+		// fmt.Printf("%s", hubb)
+		// return app.replyText(replyToken, hubb)
+
+		//fmt.Println(result)
+		contents, err := linebot.UnmarshalFlexMessageJSON([]byte(result))
+		if err != nil {
+			return err
+		}
+		if _, err := app.bot.ReplyMessage(
+			replyToken,
+			linebot.NewFlexMessage("Flex message alt text", contents),
+		).Do(); err != nil {
+			return err
+		}
+
 	}
 	return nil
 }
