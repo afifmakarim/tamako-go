@@ -848,23 +848,23 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	}
 	//value := strings.Join(values, ",")
 
-	//return app.replyText(replyToken, "NAMEK")
-	result := fmt.Sprintf(`{
-		"type": "carousel",
-		"contents": [ %s ]
-	  }`, hubb)
-	fmt.Println(result)
-	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(result))
-	if err != nil {
-		return err
-	}
-	if _, err := app.bot.ReplyMessage(
-		replyToken,
-		linebot.NewFlexMessage("Flex message alt text", contents),
-	).Do(); err != nil {
-		return err
-	}
-	return nil
+	return app.replyText(replyToken, hubb)
+	// result := fmt.Sprintf(`{
+	// 	"type": "carousel",
+	// 	"contents": [ %s ]
+	//   }`, hubb)
+	// fmt.Println(result)
+	// contents, err := linebot.UnmarshalFlexMessageJSON([]byte(result))
+	// if err != nil {
+	// 	return err
+	// }
+	// if _, err := app.bot.ReplyMessage(
+	// 	replyToken,
+	// 	linebot.NewFlexMessage("Flex message alt text", contents),
+	// ).Do(); err != nil {
+	// 	return err
+	// }
+	// return nil
 }
 
 func (app *TamakoBot) dotaMessage(message string, replyToken string) error {
