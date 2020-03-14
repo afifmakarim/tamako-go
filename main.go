@@ -710,12 +710,12 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	json.Unmarshal([]byte(gameApi), &gameList)
 
 	//return app.replyText(replyToken, gameList.Results[0].Image.Small_url)
-	var values []string
+	//var values []string
 	for i := 0; i <= len(gameList.Results); i++ {
 		//values := []string{}
 		title := gameList.Results[i].Name
 
-		values := fmt.Sprintf(`{
+		hubb := fmt.Sprintf(`{
 		  "type": "bubble",
 		  "hero": {
 			"type": "image",
@@ -845,12 +845,11 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			"flex": 0
 		  }
 		}`, title)
-
-		_ = values
+		fmt.Print(hubb)
 	}
-	value := strings.Join(values, ",")
+	//value := strings.Join(values, ",")
 
-	return app.replyText(replyToken, value)
+	return app.replyText(replyToken, "NAMEK")
 	// ea := strings.Join(konten, ", ")
 	// result := fmt.Sprintf(`{
 	// 	"type": "carousel",
