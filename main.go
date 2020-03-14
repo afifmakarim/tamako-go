@@ -853,7 +853,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			"contents": [ %s ]
 		  }`, hubb)
 
-		fmt.Printf("%v\n", result)
+		fmt.Print("INIIII DIA" + result)
 		// fmt.Printf("%s", hubb)
 		// return app.replyText(replyToken, hubb)
 
