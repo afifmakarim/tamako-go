@@ -712,7 +712,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	//return app.replyText(replyToken, gameList.Results[0].Image.Small_url)
 	//var result string
 	var hubb string
-	var listView []byte
+	// var listView []byte
 
 	hitungCount := len(gameList.Results)
 
@@ -855,20 +855,19 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 
 		result = append(result, hubb)
 	}
-	fmt.Println(strings.Join(result, ","))
+	strinx := strings.Join(result, ",")
 
-	// fmt.Printf("%v\n", hubb)
-	// result = fmt.Sprintf(`{
-	// 	"type": "carousel",
-	// 	"contents": [ %s ]
-	//   }`, hubb)
+	resultz := fmt.Sprintf(`{
+		"type": "carousel",
+		"contents": [ %s ]
+	  }`, strinx)
 
 	// fmt.Print("INIIII DIA" + result)
 	// fmt.Printf("%s", hubb)
 	// return app.replyText(replyToken, hubb)
 
 	//fmt.Println(result)
-	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(listView))
+	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(resultz))
 	if err != nil {
 		return err
 	}
