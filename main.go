@@ -388,95 +388,138 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			}
 		case "json":
 			jsonString := `{
-				"type": "bubble",
-				"header": {
-				  "type": "box",
-				  "layout": "vertical",
-				  "contents": [
-					{
-					  "type": "box",
-					  "layout": "horizontal",
-					  "contents": [
-						{
-						  "type": "image",
-						  "url": "https://giantbomb1.cbsistatic.com/uploads/scale_small/9/97089/2915098-main.jpg",
-						  "size": "full",
-						  "aspectMode": "cover",
-						  "aspectRatio": "4:3",
-						  "gravity": "center"
-						}
-					  ]
-					}
-				  ],
-				  "paddingAll": "0px"
-				},
-				"body": {
-				  "type": "box",
-				  "layout": "vertical",
-				  "contents": [
-					{
+				"type": "carousel",
+				"contents": [
+				  {
+					"type": "bubble",
+					"hero": {
+					  "type": "image",
+					  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+					  "size": "full",
+					  "aspectRatio": "20:13",
+					  "aspectMode": "cover",
+					  "action": {
+						"type": "uri",
+						"uri": "http://linecorp.com/"
+					  }
+					},
+					"body": {
 					  "type": "box",
 					  "layout": "vertical",
 					  "contents": [
 						{
+						  "type": "text",
+						  "text": "Tales of Berseria",
+						  "weight": "bold",
+						  "size": "xl"
+						},
+						{
 						  "type": "box",
 						  "layout": "vertical",
+						  "margin": "lg",
+						  "spacing": "sm",
 						  "contents": [
 							{
-							  "type": "text",
-							  "contents": [],
-							  "size": "xl",
-							  "wrap": true,
-							  "text": "tkte",
-							  "color": "#ffffff",
-							  "weight": "bold"
+							  "type": "box",
+							  "layout": "baseline",
+							  "spacing": "sm",
+							  "contents": [
+								{
+								  "type": "text",
+								  "text": "Release Date",
+								  "color": "#aaaaaa",
+								  "size": "sm",
+								  "flex": 3,
+								  "wrap": true
+								},
+								{
+								  "type": "text",
+								  "text": "2016-08-18",
+								  "wrap": true,
+								  "color": "#666666",
+								  "size": "sm",
+								  "flex": 5
+								}
+							  ]
 							},
 							{
-							  "type": "text",
-							  "text": "Release Date : 2016-08-18",
-							  "color": "#ffffffcc",
-							  "size": "sm"
-							},
-							{
-							  "type": "text",
-							  "text": "Platform : PC, PS4, Nintendo Switch",
-							  "color": "#ffffffcc",
-							  "size": "sm"
+							  "type": "box",
+							  "layout": "baseline",
+							  "spacing": "sm",
+							  "contents": [
+								{
+								  "type": "text",
+								  "text": "Platform",
+								  "color": "#aaaaaa",
+								  "size": "sm",
+								  "flex": 3
+								},
+								{
+								  "type": "text",
+								  "text": "PC, PS4, Nintendo Switch",
+								  "wrap": true,
+								  "color": "#666666",
+								  "size": "sm",
+								  "flex": 5
+								}
+							  ]
 							}
-						  ],
-						  "spacing": "sm"
+						  ]
 						},
 						{
 						  "type": "box",
 						  "layout": "vertical",
 						  "contents": [
 							{
+							  "type": "text",
+							  "text": "Description :",
+							  "weight": "bold",
+							  "size": "sm"
+							},
+							{
 							  "type": "box",
 							  "layout": "vertical",
 							  "contents": [
 								{
 								  "type": "text",
-								  "contents": [],
-								  "size": "sm",
-								  "wrap": true,
+								  "text": "The sixteenth mainline entry in the long-running Tales action-RPG series, following the exploits of a pirate named Velvet.",
 								  "margin": "lg",
-								  "color": "#EC3D44",
-								  "text": "The sixteenth mainline entry in the long-running Tales action-RPG series, following the exploits of a pirate named Velvet."
+								  "size": "sm",
+								  "wrap": true
 								}
-							  ]
+							  ],
+							  "paddingTop": "5px"
 							}
 						  ],
-						  "paddingAll": "13px",
-						  "backgroundColor": "#EC3D44",
-						  "cornerRadius": "2px",
-						  "margin": "xl"
+						  "margin": "xl",
+						  "cornerRadius": "2px"
 						}
 					  ]
+					},
+					"footer": {
+					  "type": "box",
+					  "layout": "vertical",
+					  "spacing": "sm",
+					  "contents": [
+						{
+						  "type": "button",
+						  "style": "link",
+						  "height": "sm",
+						  "action": {
+							"type": "uri",
+							"label": "Open in Browser",
+							"uri": "https://linecorp.com"
+						  }
+						},
+						{
+						  "type": "spacer",
+						  "size": "sm"
+						}
+					  ],
+					  "flex": 0
 					}
-				  ],
-				  "paddingAll": "20px",
-				  "backgroundColor": "#EC3D44"
-				}
+				  }
+				]
 			  }`
 			contents, err := linebot.UnmarshalFlexMessageJSON([]byte(jsonString))
 			if err != nil {
