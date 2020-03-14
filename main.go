@@ -848,7 +848,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 		  }
 		}`, title)
 	}
-	fmt.Print(hubb)
+	fmt.Println(hubb)
 	// return app.replyText(replyToken, hubb)
 	result := fmt.Sprintf(`{
 		"type": "carousel",
