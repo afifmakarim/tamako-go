@@ -860,7 +860,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	resultz := fmt.Sprintf(`{
 		"type": "carousel",
 		"contents": [%s]
-	  }`, strinx)
+	  }`, exe)
 
 	// fmt.Println(string(runes[3:]))
 	// fmt.Print("INIIII DIA" + result)
