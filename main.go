@@ -705,7 +705,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	json.Unmarshal([]byte(gameApi), &gameList)
 	//return app.replyText(replyToken, gameList.Results[0].Name)
 	//countArray := len(gameList.Results)
-	jsonString := `{
+	result := fmt.Sprintf(`{
 		"type": "carousel",
 		"contents": [
 		  {
@@ -727,7 +727,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			  "contents": [
 				{
 				  "type": "text",
-				  "text": "aaa",
+				  "text": "%s",
 				  "weight": "bold",
 				  "size": "xl"
 				},
@@ -839,8 +839,9 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			}
 		  }
 		]
-	  }`
-	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(jsonString))
+	  }`, gameList.Results[0].Name)
+
+	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(result))
 	if err != nil {
 		return err
 	}
