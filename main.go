@@ -715,137 +715,137 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 
 		//values := []string{}
 		title := s.Name
-		fmt.Println(title)
-		// hubb = fmt.Sprintf(`{
-		//   "type": "bubble",
-		//   "hero": {
-		// 	"type": "image",
-		// 	"url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
-		// 	"size": "full",
-		// 	"aspectRatio": "20:13",
-		// 	"aspectMode": "cover",
-		// 	"action": {
-		// 	  "type": "uri",
-		// 	  "uri": "http://linecorp.com/"
-		// 	}
-		//   },
-		//   "body": {
-		// 	"type": "box",
-		// 	"layout": "vertical",
-		// 	"contents": [
-		// 	  {
-		// 		"type": "text",
-		// 		"text": "%s",
-		// 		"weight": "bold",
-		// 		"size": "xl"
-		// 	  },
-		// 	  {
-		// 		"type": "box",
-		// 		"layout": "vertical",
-		// 		"margin": "lg",
-		// 		"spacing": "sm",
-		// 		"contents": [
-		// 		  {
-		// 			"type": "box",
-		// 			"layout": "baseline",
-		// 			"spacing": "sm",
-		// 			"contents": [
-		// 			  {
-		// 				"type": "text",
-		// 				"text": "Release Date",
-		// 				"color": "#aaaaaa",
-		// 				"size": "sm",
-		// 				"flex": 3,
-		// 				"wrap": true
-		// 			  },
-		// 			  {
-		// 				"type": "text",
-		// 				"text": "2016-08-18",
-		// 				"wrap": true,
-		// 				"color": "#666666",
-		// 				"size": "sm",
-		// 				"flex": 5
-		// 			  }
-		// 			]
-		// 		  },
-		// 		  {
-		// 			"type": "box",
-		// 			"layout": "baseline",
-		// 			"spacing": "sm",
-		// 			"contents": [
-		// 			  {
-		// 				"type": "text",
-		// 				"text": "Platform",
-		// 				"color": "#aaaaaa",
-		// 				"size": "sm",
-		// 				"flex": 3
-		// 			  },
-		// 			  {
-		// 				"type": "text",
-		// 				"text": "PC, PS4, Nintendo Switch",
-		// 				"wrap": true,
-		// 				"color": "#666666",
-		// 				"size": "sm",
-		// 				"flex": 5
-		// 			  }
-		// 			]
-		// 		  }
-		// 		]
-		// 	  },
-		// 	  {
-		// 		"type": "box",
-		// 		"layout": "vertical",
-		// 		"contents": [
-		// 		  {
-		// 			"type": "text",
-		// 			"text": "Description :",
-		// 			"weight": "bold",
-		// 			"size": "sm"
-		// 		  },
-		// 		  {
-		// 			"type": "box",
-		// 			"layout": "vertical",
-		// 			"contents": [
-		// 			  {
-		// 				"type": "text",
-		// 				"text": "The sixteenth mainline entry in the long-running Tales action-RPG series, following the exploits of a pirate named Velvet.",
-		// 				"margin": "lg",
-		// 				"size": "sm",
-		// 				"wrap": true
-		// 			  }
-		// 			],
-		// 			"paddingTop": "5px"
-		// 		  }
-		// 		],
-		// 		"margin": "xl",
-		// 		"cornerRadius": "2px"
-		// 	  }
-		// 	],
-		// 	"backgroundColor": "#aaaaaa"
-		//   },
-		//   "footer": {
-		// 	"type": "box",
-		// 	"layout": "vertical",
-		// 	"spacing": "sm",
-		// 	"contents": [
-		// 	  {
-		// 		"type": "button",
-		// 		"style": "link",
-		// 		"height": "sm",
-		// 		"action": {
-		// 		  "type": "uri",
-		// 		  "label": "Open in Browser",
-		// 		  "uri": "https://linecorp.com"
-		// 		}
-		// 	  },
-		// 	  {
-		// 		"type": "spacer",
-		// 		"size": "sm"
-		// 	  }
-		// 	],
-		// 	"flex": 0
-		//   }
-		// }`, title)
+
+		hubb = fmt.Sprintf(`{
+		  "type": "bubble",
+		  "hero": {
+			"type": "image",
+			"url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+			"size": "full",
+			"aspectRatio": "20:13",
+			"aspectMode": "cover",
+			"action": {
+			  "type": "uri",
+			  "uri": "http://linecorp.com/"
+			}
+		  },
+		  "body": {
+			"type": "box",
+			"layout": "vertical",
+			"contents": [
+			  {
+				"type": "text",
+				"text": "%s",
+				"weight": "bold",
+				"size": "xl"
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"margin": "lg",
+				"spacing": "sm",
+				"contents": [
+				  {
+					"type": "box",
+					"layout": "baseline",
+					"spacing": "sm",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "Release Date",
+						"color": "#aaaaaa",
+						"size": "sm",
+						"flex": 3,
+						"wrap": true
+					  },
+					  {
+						"type": "text",
+						"text": "2016-08-18",
+						"wrap": true,
+						"color": "#666666",
+						"size": "sm",
+						"flex": 5
+					  }
+					]
+				  },
+				  {
+					"type": "box",
+					"layout": "baseline",
+					"spacing": "sm",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "Platform",
+						"color": "#aaaaaa",
+						"size": "sm",
+						"flex": 3
+					  },
+					  {
+						"type": "text",
+						"text": "PC, PS4, Nintendo Switch",
+						"wrap": true,
+						"color": "#666666",
+						"size": "sm",
+						"flex": 5
+					  }
+					]
+				  }
+				]
+			  },
+			  {
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "text",
+					"text": "Description :",
+					"weight": "bold",
+					"size": "sm"
+				  },
+				  {
+					"type": "box",
+					"layout": "vertical",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "The sixteenth mainline entry in the long-running Tales action-RPG series, following the exploits of a pirate named Velvet.",
+						"margin": "lg",
+						"size": "sm",
+						"wrap": true
+					  }
+					],
+					"paddingTop": "5px"
+				  }
+				],
+				"margin": "xl",
+				"cornerRadius": "2px"
+			  }
+			],
+			"backgroundColor": "#aaaaaa"
+		  },
+		  "footer": {
+			"type": "box",
+			"layout": "vertical",
+			"spacing": "sm",
+			"contents": [
+			  {
+				"type": "button",
+				"style": "link",
+				"height": "sm",
+				"action": {
+				  "type": "uri",
+				  "label": "Open in Browser",
+				  "uri": "https://linecorp.com"
+				}
+			  },
+			  {
+				"type": "spacer",
+				"size": "sm"
+			  }
+			],
+			"flex": 0
+		  }
+		}`, title)
 		//fmt.Print(hubb)
 	}
 	fmt.Println("Made 10000 random strings like" + hubb)
