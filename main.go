@@ -709,7 +709,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	for i := 0; i <= len(gameList.Results); i++ {
 		//values := []string{}
 		title = gameList.Results[i].Name
-		fmt.Printf("%v", title)
+		fmt.Println(title)
 	}
 	return app.replyText(replyToken, title)
 	// 	konten = fmt.Sprintf(`{
