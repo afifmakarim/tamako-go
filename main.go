@@ -847,7 +847,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 		}`, title)
 		//fmt.Print(hubb)
 	}
-	fmt.Println("Made 10000 random strings like", hubb)
+	fmt.Println("Made 10000 random strings like" + hubb)
 	return app.replyText(replyToken, hubb)
 	// result := fmt.Sprintf(`{
 	// 	"type": "carousel",
