@@ -839,7 +839,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			}
 		  }
 		]
-	  }`, gameList.Results2.Small_url, gameList.Results[0].Name)
+	  }`, gameList.Results2.Small_url, gameList.Results1[0].Name)
 
 	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(result))
 	if err != nil {
