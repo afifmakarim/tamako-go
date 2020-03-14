@@ -712,10 +712,10 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	//return app.replyText(replyToken, gameList.Results[0].Image.Small_url)
 	var key string
 	var hubb string
-	for _, s := range gameList.Results {
+	for i := 1; i < len(gameList.Results); i++ {
 
 		//values := []string{}
-		title := s.Name
+		title := gameList.Results[i].Name
 
 		hubb = fmt.Sprintf(`{
 		  "type": "bubble",
