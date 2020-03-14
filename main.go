@@ -860,27 +860,27 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 		"type": "carousel",
 		"contents": [%s]
 	  }`, strinx)
-	runes := []rune(resultz)
-	exe := string(runes[6:])
+	//runes := []rune(resultz)
+	//exe := string(runes[6:])
 
 	// fmt.Println(string(runes[3:]))
 	// fmt.Print("INIIII DIA" + result)
 	// fmt.Printf("%s", hubb)
-	// return app.replyText(replyToken, hubb)
+	return app.replyText(replyToken, resultz)
 
-	fmt.Println(exe)
-	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(exe))
-	if err != nil {
-		return err
-	}
-	if _, err := app.bot.ReplyMessage(
-		replyToken,
-		linebot.NewFlexMessage("Flex message alt text", contents),
-	).Do(); err != nil {
-		return err
-	}
+	// fmt.Println(resultz)
+	// contents, err := linebot.UnmarshalFlexMessageJSON([]byte(resultz))
+	// if err != nil {
+	// 	return err
+	// }
+	// if _, err := app.bot.ReplyMessage(
+	// 	replyToken,
+	// 	linebot.NewFlexMessage("Flex message alt text", contents),
+	// ).Do(); err != nil {
+	// 	return err
+	// }
 
-	return nil
+	// return nil
 }
 
 func (app *TamakoBot) dotaMessage(message string, replyToken string) error {
