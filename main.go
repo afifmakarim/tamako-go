@@ -854,13 +854,13 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 
 		result = append(result, hubb)
 	}
-	strinx := strings.Join(result, ",")
+	strinx := strings.Join(result, "")
 
 	resultz := fmt.Sprintf(`{
 		"type": "carousel",
 		"contents": [ %s ]
 	  }`, strinx)
-	//fmt.Println(resultz)
+	fmt.Println(resultz)
 	// fmt.Print("INIIII DIA" + result)
 	// fmt.Printf("%s", hubb)
 	// return app.replyText(replyToken, hubb)
