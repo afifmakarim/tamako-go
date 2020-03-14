@@ -848,13 +848,13 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 		  }
 		}`, title)
 	}
-	fmt.Println(hubb)
+	fmt.Printf("%s", hubb)
 	// return app.replyText(replyToken, hubb)
 	result := fmt.Sprintf(`{
 		"type": "carousel",
 		"contents": [ %s ]
 	  }`, key)
-	fmt.Println(result)
+	//fmt.Println(result)
 	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(result))
 	if err != nil {
 		return err
