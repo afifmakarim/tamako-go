@@ -705,12 +705,15 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	json.Unmarshal([]byte(gameApi), &gameList)
 
 	//return app.replyText(replyToken, gameList.Results[0].Image.Small_url)
-	konten := `[
-		{
+	var konten string
+	for i := 0; i <= len(gameList.Results); i++ {
+		//values := []string{}
+		title := gameList.Results[i].Image.Small_url
+		konten = fmt.Sprintf(`{
 		  "type": "bubble",
 		  "hero": {
 			"type": "image",
-			"url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+			"url": "%s",
 			"size": "full",
 			"aspectRatio": "20:13",
 			"aspectMode": "cover",
@@ -835,11 +838,12 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			],
 			"flex": 0
 		  }
-		}
-	  ]`
+		}`, title)
+
+	}
 	result := fmt.Sprintf(`{
 		"type": "carousel",
-		"contents": %s
+		"contents": [ %s ]
 	  }`, konten)
 
 	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(result))
