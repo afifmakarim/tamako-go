@@ -860,16 +860,16 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 		"type": "carousel",
 		"contents": [%s]
 	  }`, strinx)
-	//runes := []rune(resultz)
-	//exe := string(runes[6:])
+	runes := []rune(resultz)
+	exe := string(runes[hitung:])
 
 	// fmt.Println(string(runes[3:]))
 	// fmt.Print("INIIII DIA" + result)
 	// fmt.Printf("%s", hubb)
 	// return app.replyText(replyToken, hubb)
 
-	fmt.Println("WADOOOHHH" + strinx)
-	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(resultz))
+	fmt.Println("WADOOOHHH" + exe)
+	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(exe))
 	if err != nil {
 		return err
 	}
