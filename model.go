@@ -48,7 +48,8 @@ type DotaMatch struct {
 }
 
 type GameList struct {
-	Results []GameObject
+	Results1 []GameObject
+	Results2 GameImage
 }
 
 type GameObject struct {

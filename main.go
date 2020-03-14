@@ -712,7 +712,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			"type": "bubble",
 			"hero": {
 			  "type": "image",
-			  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+			  "url": "%s",
 			  "size": "full",
 			  "aspectRatio": "20:13",
 			  "aspectMode": "cover",
@@ -839,7 +839,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			}
 		  }
 		]
-	  }`, gameList.Results[0].Name)
+	  }`, gameList.Results2.Small_url, gameList.Results[0].Name)
 
 	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(result))
 	if err != nil {
