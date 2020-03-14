@@ -710,7 +710,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	json.Unmarshal([]byte(gameApi), &gameList)
 
 	//return app.replyText(replyToken, gameList.Results[0].Image.Small_url)
-	var key string
+	var result string
 	var hubb string
 	for i := 1; i < len(gameList.Results); i++ {
 
@@ -847,15 +847,16 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			"flex": 0
 		  }
 		}`, title)
-		fmt.Printf("%v\n", hubb)
+		// fmt.Printf("%v\n", hubb)
+		result = fmt.Sprintf(`{
+			"type": "carousel",
+			"contents": [ %s ]
+		  }`, hubb)
 	}
-
+	fmt.Printf("%v\n", result)
 	// fmt.Printf("%s", hubb)
 	// return app.replyText(replyToken, hubb)
-	result := fmt.Sprintf(`{
-		"type": "carousel",
-		"contents": [ %s ]
-	  }`, key)
+
 	//fmt.Println(result)
 	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(result))
 	if err != nil {
