@@ -48,14 +48,14 @@ type DotaMatch struct {
 }
 
 type GameList struct {
-	Results1 []GameObject
-	Results2 GameImage
+	Results []GameObject
 }
 
 type GameObject struct {
 	Id                    int
 	Name                  string
 	Original_release_date string
+	Image                 GameImage
 }
 
 type GameImage struct {
