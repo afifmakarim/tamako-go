@@ -710,14 +710,19 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	json.Unmarshal([]byte(gameApi), &gameList)
 
 	//return app.replyText(replyToken, gameList.Results[0].Image.Small_url)
-	var result string
+	//var result string
 	var hubb string
-	for i := 1; i < len(gameList.Results); i++ {
+	var listView []byte
 
-		//values := []string{}
-		title := gameList.Results[i].Name
+	hitungCount := len(gameList.Results)
 
-		hubb = fmt.Sprintf(`{
+	result := make([]string, hitungCount)
+
+	for _, details := range gameList.Results {
+
+		title := details.Name
+
+		hubb = `{
 		  "type": "bubble",
 		  "hero": {
 			"type": "image",
@@ -736,7 +741,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			"contents": [
 			  {
 				"type": "text",
-				"text": "%s",
+				"text": "` + title + `",
 				"weight": "bold",
 				"size": "xl"
 			  },
@@ -846,30 +851,34 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			],
 			"flex": 0
 		  }
-		}`, title)
-		// fmt.Printf("%v\n", hubb)
-		result = fmt.Sprintf(`{
-			"type": "carousel",
-			"contents": [ %s ]
-		  }`, hubb)
+		}`
 
-		fmt.Print("INIIII DIA" + result)
-		// fmt.Printf("%s", hubb)
-		// return app.replyText(replyToken, hubb)
-
-		//fmt.Println(result)
-		contents, err := linebot.UnmarshalFlexMessageJSON([]byte(result))
-		if err != nil {
-			return err
-		}
-		if _, err := app.bot.ReplyMessage(
-			replyToken,
-			linebot.NewFlexMessage("Flex message alt text", contents),
-		).Do(); err != nil {
-			return err
-		}
-
+		result = append(result, hubb)
 	}
+	fmt.Println(strings.Join(result, ","))
+
+	// fmt.Printf("%v\n", hubb)
+	// result = fmt.Sprintf(`{
+	// 	"type": "carousel",
+	// 	"contents": [ %s ]
+	//   }`, hubb)
+
+	// fmt.Print("INIIII DIA" + result)
+	// fmt.Printf("%s", hubb)
+	// return app.replyText(replyToken, hubb)
+
+	//fmt.Println(result)
+	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(listView))
+	if err != nil {
+		return err
+	}
+	if _, err := app.bot.ReplyMessage(
+		replyToken,
+		linebot.NewFlexMessage("Flex message alt text", contents),
+	).Do(); err != nil {
+		return err
+	}
+
 	return nil
 }
 
