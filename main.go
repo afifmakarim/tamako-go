@@ -714,9 +714,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	var hubb string
 	// var listView []byte
 
-	hitungCount := len(gameList.Results)
-
-	result := make([]string, hitungCount)
+	result := make([]string, len(gameList.Results))
 
 	for _, details := range gameList.Results {
 
@@ -861,7 +859,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 		"type": "carousel",
 		"contents": [ %s ]
 	  }`, strinx)
-	fmt.Print(resultz)
+	fmt.Println(resultz)
 	// fmt.Print("INIIII DIA" + result)
 	// fmt.Printf("%s", hubb)
 	// return app.replyText(replyToken, hubb)
