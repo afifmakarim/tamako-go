@@ -494,7 +494,8 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 						  "margin": "xl",
 						  "cornerRadius": "2px"
 						}
-					  ]
+					  ],
+					  "backgroundColor": "#aaaaaa"
 					},
 					"footer": {
 					  "type": "box",
