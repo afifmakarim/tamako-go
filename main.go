@@ -868,7 +868,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	// fmt.Printf("%s", hubb)
 	// return app.replyText(replyToken, hubb)
 
-	//fmt.Println(result)
+	fmt.Println(exe)
 	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(exe))
 	if err != nil {
 		return err
