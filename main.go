@@ -698,6 +698,11 @@ func (app *TamakoBot) handleSticker(message *linebot.StickerMessage, replyToken 
 	return nil
 }
 
+// func joinTag(article string )[]string {
+// 	tags := strings.Split(article, ",")
+//     return tags
+// }
+
 func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	var gameList GameList
 	queryGame := Rawurlencode(message)
@@ -705,12 +710,12 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	json.Unmarshal([]byte(gameApi), &gameList)
 
 	//return app.replyText(replyToken, gameList.Results[0].Image.Small_url)
-	//var konten []string
+	var values []string
 	for i := 0; i <= len(gameList.Results); i++ {
 		//values := []string{}
 		title := gameList.Results[i].Name
 
-		fmt.Printf(`{
+		values := fmt.Sprintf(`{
 		  "type": "bubble",
 		  "hero": {
 			"type": "image",
@@ -841,8 +846,11 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 		  }
 		}`, title)
 
+		_ = values
 	}
-	return app.replyText(replyToken, "Namek")
+	value := strings.Join(values, ",")
+
+	return app.replyText(replyToken, value)
 	// ea := strings.Join(konten, ", ")
 	// result := fmt.Sprintf(`{
 	// 	"type": "carousel",
