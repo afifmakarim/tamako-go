@@ -969,6 +969,9 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 		}
 		join_genre := strings.Join(genresArray, ", ")
 
+		fmt.Println(join_genre)
+		fmt.Println(get_genre_endpoint)
+
 		jsonString := `{
 			"type": "bubble",
 			"hero": {
