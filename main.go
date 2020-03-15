@@ -940,10 +940,12 @@ func (app *TamakoBot) dotaMessage(message string, replyToken string) error {
 
 func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 	var getManga MangaApi
+	//var getGenre MangaApi
 	get_manga := getData("https://kitsu.io/api/edge/manga?filter[text]=" + message + "&page[limit]=3&page[offset]=0")
 	json.Unmarshal([]byte(get_manga), &getManga)
+	get_genre_endpoint := getManga.Data[0].Relationships.Links.Self
 
-	return app.replyText(replyToken, getManga.Data[0].Attributes.CanonicalTitle)
+	return app.replyText(replyToken, getManga.Data[0].Attributes.CanonicalTitle+get_genre_endpoint)
 }
 
 func (app *TamakoBot) replyText(replyToken, text string) error {
