@@ -742,11 +742,13 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			deck := defaultValue(details.Deck)
 			countPlat := len(details.Platforms)
 			platforms := make([]string, countPlat)
-			joinPlat := strings.Join(platforms, ",")
+
 			for _, plat := range details.Platforms {
 				platform := plat.Name
 				result = append(platforms, platform)
 			}
+
+			joinPlat := strings.Join(platforms, ",")
 
 			jsonString = `{
 		  "type": "bubble",
