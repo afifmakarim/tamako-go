@@ -950,6 +950,7 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 		title := details.Attributes.CanonicalTitle
 		image := details.Attributes.PosterImage.Medium
 		status := defaultValue(details.Attributes.Status)
+		rating := defaultValue(details.Attributes.AverageRating)
 		synopsis := defaultValue(details.Attributes.Synopsis)
 		jsonString := `{
 			"type": "bubble",
@@ -999,7 +1000,29 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 						  "flex": 5
 						}
 					  ]
-					},
+					},{
+						"type": "box",
+						"layout": "baseline",
+						"spacing": "sm",
+						"contents": [
+						  {
+							"type": "text",
+							"text": "Rating",
+							"color": "#aaaaaa",
+							"size": "sm",
+							"flex": 3,
+							"wrap": true
+						  },
+						  {
+							"type": "text",
+							"text": "` + rating + `",
+							"wrap": true,
+							"color": "#666666",
+							"size": "sm",
+							"flex": 5
+						  }
+						]
+					  },
 					{
 					  "type": "box",
 					  "layout": "baseline",
