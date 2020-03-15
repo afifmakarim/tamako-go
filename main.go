@@ -743,14 +743,15 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			small_url := defaultImage(details.Image.Small_url)
 			deck := defaultValue(details.Deck)
 			countPlat := len(details.Platforms)
-			platforms := make([]string, countPlat)
+			//platforms := make([]string, countPlat)
+			platforms := []string{}
 
 			for _, plat := range details.Platforms {
 				platform := plat.Name
 				platforms = append(platforms, platform)
 			}
 
-			joinPlat := strings.Join(platforms, " ,")
+			joinPlat := strings.Join(platforms, ",")
 			runesx := []rune(joinPlat)
 			exes := string(runesx[countPlat:]) // hapus comma
 
