@@ -705,10 +705,12 @@ func (app *TamakoBot) handleSticker(message *linebot.StickerMessage, replyToken 
 // }
 
 func defaultValue(message string) string {
+
 	if message == "" {
 		return "Empty"
 	}
-	return message
+	potong := strings.TrimSuffix(message, "\n")
+	return potong
 }
 
 func defaultImage(message string) string {
