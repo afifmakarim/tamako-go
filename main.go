@@ -711,6 +711,13 @@ func defaultValue(message string) string {
 	return message
 }
 
+func defaultImage(message string) string {
+	if message == "" {
+		return "https://forum.dbaclass.com/wp-content/themes/qaengine/img/default-thumbnail.jpg"
+	}
+	return message
+}
+
 func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	var gameList GameList
 	queryGame := Rawurlencode(message)
@@ -719,7 +726,6 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	json.Unmarshal([]byte(gameApi), &gameList)
 	fmt.Println("BAAASATTTT: " + url)
 	var jsonString string
-	var small_url string = "https://forum.dbaclass.com/wp-content/themes/qaengine/img/default-thumbnail.jpg"
 
 	hitung := len(gameList.Results)
 	if hitung > 0 {
@@ -729,8 +735,8 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 
 			title := defaultValue(details.Name)
 			release_date := defaultValue(details.Original_release_date)
-			small_url = details.Image.Small_url
-			deck := details.Deck
+			small_url := defaultImage(details.Image.Small_url)
+			deck := defaultValue(details.Deck)
 			//platform := details.Platforms.Name
 
 			jsonString = `{
