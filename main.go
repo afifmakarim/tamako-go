@@ -798,14 +798,14 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 					"contents": [
 					  {
 						"type": "text",
-						"text": "` + platform + `",
+						"text": "Platform",
 						"color": "#aaaaaa",
 						"size": "sm",
 						"flex": 3
 					  },
 					  {
 						"type": "text",
-						"text": "PC, PS4, Nintendo Switch",
+						"text": "` + platform + `",
 						"wrap": true,
 						"color": "#666666",
 						"size": "sm",
