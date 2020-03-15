@@ -953,8 +953,8 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 			  "type": "image",
 			  "url": "` + image + `",
 			  "size": "full",
-			  "aspectRatio": "8:9",
-			  "aspectMode": "cover"
+			  "aspectRatio": "7:9",
+			  "aspectMode": "fit"
 			},
 			"body": {
 			  "type": "box",
