@@ -943,9 +943,155 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 	//var getGenre MangaApi
 	get_manga := getData("https://kitsu.io/api/edge/manga?filter[text]=" + message + "&page[limit]=3&page[offset]=0")
 	json.Unmarshal([]byte(get_manga), &getManga)
-	//get_genre_endpoint := getManga.Data[0].Relationships.Links.Self
+	result := []string{}
+	for _, details := range getManga.Data {
+		title := details.Attributes.CanonicalTitle
+		jsonString := `{
+			"type": "bubble",
+			"hero": {
+			  "type": "image",
+			  "url": "https://forum.dbaclass.com/wp-content/themes/qaengine/img/default-thumbnail.jpg",
+			  "size": "full",
+			  "aspectRatio": "8:9",
+			  "aspectMode": "cover"
+			},
+			"body": {
+			  "type": "box",
+			  "layout": "vertical",
+			  "contents": [
+				{
+				  "type": "text",
+				  "text": "` + title + `",
+				  "weight": "bold",
+				  "size": "xl",
+				  "wrap": true
+				},
+				{
+				  "type": "box",
+				  "layout": "vertical",
+				  "margin": "lg",
+				  "spacing": "sm",
+				  "contents": [
+					{
+					  "type": "box",
+					  "layout": "baseline",
+					  "spacing": "sm",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Status",
+						  "color": "#aaaaaa",
+						  "size": "sm",
+						  "flex": 3,
+						  "wrap": true
+						},
+						{
+						  "type": "text",
+						  "text": "ssss",
+						  "wrap": true,
+						  "color": "#666666",
+						  "size": "sm",
+						  "flex": 5
+						}
+					  ]
+					},
+					{
+					  "type": "box",
+					  "layout": "baseline",
+					  "spacing": "sm",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Genre",
+						  "color": "#aaaaaa",
+						  "size": "sm",
+						  "flex": 3
+						},
+						{
+						  "type": "text",
+						  "text": "xxx",
+						  "wrap": true,
+						  "color": "#666666",
+						  "size": "sm",
+						  "flex": 5
+						}
+					  ]
+					}
+				  ]
+				},
+				{
+				  "type": "box",
+				  "layout": "vertical",
+				  "contents": [
+					{
+					  "type": "text",
+					  "text": "Synopsis",
+					  "weight": "bold",
+					  "size": "sm"
+					},
+					{
+					  "type": "box",
+					  "layout": "vertical",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "eaaa",
+						  "margin": "lg",
+						  "size": "sm",
+						  "wrap": true
+						}
+					  ],
+					  "paddingTop": "5px"
+					}
+				  ],
+				  "margin": "xl",
+				  "cornerRadius": "2px"
+				}
+			  ]
+			},
+			"footer": {
+			  "type": "box",
+			  "layout": "vertical",
+			  "spacing": "sm",
+			  "contents": [
+				{
+				  "type": "button",
+				  "style": "link",
+				  "height": "sm",
+				  "action": {
+					"type": "uri",
+					"label": "Open Browser",
+					"uri": "http://sdasd.com"
+				  }
+				},
+				{
+				  "type": "spacer",
+				  "size": "sm"
+				}
+			  ],
+			  "flex": 0
+			}
+		  }`
+		result = append(result, jsonString)
+	}
+	join_string := strings.Join(result, ", ")
+	result_carousel := fmt.Sprintf(`{ 
+		"type": "carousel",
+		"contents": [%s]
+	  }`, join_string) // gabung json string ke type carousel
 
-	return app.replyText(replyToken, getManga.Data[0].Attributes.CanonicalTitle+getManga.Data[0].Relationships.Genres.Links.Self)
+	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(result_carousel))
+	if err != nil {
+		return err
+	}
+	if _, err := app.bot.ReplyMessage(
+		replyToken,
+		linebot.NewFlexMessage("Flex message alt text", contents),
+	).Do(); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (app *TamakoBot) replyText(replyToken, text string) error {
