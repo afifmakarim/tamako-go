@@ -82,6 +82,7 @@ type MangaList struct {
 type AttributesManga struct {
 	CanonicalTitle string
 	AverageRating  string
+	Status         string
 	Synopsis       string
 	ChapterCount   int
 	VolumeCount    int
