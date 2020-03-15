@@ -118,6 +118,22 @@ type GenreAttributes struct {
 	Name string
 }
 
+type MotwApi struct {
+	Feed FeedResult
+}
+
+type FeedResult struct {
+	Results []ListResult
+}
+
+type ListResult struct {
+	Name           string
+	CollectionName string
+	ArtistId       string
+	ArtistUrl      string
+	ArtworkUrl100  string
+}
+
 func getData(url string) []byte {
 
 	resp, err := http.Get(url)

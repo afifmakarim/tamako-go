@@ -282,75 +282,12 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			if err := app.mangaMessage(mangaKeyword, replyToken); err != nil {
 				log.Print(err)
 			}
-		case "flex carousel":
-			// {
-			//   "type": "carousel",
-			//   "contents": [
-			//     {
-			//       "type": "bubble",
-			//       "body": {
-			//         "type": "box",
-			//         "layout": "vertical",
-			//         "contents": [
-			//           {
-			//             "type": "text",
-			//             "text": "First bubble"
-			//           }
-			//         ]
-			//       }
-			//     },
-			//     {
-			//       "type": "bubble",
-			//       "body": {
-			//         "type": "box",
-			//         "layout": "vertical",
-			//         "contents": [
-			//           {
-			//             "type": "text",
-			//             "text": "Second bubble"
-			//           }
-			//         ]
-			//       }
-			//     }
-			//   ]
-			// }
-			contents := &linebot.CarouselContainer{
-				Type: linebot.FlexContainerTypeCarousel,
-				Contents: []*linebot.BubbleContainer{
-					{
-						Type: linebot.FlexContainerTypeBubble,
-						Body: &linebot.BoxComponent{
-							Type:   linebot.FlexComponentTypeBox,
-							Layout: linebot.FlexBoxLayoutTypeVertical,
-							Contents: []linebot.FlexComponent{
-								&linebot.TextComponent{
-									Type: linebot.FlexComponentTypeText,
-									Text: "First bubble",
-								},
-							},
-						},
-					},
-					{
-						Type: linebot.FlexContainerTypeBubble,
-						Body: &linebot.BoxComponent{
-							Type:   linebot.FlexComponentTypeBox,
-							Layout: linebot.FlexBoxLayoutTypeVertical,
-							Contents: []linebot.FlexComponent{
-								&linebot.TextComponent{
-									Type: linebot.FlexComponentTypeText,
-									Text: "Second bubble",
-								},
-							},
-						},
-					},
-				},
+		case "motw":
+
+			if err := app.motwMessage(replyToken); err != nil {
+				log.Print(err)
 			}
-			if _, err := app.bot.ReplyMessage(
-				replyToken,
-				linebot.NewFlexMessage("Flex message alt text", contents),
-			).Do(); err != nil {
-				return err
-			}
+
 		case "json":
 			jsonString := `{
 				"type": "carousel",
@@ -686,6 +623,32 @@ func defaultImage(message string) string {
 	return message
 }
 
+func (app *TamakoBot) motwMessage(replyToken string) error {
+	// var motwApi MotwApi
+	// imgUrl := "https://cdn.dribbble.com/users/90627/screenshots/3171301/applemusiclogodribble.png"
+	// motw := getData("https://rss.itunes.apple.com/api/v1/id/apple-music/top-songs/all/10/explicit.json")
+	// json.Unmarshal([]byte(motw), &motwApi)
+
+	// carousels := []string{}
+	// for _, details := range motwApi.Feed.Results {
+	// 	carousel := linebot.NewCarouselColumn(
+	// 		imgUrl, details.CollectionName, "fuga",
+	// 		linebot.NewURIAction("Go to line.me", "https://line.me"),
+	// 		linebot.NewPostbackAction("Say hello1", "hello こんにちは", "", ""),
+	// 	)
+	// 	carousels = append(carousels, carousel)
+	// }
+
+	// template := linebot.NewCarouselTemplate(carousels)
+	// if _, err := app.bot.ReplyMessage(
+	// 	replyToken,
+	// 	linebot.NewTemplateMessage("Carousel alt text", template),
+	// ).Do(); err != nil {
+	// 	return err
+	// }
+	return app.replyText(replyToken, "Video game information not found")
+}
+
 func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	var gameList GameList
 	queryGame := Rawurlencode(message)
@@ -942,7 +905,7 @@ func (app *TamakoBot) dotaMessage(message string, replyToken string) error {
 func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 	var getManga MangaApi
 	var getGenre GenreApi
-	//var getGenre MangaApi
+
 	queryManga := Rawurlencode(message)
 
 	get_manga := getData("https://kitsu.io/api/edge/manga?filter[text]=" + queryManga + "&page[limit]=3&page[offset]=0")
@@ -973,8 +936,8 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 		}
 		join_genre := defaultValue(strings.Join(genresArray, ", "))
 
-		fmt.Println(join_genre)
-		fmt.Println(get_genre_endpoint)
+		// fmt.Println(join_genre)
+		// fmt.Println(get_genre_endpoint)
 
 		jsonString := `{
 			"type": "bubble",
@@ -1139,7 +1102,7 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 	}
 	if _, err := app.bot.ReplyMessage(
 		replyToken,
-		linebot.NewFlexMessage("Flex message alt text", contents),
+		linebot.NewFlexMessage("Manga Information", contents),
 	).Do(); err != nil {
 		return err
 	}
