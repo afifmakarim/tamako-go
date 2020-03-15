@@ -738,7 +738,8 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 				"type": "text",
 				"text": "` + title + `",
 				"weight": "bold",
-				"size": "xl"
+				"size": "xl",
+				"wrap": true
 			  },
 			  {
 				"type": "box",
