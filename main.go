@@ -707,9 +707,10 @@ func (app *TamakoBot) handleSticker(message *linebot.StickerMessage, replyToken 
 func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	var gameList GameList
 	queryGame := Rawurlencode(message)
-	gameApi := Request("https://www.giantbomb.com/api/search/?api_key=a0bede1760f86f2f59ff3ac477c953fed643ea0b&resources=game&query="+queryGame+"&format=json&limit=5", "lashaparesha api script")
+	url := "https://www.giantbomb.com/api/search/?api_key=a0bede1760f86f2f59ff3ac477c953fed643ea0b&resources=game&query=" + queryGame + "&format=json&limit=5"
+	gameApi := Request(url, "lashaparesha api script")
 	json.Unmarshal([]byte(gameApi), &gameList)
-
+	fmt.Println("BAAASATTTT: " + url)
 	var jsonString string
 	var title string = "empty"
 	var release_date string = "empty"
