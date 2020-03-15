@@ -710,7 +710,7 @@ func defaultValue(message string) string {
 		return "Empty"
 	}
 	potong := strings.ReplaceAll(message, "\n", "")
-	potongLagi := strings.Trim(potong, "\"")
+	potongLagi := strings.ReplaceAll(potong, `"`, "")
 	return potongLagi
 }
 
