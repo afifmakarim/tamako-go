@@ -756,7 +756,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			"contents": [
 			  {
 				"type": "text",
-				"text": "aaaa",
+				"text": "xx:xxx",
 				"weight": "bold",
 				"size": "xl",
 				"wrap": true
