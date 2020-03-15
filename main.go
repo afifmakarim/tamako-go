@@ -737,10 +737,10 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 		for _, details := range gameList.Results {
 
 			title := defaultValue(details.Name)
-			//release_date := defaultValue(details.Original_release_date)
+			release_date := defaultValue(details.Original_release_date)
 			small_url := defaultImage(details.Image.Small_url)
 			deck := defaultValue(details.Deck)
-			//platform := details.Platforms.Name
+			platform := gameList.Results[0].Platforms[0].Name
 
 			jsonString = `{
 		  "type": "bubble",
@@ -783,7 +783,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 					  },
 					  {
 						"type": "text",
-						"text": "aaaa",
+						"text": "` + release_date + `",
 						"wrap": true,
 						"color": "#666666",
 						"size": "sm",
@@ -798,7 +798,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 					"contents": [
 					  {
 						"type": "text",
-						"text": "Platform",
+						"text": "` + platform + `",
 						"color": "#aaaaaa",
 						"size": "sm",
 						"flex": 3

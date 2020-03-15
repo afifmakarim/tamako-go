@@ -57,7 +57,7 @@ type GameObject struct {
 	Original_release_date string
 	Deck                  string
 	Image                 GameImage
-	Platforms             GamePlatform
+	Platforms             []GamePlatform
 }
 
 type GameImage struct {
