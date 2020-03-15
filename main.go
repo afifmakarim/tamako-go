@@ -675,7 +675,8 @@ func defaultValue(message string) string {
 	}
 	potong := strings.ReplaceAll(message, "\n", "")
 	potongLagi := strings.ReplaceAll(potong, `"`, "")
-	return potongLagi
+	potonglagilagi := strings.ReplaceAll(potongLagi, "\r", "")
+	return potonglagilagi
 }
 
 func defaultImage(message string) string {
