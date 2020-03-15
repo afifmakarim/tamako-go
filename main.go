@@ -958,7 +958,7 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 			  "url": "` + image + `",
 			  "size": "full",
 			  "aspectRatio": "7:9",
-			  "aspectMode": "fit"
+			  "aspectMode": "cover"
 			},
 			"body": {
 			  "type": "box",
@@ -1043,7 +1043,8 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 						  "text": "` + synopsis + `",
 						  "margin": "lg",
 						  "size": "xs",
-						  "wrap": true
+						  "wrap": true,
+						  "align": "center"
 						}
 					  ],
 					  "paddingTop": "5px"
