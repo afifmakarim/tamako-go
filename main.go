@@ -704,6 +704,13 @@ func (app *TamakoBot) handleSticker(message *linebot.StickerMessage, replyToken 
 //     return tags
 // }
 
+func defaultValue(message string) string {
+	if message == "" {
+		return "Empty"
+	}
+	return message
+}
+
 func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	var gameList GameList
 	queryGame := Rawurlencode(message)
@@ -712,8 +719,6 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	json.Unmarshal([]byte(gameApi), &gameList)
 	fmt.Println("BAAASATTTT: " + url)
 	var jsonString string
-	var title string = "empty"
-	var release_date string = "empty"
 	var small_url string = "https://forum.dbaclass.com/wp-content/themes/qaengine/img/default-thumbnail.jpg"
 
 	hitung := len(gameList.Results)
@@ -722,8 +727,8 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 
 		for _, details := range gameList.Results {
 
-			title = details.Name
-			release_date = details.Original_release_date
+			title := defaultValue(details.Name)
+			release_date := defaultValue(details.Original_release_date)
 			small_url = details.Image.Small_url
 			deck := details.Deck
 			//platform := details.Platforms.Name
