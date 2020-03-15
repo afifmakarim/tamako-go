@@ -273,7 +273,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			}
 
 		case "games":
-			gamesKeyword := string(keyword[5:])
+			gamesKeyword := string(keyword[6:])
 			if err := app.gameMessage(gamesKeyword, replyToken); err != nil {
 				log.Print(err)
 			}
@@ -724,6 +724,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			title = details.Name
 			release_date = details.Original_release_date
 			small_url = details.Image.Small_url
+			deck := details.Deck
 			//platform := details.Platforms.Name
 
 			jsonString = `{
@@ -815,7 +816,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 					"contents": [
 					  {
 						"type": "text",
-						"text": "The sixteenth mainline entry in the long-running Tales action-RPG series, following the exploits of a pirate named Velvet.",
+						"text": "` + deck + `",
 						"margin": "lg",
 						"size": "sm",
 						"wrap": true

@@ -55,6 +55,7 @@ type GameObject struct {
 	Id                    int
 	Name                  string
 	Original_release_date string
+	Deck                  string
 	Image                 GameImage
 	Platforms             GamePlatform
 }
