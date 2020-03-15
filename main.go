@@ -738,7 +738,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			title := defaultValue(details.Name)
 			//release_date := defaultValue(details.Original_release_date)
 			small_url := defaultImage(details.Image.Small_url)
-			//deck := defaultValue(details.Deck)
+			deck := defaultValue(details.Deck)
 			//platform := details.Platforms.Name
 
 			jsonString = `{
@@ -830,7 +830,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 					"contents": [
 					  {
 						"type": "text",
-						"text": "aaaa",
+						"text": "` + deck + `",
 						"margin": "lg",
 						"size": "sm",
 						"wrap": true
