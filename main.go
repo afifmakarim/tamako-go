@@ -957,7 +957,7 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 		rating := defaultValue(details.Attributes.AverageRating)
 		synopsis := defaultValue(details.Attributes.Synopsis)
 
-		get_genre_endpoint := details.Relationships.Genres.Links.Self
+		get_genre_endpoint := details.Relationships.Genres.Links.Related
 		get_genre := getData(get_genre_endpoint)
 		json.Unmarshal([]byte(get_genre), &getGenre)
 

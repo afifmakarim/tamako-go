@@ -103,7 +103,7 @@ type GenreLinks struct {
 }
 
 type GenreUrl struct {
-	Self string
+	Related string
 }
 
 type GenreApi struct {
