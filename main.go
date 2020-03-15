@@ -943,9 +943,9 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 	//var getGenre MangaApi
 	get_manga := getData("https://kitsu.io/api/edge/manga?filter[text]=" + message + "&page[limit]=3&page[offset]=0")
 	json.Unmarshal([]byte(get_manga), &getManga)
-	get_genre_endpoint := getManga.Data[0].Relationships.Links.Self
+	//get_genre_endpoint := getManga.Data[0].Relationships.Links.Self
 
-	return app.replyText(replyToken, getManga.Data[0].Attributes.CanonicalTitle+get_genre_endpoint)
+	return app.replyText(replyToken, getManga.Data[0].Attributes.CanonicalTitle+getManga.Data[0].Relationships.Links.Self)
 }
 
 func (app *TamakoBot) replyText(replyToken, text string) error {
