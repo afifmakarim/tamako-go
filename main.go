@@ -710,15 +710,19 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	json.Unmarshal([]byte(gameApi), &gameList)
 
 	var jsonString string
+	var title string = "empty"
+	var release_date string = "empty"
+	var small_url string = "empty"
+
 	hitung := len(gameList.Results)
 	if hitung > 0 {
 		result := make([]string, hitung)
 
 		for _, details := range gameList.Results {
 
-			title := details.Name
-			release_date := details.Original_release_date
-			small_url := details.Image.Small_url
+			title = details.Name
+			release_date = details.Original_release_date
+			small_url = details.Image.Small_url
 			//platform := details.Platforms.Name
 
 			jsonString = `{
