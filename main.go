@@ -742,8 +742,8 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			release_date := defaultValue(details.Original_release_date)
 			small_url := defaultImage(details.Image.Small_url)
 			deck := defaultValue(details.Deck)
-			//countPlat := len(details.Platforms)
-			//platforms := make([]string, countPlat)
+			link := details.Site_detail_url
+
 			platforms := []string{}
 
 			for _, plat := range details.Platforms {
@@ -752,8 +752,6 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			}
 
 			joinPlat := strings.Join(platforms, ", ")
-			// runesx := []rune(joinPlat)
-			// exes := string(runesx[countPlat:]) // hapus comma
 
 			jsonString = `{
 		  "type": "bubble",
@@ -870,8 +868,8 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 				"height": "sm",
 				"action": {
 				  "type": "uri",
-				  "label": "Open in Browser",
-				  "uri": "https://linecorp.com"
+				  "label": "Open Browser",
+				  "uri": "` + link + `"
 				}
 			  },
 			  {
