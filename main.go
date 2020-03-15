@@ -710,7 +710,8 @@ func defaultValue(message string) string {
 		return "Empty"
 	}
 	potong := strings.ReplaceAll(message, "\n", "")
-	return potong
+	potongLagi := strings.Trim(potong, "\"")
+	return potongLagi
 }
 
 func defaultImage(message string) string {
