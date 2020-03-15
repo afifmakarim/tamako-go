@@ -752,8 +752,8 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			}
 
 			joinPlat := strings.Join(platforms, ",")
-			runesx := []rune(joinPlat)
-			exes := string(runesx[countPlat:]) // hapus comma
+			// runesx := []rune(joinPlat)
+			// exes := string(runesx[countPlat:]) // hapus comma
 
 			jsonString = `{
 		  "type": "bubble",
@@ -818,7 +818,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 					  },
 					  {
 						"type": "text",
-						"text": "` + exes + `",
+						"text": "` + joinPlat + `",
 						"wrap": true,
 						"color": "#666666",
 						"size": "sm",
