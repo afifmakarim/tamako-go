@@ -735,7 +735,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 
 		for _, details := range gameList.Results {
 
-			//title := defaultValue(details.Name)
+			title := defaultValue(details.Name)
 			//release_date := defaultValue(details.Original_release_date)
 			small_url := defaultImage(details.Image.Small_url)
 			//deck := defaultValue(details.Deck)
@@ -756,7 +756,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			"contents": [
 			  {
 				"type": "text",
-				"text": "xx:xxx",
+				"text": "` + title + `",
 				"weight": "bold",
 				"size": "xl",
 				"wrap": true
