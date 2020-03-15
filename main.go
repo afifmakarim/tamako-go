@@ -1042,7 +1042,7 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 						  "type": "text",
 						  "text": "` + synopsis + `",
 						  "margin": "lg",
-						  "size": "sm",
+						  "size": "xs",
 						  "wrap": true
 						}
 					  ],
