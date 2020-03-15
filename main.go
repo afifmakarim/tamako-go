@@ -949,6 +949,7 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 		title := details.Attributes.CanonicalTitle
 		image := details.Attributes.PosterImage.Medium
 		status := defaultValue(details.Attributes.Status)
+		synopsis := defaultValue(details.Attributes.Synopsis)
 		jsonString := `{
 			"type": "bubble",
 			"hero": {
@@ -1038,7 +1039,7 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 					  "contents": [
 						{
 						  "type": "text",
-						  "text": "eaaa",
+						  "text": "` + synopsis + `",
 						  "margin": "lg",
 						  "size": "sm",
 						  "wrap": true
