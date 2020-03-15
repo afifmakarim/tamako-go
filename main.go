@@ -750,7 +750,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 				platforms = append(platforms, platform)
 			}
 
-			joinPlat := strings.Join(platforms, ",")
+			joinPlat := strings.Join(platforms, ", ")
 			runesx := []rune(joinPlat)
 			exes := string(runesx[countPlat:]) // hapus comma
 
