@@ -710,7 +710,7 @@ func defaultValue(message string) string {
 		return "Empty"
 	}
 	//potong := strings.TrimSuffix(message, "\n")
-	return potong
+	return message
 }
 
 func defaultImage(message string) string {
