@@ -106,6 +106,18 @@ type GenreUrl struct {
 	Self string
 }
 
+type GenreApi struct {
+	Data []GenreArray
+}
+
+type GenreArray struct {
+	Attributes GenreAttributes
+}
+
+type GenreAttributes struct {
+	name string
+}
+
 func getData(url string) []byte {
 
 	resp, err := http.Get(url)

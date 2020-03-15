@@ -941,17 +941,34 @@ func (app *TamakoBot) dotaMessage(message string, replyToken string) error {
 
 func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 	var getManga MangaApi
+	var getGenre GenreApi
 	//var getGenre MangaApi
 	queryManga := Rawurlencode(message)
+
 	get_manga := getData("https://kitsu.io/api/edge/manga?filter[text]=" + queryManga + "&page[limit]=3&page[offset]=0")
 	json.Unmarshal([]byte(get_manga), &getManga)
+
 	result := []string{}
+
 	for _, details := range getManga.Data {
 		title := details.Attributes.CanonicalTitle
 		image := details.Attributes.PosterImage.Medium
 		status := defaultValue(details.Attributes.Status)
 		rating := defaultValue(details.Attributes.AverageRating)
 		synopsis := defaultValue(details.Attributes.Synopsis)
+
+		get_genre_endpoint := details.Relationships.Genres.Links.Self
+		get_genre := getData(get_genre_endpoint)
+		json.Unmarshal([]byte(get_genre), &getGenre)
+
+		genresArray := []string{}
+
+		for _, detailGenre := range getGenre.Data {
+			genres := detailGenre.Attributes.name
+			genresArray = append(genresArray, genres)
+		}
+		join_genre := strings.Join(genresArray, ", ")
+
 		jsonString := `{
 			"type": "bubble",
 			"hero": {
@@ -1037,7 +1054,7 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "xxx",
+						  "text": "` + join_genre + `",
 						  "wrap": true,
 						  "color": "#666666",
 						  "size": "sm",
