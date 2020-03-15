@@ -864,7 +864,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 		"contents": [%s]
 	  }`, exe) // gabung json string ke type carousel
 
-		//fmt.Println("WADOOOHHH" + exe)
+		fmt.Println("WADOOOHHH" + exe)
 		contents, err := linebot.UnmarshalFlexMessageJSON([]byte(resultz))
 		if err != nil {
 			return err
