@@ -963,7 +963,7 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 
 		genresArray := []string{}
 
-		for i := len(getGenre.Data); i >= 0; i-- {
+		for i := len(getGenre.Data); i >= 1; i-- {
 			genres := getGenre.Data[i].Attributes.Name
 			genresArray = append(genresArray, genres)
 		}
