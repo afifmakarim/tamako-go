@@ -76,7 +76,7 @@ type MangaApi struct {
 
 type MangaList struct {
 	Attributes    AttributesManga
-	Relationships GetGenre
+	Relationships RelationshipGenre
 }
 
 type AttributesManga struct {
@@ -93,12 +93,12 @@ type PosterImage struct {
 	Large  string
 }
 
-type GetGenre struct {
+type RelationshipGenre struct {
 	Genres GenreLinks
 }
 
 type GenreLinks struct {
-	Link GenreUrl
+	Links GenreUrl
 }
 
 type GenreUrl struct {
