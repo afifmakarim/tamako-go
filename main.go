@@ -740,7 +740,13 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			release_date := defaultValue(details.Original_release_date)
 			small_url := defaultImage(details.Image.Small_url)
 			deck := defaultValue(details.Deck)
-			platform := gameList.Results[0].Platforms[0].Name
+			countPlat := len(details.Platforms)
+			platforms := make([]string, countPlat)
+			joinPlat := strings.Join(platforms, ",")
+			for _, plat := range details.Platforms {
+				platform := plat.Name
+				result = append(platforms, platform)
+			}
 
 			jsonString = `{
 		  "type": "bubble",
@@ -805,7 +811,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 					  },
 					  {
 						"type": "text",
-						"text": "` + platform + `",
+						"text": "` + joinPlat + `",
 						"wrap": true,
 						"color": "#666666",
 						"size": "sm",
