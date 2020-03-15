@@ -707,7 +707,7 @@ func (app *TamakoBot) handleSticker(message *linebot.StickerMessage, replyToken 
 func defaultValue(message string) string {
 
 	if message == "" {
-		return "Empty"
+		return "-"
 	}
 	potong := strings.ReplaceAll(message, "\n", "")
 	potongLagi := strings.ReplaceAll(potong, `"`, "")
