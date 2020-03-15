@@ -709,23 +709,23 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	gameApi := Request("https://www.giantbomb.com/api/search/?api_key=a0bede1760f86f2f59ff3ac477c953fed643ea0b&resources=game&query="+queryGame+"&format=json&limit=5", "lashaparesha api script")
 	json.Unmarshal([]byte(gameApi), &gameList)
 
-	//return app.replyText(replyToken, gameList.Results[0].Image.Small_url)
-	//var result string
-	var hubb string
-	// var listView []byte
+	var jsonString string
 	hitung := len(gameList.Results)
-	fmt.Println("INIIIIIII NIHHH", hitung)
+
 	result := make([]string, hitung)
 
 	for _, details := range gameList.Results {
 
 		title := details.Name
+		release_date := details.Original_release_date
+		small_url := details.Image.Small_url
+		platform := details.Platforms.Name
 
-		hubb = `{
+		jsonString = `{
 		  "type": "bubble",
 		  "hero": {
 			"type": "image",
-			"url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+			"url": "` + small_url + `",
 			"size": "full",
 			"aspectRatio": "20:13",
 			"aspectMode": "cover",
@@ -765,7 +765,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 					  },
 					  {
 						"type": "text",
-						"text": "2016-08-18",
+						"text": "` + release_date + `",
 						"wrap": true,
 						"color": "#666666",
 						"size": "sm",
@@ -787,7 +787,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 					  },
 					  {
 						"type": "text",
-						"text": "PC, PS4, Nintendo Switch",
+						"text": "` + platform + `",
 						"wrap": true,
 						"color": "#666666",
 						"size": "sm",
@@ -852,22 +852,18 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 		  }
 		}`
 
-		result = append(result, hubb)
+		result = append(result, jsonString)
 	}
-	strinx := strings.Join(result, ",")
-	runes := []rune(strinx)
-	exe := string(runes[hitung:])
-	resultz := fmt.Sprintf(`{
+
+	joinString := strings.Join(result, ",") // join string
+	runes := []rune(joinString)
+	exe := string(runes[hitung:]) // hapus comma
+	resultz := fmt.Sprintf(`{ 
 		"type": "carousel",
 		"contents": [%s]
-	  }`, exe)
+	  }`, exe) // gabung json string ke type carousel
 
-	// fmt.Println(string(runes[3:]))
-	// fmt.Print("INIIII DIA" + result)
-	// fmt.Printf("%s", hubb)
-	// return app.replyText(replyToken, hubb)
-
-	fmt.Println("WADOOOHHH" + exe)
+	//fmt.Println("WADOOOHHH" + exe)
 	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(resultz))
 	if err != nil {
 		return err

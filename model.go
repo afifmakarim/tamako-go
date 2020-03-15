@@ -56,6 +56,7 @@ type GameObject struct {
 	Name                  string
 	Original_release_date string
 	Image                 GameImage
+	Platforms             GamePlatform
 }
 
 type GameImage struct {
