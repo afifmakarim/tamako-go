@@ -742,7 +742,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			release_date := defaultValue(details.Original_release_date)
 			small_url := defaultImage(details.Image.Small_url)
 			deck := defaultValue(details.Deck)
-			countPlat := len(details.Platforms)
+			//countPlat := len(details.Platforms)
 			//platforms := make([]string, countPlat)
 			platforms := []string{}
 
@@ -751,7 +751,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 				platforms = append(platforms, platform)
 			}
 
-			joinPlat := strings.Join(platforms, ",")
+			joinPlat := strings.Join(platforms, ", ")
 			// runesx := []rune(joinPlat)
 			// exes := string(runesx[countPlat:]) // hapus comma
 
