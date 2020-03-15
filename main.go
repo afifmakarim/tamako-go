@@ -711,17 +711,17 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 
 	var jsonString string
 	hitung := len(gameList.Results)
+	if hitung > 0 {
+		result := make([]string, hitung)
 
-	result := make([]string, hitung)
+		for _, details := range gameList.Results {
 
-	for _, details := range gameList.Results {
+			title := details.Name
+			release_date := details.Original_release_date
+			small_url := details.Image.Small_url
+			//platform := details.Platforms.Name
 
-		title := details.Name
-		release_date := details.Original_release_date
-		small_url := details.Image.Small_url
-		//platform := details.Platforms.Name
-
-		jsonString = `{
+			jsonString = `{
 		  "type": "bubble",
 		  "hero": {
 			"type": "image",
@@ -849,29 +849,31 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 		  }
 		}`
 
-		result = append(result, jsonString)
-	}
+			result = append(result, jsonString)
+		}
 
-	joinString := strings.Join(result, ",") // join string
-	runes := []rune(joinString)
-	exe := string(runes[hitung:]) // hapus comma
-	resultz := fmt.Sprintf(`{ 
+		joinString := strings.Join(result, ",") // join string
+		runes := []rune(joinString)
+		exe := string(runes[hitung:]) // hapus comma
+		resultz := fmt.Sprintf(`{ 
 		"type": "carousel",
 		"contents": [%s]
 	  }`, exe) // gabung json string ke type carousel
 
-	//fmt.Println("WADOOOHHH" + exe)
-	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(resultz))
-	if err != nil {
-		return err
+		//fmt.Println("WADOOOHHH" + exe)
+		contents, err := linebot.UnmarshalFlexMessageJSON([]byte(resultz))
+		if err != nil {
+			return err
+		}
+		if _, err := app.bot.ReplyMessage(
+			replyToken,
+			linebot.NewFlexMessage("Flex message alt text", contents),
+		).Do(); err != nil {
+			return err
+		}
+	} else {
+		return app.replyText(replyToken, "Video game information not found")
 	}
-	if _, err := app.bot.ReplyMessage(
-		replyToken,
-		linebot.NewFlexMessage("Flex message alt text", contents),
-	).Do(); err != nil {
-		return err
-	}
-
 	return nil
 }
 
