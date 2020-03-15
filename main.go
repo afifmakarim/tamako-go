@@ -756,7 +756,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			"contents": [
 			  {
 				"type": "text",
-				"text": "` + title + `",
+				"text": "aaaa",
 				"weight": "bold",
 				"size": "xl",
 				"wrap": true
@@ -782,7 +782,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 					  },
 					  {
 						"type": "text",
-						"text": "` + release_date + `",
+						"text": "aaaa",
 						"wrap": true,
 						"color": "#666666",
 						"size": "sm",
@@ -830,7 +830,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 					"contents": [
 					  {
 						"type": "text",
-						"text": "` + deck + `",
+						"text": "aaaa",
 						"margin": "lg",
 						"size": "sm",
 						"wrap": true
