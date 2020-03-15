@@ -967,7 +967,7 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 			genres := getGenre.Data[i].Attributes.Name
 			genresArray = append(genresArray, genres)
 		}
-		join_genre := strings.Join(genresArray, ", ")
+		join_genre := defaultValue(strings.Join(genresArray, ", "))
 
 		fmt.Println(join_genre)
 		fmt.Println(get_genre_endpoint)
@@ -1057,7 +1057,7 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "xx",
+						  "text": "` + join_genre + `",
 						  "wrap": true,
 						  "color": "#666666",
 						  "size": "sm",
