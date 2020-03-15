@@ -752,7 +752,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 
 			joinPlat := strings.Join(platforms, ",")
 			runesx := []rune(joinPlat)
-			exes := string(runesx[hitung:]) // hapus comma
+			exes := string(runesx[countPlat:]) // hapus comma
 
 			jsonString = `{
 		  "type": "bubble",
