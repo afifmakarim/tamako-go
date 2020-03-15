@@ -272,7 +272,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			}
 
 		case "games":
-			gamesKeyword := string(keyword[6:])
+			gamesKeyword := string(keyword[5:])
 			if err := app.gameMessage(gamesKeyword, replyToken); err != nil {
 				log.Print(err)
 			}
@@ -712,7 +712,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	var jsonString string
 	var title string = "empty"
 	var release_date string = "empty"
-	var small_url string = "empty"
+	var small_url string = "https://forum.dbaclass.com/wp-content/themes/qaengine/img/default-thumbnail.jpg"
 
 	hitung := len(gameList.Results)
 	if hitung > 0 {
