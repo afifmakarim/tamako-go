@@ -719,7 +719,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 		title := details.Name
 		release_date := details.Original_release_date
 		small_url := details.Image.Small_url
-		platform := details.Platforms.Name
+		//platform := details.Platforms.Name
 
 		jsonString = `{
 		  "type": "bubble",
@@ -787,7 +787,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 					  },
 					  {
 						"type": "text",
-						"text": "` + platform + `",
+						"text": "PC, PS4, Nintendo Switch",
 						"wrap": true,
 						"color": "#666666",
 						"size": "sm",
