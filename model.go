@@ -94,10 +94,14 @@ type PosterImage struct {
 }
 
 type GetGenre struct {
-	Links GenreLinks
+	Genres GenreLinks
 }
 
 type GenreLinks struct {
+	Link GenreUrl
+}
+
+type GenreUrl struct {
 	Self string
 }
 

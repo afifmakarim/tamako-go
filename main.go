@@ -945,7 +945,7 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 	json.Unmarshal([]byte(get_manga), &getManga)
 	//get_genre_endpoint := getManga.Data[0].Relationships.Links.Self
 
-	return app.replyText(replyToken, getManga.Data[0].Attributes.CanonicalTitle+getManga.Data[0].Relationships.Links.Self)
+	return app.replyText(replyToken, getManga.Data[0].Attributes.CanonicalTitle+getManga.Data[0].Relationships.Genres.Link.Self)
 }
 
 func (app *TamakoBot) replyText(replyToken, text string) error {
