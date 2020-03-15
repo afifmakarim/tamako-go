@@ -946,11 +946,12 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 	result := []string{}
 	for _, details := range getManga.Data {
 		title := details.Attributes.CanonicalTitle
+		image := details.Attributes.PosterImage.Medium
 		jsonString := `{
 			"type": "bubble",
 			"hero": {
 			  "type": "image",
-			  "url": "https://forum.dbaclass.com/wp-content/themes/qaengine/img/default-thumbnail.jpg",
+			  "url": "` + image + `",
 			  "size": "full",
 			  "aspectRatio": "8:9",
 			  "aspectMode": "cover"
