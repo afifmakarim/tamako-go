@@ -115,7 +115,7 @@ type GenreArray struct {
 }
 
 type GenreAttributes struct {
-	name string
+	Name string
 }
 
 func getData(url string) []byte {
