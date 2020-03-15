@@ -724,7 +724,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	url := "https://www.giantbomb.com/api/search/?api_key=a0bede1760f86f2f59ff3ac477c953fed643ea0b&resources=game&query=" + queryGame + "&format=json&limit=5"
 	gameApi := Request(url, "lashaparesha api script")
 	json.Unmarshal([]byte(gameApi), &gameList)
-	fmt.Println("BAAASATTTT: " + url)
+
 	var jsonString string
 
 	hitung := len(gameList.Results)
@@ -879,6 +879,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	  }`, exe) // gabung json string ke type carousel
 
 		fmt.Println("WADOOOHHH" + exe)
+		fmt.Println("BAAASATTTT: " + url)
 		contents, err := linebot.UnmarshalFlexMessageJSON([]byte(resultz))
 		if err != nil {
 			return err
