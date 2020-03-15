@@ -709,8 +709,8 @@ func defaultValue(message string) string {
 	if message == "" {
 		return "Empty"
 	}
-	//potong := strings.TrimSuffix(message, "\n")
-	return message
+	potong := strings.ReplaceAll(message, "\n", "")
+	return potong
 }
 
 func defaultImage(message string) string {
@@ -738,7 +738,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			title := defaultValue(details.Name)
 			release_date := defaultValue(details.Original_release_date)
 			small_url := defaultImage(details.Image.Small_url)
-			deck := defaultValue(strings.TrimSuffix(details.Deck, "\n"))
+			deck := defaultValue(details.Deck)
 			//platform := details.Platforms.Name
 
 			jsonString = `{
