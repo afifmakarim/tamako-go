@@ -198,8 +198,9 @@ func (app *TamakoBot) Callback(w http.ResponseWriter, r *http.Request) {
 
 func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string, source *linebot.EventSource) error {
 	prefix := "!"
-	if strings.HasPrefix(message.Text, prefix) {
-		keyword := string(message.Text[1:])
+	lowerText := strings.ToLower(message.Text)
+	if strings.HasPrefix(lowerText, prefix) {
+		keyword := string(lowerText[1:])
 		arg1 := strings.Split(keyword, " ")
 		//arg2 := arg1[1]
 		switch arg1[0] {
