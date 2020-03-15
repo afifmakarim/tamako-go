@@ -818,7 +818,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 				"contents": [
 				  {
 					"type": "text",
-					"text": "Description :",
+					"text": "Description",
 					"weight": "bold",
 					"size": "sm"
 				  },
