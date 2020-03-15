@@ -964,7 +964,7 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 		genresArray := []string{}
 
 		for _, detailGenre := range getGenre.Data {
-			genres := detailGenre.Attributes.name
+			genres := detailGenre.Attributes.Name
 			genresArray = append(genresArray, genres)
 		}
 		join_genre := strings.Join(genresArray, ", ")
