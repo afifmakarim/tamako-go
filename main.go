@@ -745,7 +745,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 
 			for _, plat := range details.Platforms {
 				platform := plat.Name
-				result = append(platforms, platform)
+				platforms = append(platforms, platform)
 			}
 
 			joinPlat := strings.Join(platforms, ",")
