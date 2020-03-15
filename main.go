@@ -950,7 +950,7 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 
 	result := []string{}
 
-	if len(getManga.Data) > 0 || message == "" {
+	if len(getManga.Data) == 0 || message == "" {
 		return app.replyText(replyToken, "Manga information not found")
 	}
 
