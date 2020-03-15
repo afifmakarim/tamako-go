@@ -734,6 +734,8 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 	if hitung > 0 {
 		result := make([]string, hitung)
 
+		// exe := string(runes[hitung:]) // hapus comma
+
 		for _, details := range gameList.Results {
 
 			title := defaultValue(details.Name)
@@ -748,7 +750,9 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 				platforms = append(platforms, platform)
 			}
 
-			joinPlat := strings.Join(platforms[:], ",")
+			joinPlat := strings.Join(platforms, ",")
+			runesx := []rune(joinPlat)
+			exes := string(runesx[hitung:]) // hapus comma
 
 			jsonString = `{
 		  "type": "bubble",
@@ -813,7 +817,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 					  },
 					  {
 						"type": "text",
-						"text": "` + joinPlat + `",
+						"text": "` + exes + `",
 						"wrap": true,
 						"color": "#666666",
 						"size": "sm",
