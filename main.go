@@ -1057,7 +1057,7 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "` + join_genre + `",
+						  "text": "xx",
 						  "wrap": true,
 						  "color": "#666666",
 						  "size": "sm",
