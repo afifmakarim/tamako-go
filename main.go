@@ -748,7 +748,7 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 				platforms = append(platforms, platform)
 			}
 
-			joinPlat := strings.Join(platforms, "")
+			joinPlat := strings.Join(platforms[:], "")
 
 			jsonString = `{
 		  "type": "bubble",
