@@ -277,46 +277,10 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			if err := app.gameMessage(gamesKeyword, replyToken); err != nil {
 				log.Print(err)
 			}
-		case "flex":
-			// {
-			//   "type": "bubble",
-			//   "body": {
-			//     "type": "box",
-			//     "layout": "horizontal",
-			//     "contents": [
-			//       {
-			//         "type": "text",
-			//         "text": "Hello,"
-			//       },
-			//       {
-			//         "type": "text",
-			//         "text": "World!"
-			//       }
-			//     ]
-			//   }
-			// }
-			contents := &linebot.BubbleContainer{
-				Type: linebot.FlexContainerTypeBubble,
-				Body: &linebot.BoxComponent{
-					Type:   linebot.FlexComponentTypeBox,
-					Layout: linebot.FlexBoxLayoutTypeHorizontal,
-					Contents: []linebot.FlexComponent{
-						&linebot.TextComponent{
-							Type: linebot.FlexComponentTypeText,
-							Text: "Hello,",
-						},
-						&linebot.TextComponent{
-							Type: linebot.FlexComponentTypeText,
-							Text: "World!",
-						},
-					},
-				},
-			}
-			if _, err := app.bot.ReplyMessage(
-				replyToken,
-				linebot.NewFlexMessage("Flex message alt text", contents),
-			).Do(); err != nil {
-				return err
+		case "manga":
+			mangaKeyword := string(keyword[6:])
+			if err := app.mangaMessage(mangaKeyword, replyToken); err != nil {
+				log.Print(err)
 			}
 		case "flex carousel":
 			// {
@@ -972,6 +936,14 @@ func (app *TamakoBot) dotaMessage(message string, replyToken string) error {
 		return err
 	}
 	return nil
+}
+
+func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
+	var getManga MangaApi
+	get_manga := getData("https://kitsu.io/api/edge/manga?filter[text]=" + message + "&page[limit]=3&page[offset]=0")
+	json.Unmarshal([]byte(get_manga), &getManga)
+
+	return app.replyText(replyToken, getManga.Data[0].Attributes.CanonicalTitle)
 }
 
 func (app *TamakoBot) replyText(replyToken, text string) error {

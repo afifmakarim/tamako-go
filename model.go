@@ -70,6 +70,37 @@ type GamePlatform struct {
 	Abbreviation string
 }
 
+type MangaApi struct {
+	Data []MangaList
+}
+
+type MangaList struct {
+	Attributes    AttributesManga
+	Relationships GetGenre
+}
+
+type AttributesManga struct {
+	CanonicalTitle string
+	AverageRating  string
+	Synopsis       string
+	ChapterCount   int
+	VolumeCount    int
+	PosterImage    PosterImage
+}
+
+type PosterImage struct {
+	Medium string
+	Large  string
+}
+
+type GetGenre struct {
+	Links GenreLinks
+}
+
+type GenreLinks struct {
+	Self string
+}
+
 func getData(url string) []byte {
 
 	resp, err := http.Get(url)
