@@ -941,13 +941,14 @@ func (app *TamakoBot) dotaMessage(message string, replyToken string) error {
 func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 	var getManga MangaApi
 	//var getGenre MangaApi
-	get_manga := getData("https://kitsu.io/api/edge/manga?filter[text]=" + message + "&page[limit]=3&page[offset]=0")
+	queryManga := Rawurlencode(message)
+	get_manga := getData("https://kitsu.io/api/edge/manga?filter[text]=" + queryManga + "&page[limit]=3&page[offset]=0")
 	json.Unmarshal([]byte(get_manga), &getManga)
 	result := []string{}
 	for _, details := range getManga.Data {
 		title := details.Attributes.CanonicalTitle
 		image := details.Attributes.PosterImage.Medium
-		status := details.Attributes.Status
+		status := defaultValue(details.Attributes.Status)
 		jsonString := `{
 			"type": "bubble",
 			"hero": {
