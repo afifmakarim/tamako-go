@@ -951,7 +951,7 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 	result := []string{}
 
 	for _, details := range getManga.Data {
-		title := details.Attributes.CanonicalTitle
+		title := defaultValue(details.Attributes.CanonicalTitle)
 		image := details.Attributes.PosterImage.Medium
 		status := defaultValue(details.Attributes.Status)
 		rating := defaultValue(details.Attributes.AverageRating)
