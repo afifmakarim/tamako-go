@@ -727,12 +727,8 @@ func (app *TamakoBot) gameMessage(message string, replyToken string) error {
 			"type": "image",
 			"url": "` + small_url + `",
 			"size": "full",
-			"aspectRatio": "20:13",
-			"aspectMode": "cover",
-			"action": {
-			  "type": "uri",
-			  "uri": "http://linecorp.com/"
-			}
+			"aspectRatio": "8:9",
+			"aspectMode": "cover"
 		  },
 		  "body": {
 			"type": "box",
