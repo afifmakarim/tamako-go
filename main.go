@@ -725,7 +725,8 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 			"hero": {
 			  "type": "image",
 			  "url": "` + imageUrl + `",
-			  "size": "xl"
+			  "size": "4xl",
+			  "offsetTop": "15px"
 			},
 			"body": {
 			  "type": "box",
