@@ -291,7 +291,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			}
 
 		case "ynm":
-			ynmKeyword := string(keyword[2:])
+			ynmKeyword := string(keyword[4:])
 			array := []string{"Yes", "No", "Maybe"}
 			rand.Seed(time.Now().UnixNano())
 			randomInt := randomInt(0, 3)
