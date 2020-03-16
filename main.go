@@ -472,15 +472,26 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 	stdApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=0&k=1958afa9967f399f1cd22f52be34d93bcf755212")
 	json.Unmarshal([]byte(stdApi), &osuStd)
 	stdAkurasi := defaultValue(osuStd[0].Accuracy)
+	stdCountryRank := defaultValue(osuStd[0].Pp_country_rank)
+	stdGlobalRank := defaultValue(osuStd[0].Pp_rank)
 
 	maniaApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=0&k=1958afa9967f399f1cd22f52be34d93bcf755212")
 	json.Unmarshal([]byte(maniaApi), &osuMania)
+	maniaAkurasi := defaultValue(osuMania[0].Accuracy)
+	maniaCountryRank := defaultValue(osuMania[0].Pp_country_rank)
+	maniaGlobalRank := defaultValue(osuMania[0].Pp_rank)
 
 	taikoApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=0&k=1958afa9967f399f1cd22f52be34d93bcf755212")
 	json.Unmarshal([]byte(taikoApi), &osuTaiko)
+	taikoAkurasi := defaultValue(osuTaiko[0].Accuracy)
+	taikoCountryRank := defaultValue(osuTaiko[0].Pp_country_rank)
+	taikoGlobalRank := defaultValue(osuTaiko[0].Pp_rank)
 
 	ctbApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=0&k=1958afa9967f399f1cd22f52be34d93bcf755212")
 	json.Unmarshal([]byte(ctbApi), &osuCtb)
+	ctbAkurasi := defaultValue(osuCtb[0].Accuracy)
+	ctbCountryRank := defaultValue(osuCtb[0].Pp_country_rank)
+	ctbGlobalRank := defaultValue(osuCtb[0].Pp_rank)
 
 	jsonString := `{
 		"type": "carousel",
@@ -549,7 +560,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "aaaa",
+						  "text": "` + stdCountryRank + `",
 						  "size": "sm",
 						  "color": "#111111",
 						  "align": "end"
@@ -569,7 +580,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "$0.99",
+						  "text": "` + stdGlobalRank + `",
 						  "size": "sm",
 						  "color": "#111111",
 						  "align": "end"
@@ -627,7 +638,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "3",
+						  "text": "` + maniaCountryRank + `",
 						  "size": "sm",
 						  "color": "#111111",
 						  "align": "end"
@@ -646,7 +657,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "$7.31",
+						  "text": "` + maniaGlobalRank + `",
 						  "size": "sm",
 						  "color": "#111111",
 						  "align": "end"
@@ -665,7 +676,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "$8.0",
+						  "text": "` + maniaAkurasi + `",
 						  "size": "sm",
 						  "color": "#111111",
 						  "align": "end"
@@ -755,7 +766,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "$2.99",
+						  "text": "` + taikoCountryRank + `",
 						  "size": "sm",
 						  "color": "#111111",
 						  "align": "end"
@@ -775,7 +786,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "$0.99",
+						  "text": "` + taikoGlobalRank + `",
 						  "size": "sm",
 						  "color": "#111111",
 						  "align": "end"
@@ -795,7 +806,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "$3.33",
+						  "text": "` + taikoAkurasi + `",
 						  "size": "sm",
 						  "color": "#111111",
 						  "align": "end"
@@ -833,7 +844,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "3",
+						  "text": "` + ctbCountryRank + `",
 						  "size": "sm",
 						  "color": "#111111",
 						  "align": "end"
@@ -852,7 +863,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "$7.31",
+						  "text": "` + ctbGlobalRank + `",
 						  "size": "sm",
 						  "color": "#111111",
 						  "align": "end"
@@ -871,7 +882,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "$8.0",
+						  "text": "` + ctbAkurasi + `",
 						  "size": "sm",
 						  "color": "#111111",
 						  "align": "end"
