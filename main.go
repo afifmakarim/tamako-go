@@ -475,6 +475,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 	stdCountryRank := defaultValue(osuStd[0].Pp_country_rank)
 	stdGlobalRank := defaultValue(osuStd[0].Pp_rank)
 
+	username := defaultValue(osuStd[0].Username)
 	imageUrl := "https://a.ppy.sh/" + osuStd[0].User_id
 
 	maniaApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=3&k=1958afa9967f399f1cd22f52be34d93bcf755212")
@@ -513,7 +514,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 				},
 				{
 				  "type": "text",
-				  "text": "wiam103",
+				  "text": "` + username + `",
 				  "weight": "bold",
 				  "size": "xxl",
 				  "margin": "md"

@@ -140,6 +140,7 @@ type ListResult struct {
 
 type OsuStd struct {
 	User_id         string
+	Username        string
 	Join_date       string
 	Accuracy        string
 	Pp_rank         string
