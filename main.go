@@ -628,16 +628,16 @@ func (app *TamakoBot) motwMessage(replyToken string) error {
 	imgUrl := "https://cdn.dribbble.com/users/90627/screenshots/3171301/applemusiclogodribble.png"
 	motw := getData("https://rss.itunes.apple.com/api/v1/id/apple-music/top-songs/all/10/explicit.json")
 	json.Unmarshal([]byte(motw), &motwApi)
-
+	//var id []string
 	var columns []*linebot.CarouselColumn
-	var actions []linebot.TemplateAction
+	//var actions []linebot.TemplateAction
 	// Add Actions
-	actions = append(actions, linebot.NewMessageAction("Preview", "/details "))
+
 	for _, details := range motwApi.Feed.Results {
 		artistName := details.ArtistName
 		titleName := details.Name
-
-		columns = append(columns, linebot.NewCarouselColumn(imgUrl, artistName, titleName, actions...))
+		id := details.Id
+		columns = append(columns, linebot.NewCarouselColumn(imgUrl, artistName, titleName, linebot.NewMessageAction("Preview", "/details "+id)))
 
 	}
 
