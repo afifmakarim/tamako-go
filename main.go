@@ -294,8 +294,8 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			ynmKeyword := string(keyword[3:])
 			array := []string{"Yes", "No", "Maybe"}
 			rand.Seed(time.Now().UnixNano())
-			randomInt := randomInt(0, 2)
-			return app.replyText(replyToken, ynmKeyword+array[randomInt])
+			randomInt := randomInt(0, 3)
+			return app.replyText(replyToken, ynmKeyword+"\n"+array[randomInt])
 		case "imagemap":
 			if _, err := app.bot.ReplyMessage(
 				replyToken,
