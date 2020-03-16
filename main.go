@@ -509,7 +509,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 				  "type": "text",
 				  "text": "osu!",
 				  "weight": "bold",
-				  "color": "#1DB446",
+				  "color": "#dc98a4",
 				  "size": "sm"
 				},
 				{
