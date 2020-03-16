@@ -918,7 +918,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 	}
 	if _, err := app.bot.ReplyMessage(
 		replyToken,
-		linebot.NewFlexMessage("Flex message alt text", contents),
+		linebot.NewFlexMessage("osu! information", contents),
 	).Do(); err != nil {
 		return err
 	}
