@@ -138,6 +138,34 @@ type ListResult struct {
 	ArtworkUrl100  string
 }
 
+type OsuStd struct {
+	Join_date       string
+	Accuracy        string
+	Pp_rank         string
+	Pp_country_rank string
+}
+
+type OsuMania struct {
+	Join_date       string
+	Accuracy        string
+	Pp_rank         string
+	Pp_country_rank string
+}
+
+type OsuTaiko struct {
+	Join_date       string
+	Accuracy        string
+	Pp_rank         string
+	Pp_country_rank string
+}
+
+type OsuCtb struct {
+	Join_date       string
+	Accuracy        string
+	Pp_rank         string
+	Pp_country_rank string
+}
+
 func getData(url string) []byte {
 
 	resp, err := http.Get(url)

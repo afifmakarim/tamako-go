@@ -303,25 +303,10 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			randomInt := randomInt(0, len(explode))
 			random_str := explode[randomInt]
 			return app.replyText(replyToken, "I choose "+random_str)
-		case "imagemapvideo":
-			if _, err := app.bot.ReplyMessage(
-				replyToken,
-				linebot.NewImagemapMessage(
-					app.appBaseURL+"/static/rich",
-					"Imagemap with video alt text",
-					linebot.ImagemapBaseSize{Width: 1040, Height: 1040},
-					linebot.NewURIImagemapAction("LINE Store Manga", "https://store.line.me/family/manga/en", linebot.ImagemapArea{X: 0, Y: 0, Width: 520, Height: 520}),
-					linebot.NewURIImagemapAction("LINE Store Music", "https://store.line.me/family/music/en", linebot.ImagemapArea{X: 520, Y: 0, Width: 520, Height: 520}),
-					linebot.NewURIImagemapAction("LINE Store Play", "https://store.line.me/family/play/en", linebot.ImagemapArea{X: 0, Y: 520, Width: 520, Height: 520}),
-					linebot.NewMessageImagemapAction("URANAI!", "URANAI!", linebot.ImagemapArea{X: 520, Y: 520, Width: 520, Height: 520}),
-				).WithVideo(&linebot.ImagemapVideo{
-					OriginalContentURL: app.appBaseURL + "/static/imagemap/video.mp4",
-					PreviewImageURL:    app.appBaseURL + "/static/imagemap/preview.jpg",
-					Area:               linebot.ImagemapArea{X: 280, Y: 385, Width: 480, Height: 270},
-					ExternalLink:       &linebot.ImagemapVideoExternalLink{LinkURI: "https://line.me", Label: "LINE"},
-				}),
-			).Do(); err != nil {
-				return err
+		case "osu":
+			osuUsername := string(keyword[4:])
+			if err := app.osuMessage(osuUsername, replyToken); err != nil {
+				log.Print(err)
 			}
 		case "quick":
 			if _, err := app.bot.ReplyMessage(
@@ -475,6 +460,452 @@ func defaultImage(message string) string {
 		return "https://forum.dbaclass.com/wp-content/themes/qaengine/img/default-thumbnail.jpg"
 	}
 	return message
+}
+
+func (app *TamakoBot) osuMessage(message string, replyToken string) error {
+	var osuStd OsuStd
+	var osuMania OsuMania
+	var osuTaiko OsuTaiko
+	var osuCtb OsuCtb
+
+	// get osu standard api
+	stdApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=0&k=1958afa9967f399f1cd22f52be34d93bcf755212")
+	json.Unmarshal([]byte(stdApi), &osuStd)
+
+	maniaApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=0&k=1958afa9967f399f1cd22f52be34d93bcf755212")
+	json.Unmarshal([]byte(maniaApi), &osuMania)
+
+	taikoApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=0&k=1958afa9967f399f1cd22f52be34d93bcf755212")
+	json.Unmarshal([]byte(taikoApi), &osuTaiko)
+
+	ctbApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=0&k=1958afa9967f399f1cd22f52be34d93bcf755212")
+	json.Unmarshal([]byte(ctbApi), &osuCtb)
+
+	jsonString := `{
+		"type": "carousel",
+		"contents": [
+		  {
+			"type": "bubble",
+			"body": {
+			  "type": "box",
+			  "layout": "vertical",
+			  "contents": [
+				{
+				  "type": "text",
+				  "text": "osu!",
+				  "weight": "bold",
+				  "color": "#1DB446",
+				  "size": "sm"
+				},
+				{
+				  "type": "text",
+				  "text": "wiam103",
+				  "weight": "bold",
+				  "size": "xxl",
+				  "margin": "md"
+				},
+				{
+				  "type": "text",
+				  "text": "Miraina Tower, 4-1-6 Shinjuku, Tokyo",
+				  "size": "xs",
+				  "color": "#aaaaaa",
+				  "wrap": true
+				},
+				{
+				  "type": "separator",
+				  "margin": "xxl"
+				},
+				{
+				  "type": "box",
+				  "layout": "vertical",
+				  "margin": "xxl",
+				  "spacing": "sm",
+				  "contents": [
+					{
+					  "type": "box",
+					  "layout": "horizontal",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Standard",
+						  "size": "md",
+						  "color": "#555555",
+						  "flex": 0,
+						  "weight": "bold"
+						}
+					  ]
+					},
+					{
+					  "type": "box",
+					  "layout": "horizontal",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Country Rank",
+						  "size": "sm",
+						  "color": "#555555",
+						  "flex": 0
+						},
+						{
+						  "type": "text",
+						  "text": "` + osuStd.Pp_country_rank + `",
+						  "size": "sm",
+						  "color": "#111111",
+						  "align": "end"
+						}
+					  ]
+					},
+					{
+					  "type": "box",
+					  "layout": "horizontal",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Global Rank",
+						  "size": "sm",
+						  "color": "#555555",
+						  "flex": 0
+						},
+						{
+						  "type": "text",
+						  "text": "$0.99",
+						  "size": "sm",
+						  "color": "#111111",
+						  "align": "end"
+						}
+					  ]
+					},
+					{
+					  "type": "box",
+					  "layout": "horizontal",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Accuracy",
+						  "size": "sm",
+						  "color": "#555555",
+						  "flex": 0
+						},
+						{
+						  "type": "text",
+						  "text": "$3.33",
+						  "size": "sm",
+						  "color": "#111111",
+						  "align": "end"
+						}
+					  ]
+					},
+					{
+					  "type": "separator",
+					  "margin": "xxl"
+					},
+					{
+					  "type": "box",
+					  "layout": "horizontal",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Mania",
+						  "size": "md",
+						  "color": "#555555",
+						  "flex": 0,
+						  "weight": "bold"
+						}
+					  ],
+					  "margin": "xxl"
+					},
+					{
+					  "type": "box",
+					  "layout": "horizontal",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Country Rank",
+						  "size": "sm",
+						  "color": "#555555"
+						},
+						{
+						  "type": "text",
+						  "text": "3",
+						  "size": "sm",
+						  "color": "#111111",
+						  "align": "end"
+						}
+					  ]
+					},
+					{
+					  "type": "box",
+					  "layout": "horizontal",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Global Rank",
+						  "size": "sm",
+						  "color": "#555555"
+						},
+						{
+						  "type": "text",
+						  "text": "$7.31",
+						  "size": "sm",
+						  "color": "#111111",
+						  "align": "end"
+						}
+					  ]
+					},
+					{
+					  "type": "box",
+					  "layout": "horizontal",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Accuracy",
+						  "size": "sm",
+						  "color": "#555555"
+						},
+						{
+						  "type": "text",
+						  "text": "$8.0",
+						  "size": "sm",
+						  "color": "#111111",
+						  "align": "end"
+						}
+					  ]
+					}
+				  ]
+				},
+				{
+				  "type": "separator",
+				  "margin": "xxl"
+				},
+				{
+				  "type": "box",
+				  "layout": "horizontal",
+				  "margin": "md",
+				  "contents": [
+					{
+					  "type": "text",
+					  "text": "Country",
+					  "size": "xs",
+					  "color": "#aaaaaa",
+					  "flex": 0
+					},
+					{
+					  "type": "text",
+					  "text": "#743289384279",
+					  "color": "#aaaaaa",
+					  "size": "xs",
+					  "align": "end"
+					}
+				  ]
+				}
+			  ]
+			},
+			"styles": {
+			  "footer": {
+				"separator": true
+			  }
+			}
+		  },
+		  {
+			"type": "bubble",
+			"hero": {
+			  "type": "image",
+			  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+			  "size": "xl"
+			},
+			"body": {
+			  "type": "box",
+			  "layout": "vertical",
+			  "contents": [
+				{
+				  "type": "separator",
+				  "margin": "xxl"
+				},
+				{
+				  "type": "box",
+				  "layout": "vertical",
+				  "margin": "xxl",
+				  "spacing": "sm",
+				  "contents": [
+					{
+					  "type": "box",
+					  "layout": "horizontal",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Taiko",
+						  "size": "md",
+						  "color": "#555555",
+						  "flex": 0,
+						  "weight": "bold"
+						}
+					  ]
+					},
+					{
+					  "type": "box",
+					  "layout": "horizontal",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Country Rank",
+						  "size": "sm",
+						  "color": "#555555",
+						  "flex": 0
+						},
+						{
+						  "type": "text",
+						  "text": "$2.99",
+						  "size": "sm",
+						  "color": "#111111",
+						  "align": "end"
+						}
+					  ]
+					},
+					{
+					  "type": "box",
+					  "layout": "horizontal",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Global Rank",
+						  "size": "sm",
+						  "color": "#555555",
+						  "flex": 0
+						},
+						{
+						  "type": "text",
+						  "text": "$0.99",
+						  "size": "sm",
+						  "color": "#111111",
+						  "align": "end"
+						}
+					  ]
+					},
+					{
+					  "type": "box",
+					  "layout": "horizontal",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Accuracy",
+						  "size": "sm",
+						  "color": "#555555",
+						  "flex": 0
+						},
+						{
+						  "type": "text",
+						  "text": "$3.33",
+						  "size": "sm",
+						  "color": "#111111",
+						  "align": "end"
+						}
+					  ]
+					},
+					{
+					  "type": "separator",
+					  "margin": "xxl"
+					},
+					{
+					  "type": "box",
+					  "layout": "horizontal",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Catch the beat",
+						  "size": "md",
+						  "color": "#555555",
+						  "flex": 0,
+						  "weight": "bold"
+						}
+					  ],
+					  "margin": "xxl"
+					},
+					{
+					  "type": "box",
+					  "layout": "horizontal",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Country Rank",
+						  "size": "sm",
+						  "color": "#555555"
+						},
+						{
+						  "type": "text",
+						  "text": "3",
+						  "size": "sm",
+						  "color": "#111111",
+						  "align": "end"
+						}
+					  ]
+					},
+					{
+					  "type": "box",
+					  "layout": "horizontal",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Global Rank",
+						  "size": "sm",
+						  "color": "#555555"
+						},
+						{
+						  "type": "text",
+						  "text": "$7.31",
+						  "size": "sm",
+						  "color": "#111111",
+						  "align": "end"
+						}
+					  ]
+					},
+					{
+					  "type": "box",
+					  "layout": "horizontal",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Accuracy",
+						  "size": "sm",
+						  "color": "#555555"
+						},
+						{
+						  "type": "text",
+						  "text": "$8.0",
+						  "size": "sm",
+						  "color": "#111111",
+						  "align": "end"
+						}
+					  ]
+					}
+				  ]
+				},
+				{
+				  "type": "separator",
+				  "margin": "xxl"
+				}
+			  ]
+			},
+			"styles": {
+			  "footer": {
+				"separator": true
+			  }
+			}
+		  }
+		]
+	  }`
+	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(jsonString))
+	if err != nil {
+		return err
+	}
+	if _, err := app.bot.ReplyMessage(
+		replyToken,
+		linebot.NewFlexMessage("Flex message alt text", contents),
+	).Do(); err != nil {
+		return err
+	}
+
+	return nil
+
 }
 
 func (app *TamakoBot) motwMessage(replyToken string) error {
