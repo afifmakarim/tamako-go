@@ -303,7 +303,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			randomInt := randomInt(0, len(explode))
 			random_str := explode[randomInt]
 			return app.replyText(replyToken, "I choose "+random_str)
-		case "imagemap video":
+		case "imagemapvideo":
 			if _, err := app.bot.ReplyMessage(
 				replyToken,
 				linebot.NewImagemapMessage(
