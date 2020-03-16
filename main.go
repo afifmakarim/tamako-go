@@ -721,19 +721,20 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 			}
 		  },
 		  {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "image",
-                "url": "` + imageUrl + `"
-              }
-            ]
-          },
+			"type": "bubble",
 			"body": {
 			  "type": "box",
 			  "layout": "vertical",
-			  "contents": [
+			  "contents": [{
+				"type": "box",
+				"layout": "vertical",
+				"contents": [
+				  {
+					"type": "image",
+					"url": "` + imageUrl + `"
+				  }
+				]
+			  },
 				{
 				  "type": "separator",
 				  "margin": "xxl"
