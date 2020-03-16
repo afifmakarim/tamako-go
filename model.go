@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"log"
 	"math/big"
+	"math/rand"
 	"net/http"
 	"net/url"
 	"strings"
@@ -303,6 +304,10 @@ func hero_id_to_names(id string) string {
 	hero["120"] = "Pangolier"
 
 	return hero[id]
+}
+
+func randomInt(min, max int) int {
+	return min + rand.Intn(max-min)
 }
 
 // func FlexGameJson(array []string) string {
