@@ -638,7 +638,7 @@ func (app *TamakoBot) motwMessage(replyToken string) error {
 		artistName := details.ArtistName
 		titleName := details.Name
 		id := details.Id
-		columns = append(columns, linebot.NewCarouselColumn(imgUrl, artistName, titleName, linebot.NewMessageAction("Preview", "/details "+id)))
+		columns = append(columns, linebot.NewCarouselColumn(imgUrl, artistName, titleName, linebot.NewMessageAction("Preview", "!details "+id)))
 
 	}
 
