@@ -139,6 +139,7 @@ type ListResult struct {
 }
 
 type OsuStd struct {
+	User_id         string
 	Join_date       string
 	Accuracy        string
 	Pp_rank         string
@@ -146,6 +147,7 @@ type OsuStd struct {
 }
 
 type OsuMania struct {
+	User_id         string
 	Join_date       string
 	Accuracy        string
 	Pp_rank         string
@@ -153,6 +155,7 @@ type OsuMania struct {
 }
 
 type OsuTaiko struct {
+	User_id         string
 	Join_date       string
 	Accuracy        string
 	Pp_rank         string
@@ -160,6 +163,7 @@ type OsuTaiko struct {
 }
 
 type OsuCtb struct {
+	User_id         string
 	Join_date       string
 	Accuracy        string
 	Pp_rank         string

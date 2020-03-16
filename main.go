@@ -475,19 +475,21 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 	stdCountryRank := defaultValue(osuStd[0].Pp_country_rank)
 	stdGlobalRank := defaultValue(osuStd[0].Pp_rank)
 
-	maniaApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=0&k=1958afa9967f399f1cd22f52be34d93bcf755212")
+	imageUrl := "https://a.ppy.sh/" + osuStd[0].User_id
+
+	maniaApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=3&k=1958afa9967f399f1cd22f52be34d93bcf755212")
 	json.Unmarshal([]byte(maniaApi), &osuMania)
 	maniaAkurasi := defaultValue(osuMania[0].Accuracy)
 	maniaCountryRank := defaultValue(osuMania[0].Pp_country_rank)
 	maniaGlobalRank := defaultValue(osuMania[0].Pp_rank)
 
-	taikoApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=0&k=1958afa9967f399f1cd22f52be34d93bcf755212")
+	taikoApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=1&k=1958afa9967f399f1cd22f52be34d93bcf755212")
 	json.Unmarshal([]byte(taikoApi), &osuTaiko)
 	taikoAkurasi := defaultValue(osuTaiko[0].Accuracy)
 	taikoCountryRank := defaultValue(osuTaiko[0].Pp_country_rank)
 	taikoGlobalRank := defaultValue(osuTaiko[0].Pp_rank)
 
-	ctbApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=0&k=1958afa9967f399f1cd22f52be34d93bcf755212")
+	ctbApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=2&k=1958afa9967f399f1cd22f52be34d93bcf755212")
 	json.Unmarshal([]byte(ctbApi), &osuCtb)
 	ctbAkurasi := defaultValue(osuCtb[0].Accuracy)
 	ctbCountryRank := defaultValue(osuCtb[0].Pp_country_rank)
@@ -722,7 +724,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 			"type": "bubble",
 			"hero": {
 			  "type": "image",
-			  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+			  "url": "` + imageUrl + `",
 			  "size": "xl"
 			},
 			"body": {
