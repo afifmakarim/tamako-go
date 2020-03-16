@@ -145,6 +145,7 @@ type OsuStd struct {
 	Accuracy        string
 	Pp_rank         string
 	Pp_country_rank string
+	Country         string
 }
 
 type OsuMania struct {
