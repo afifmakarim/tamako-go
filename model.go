@@ -127,7 +127,9 @@ type FeedResult struct {
 }
 
 type ListResult struct {
+	Id             string
 	Name           string
+	ArtistName     string
 	CollectionName string
 	ArtistId       string
 	ArtistUrl      string

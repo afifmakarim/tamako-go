@@ -628,15 +628,17 @@ func (app *TamakoBot) motwMessage(replyToken string) error {
 	imgUrl := "https://cdn.dribbble.com/users/90627/screenshots/3171301/applemusiclogodribble.png"
 	motw := getData("https://rss.itunes.apple.com/api/v1/id/apple-music/top-songs/all/10/explicit.json")
 	json.Unmarshal([]byte(motw), &motwApi)
+
 	var columns []*linebot.CarouselColumn
 	var actions []linebot.TemplateAction
-	// Add Actions
-	actions = append(actions, linebot.NewMessageAction("left", "left clicked"))
-	actions = append(actions, linebot.NewMessageAction("right", "right clicked"))
 
 	for _, details := range motwApi.Feed.Results {
-		//carousel = linebot.NewCarouselColumn(imgUrl, details.CollectionName, "fuga", linebot.NewURIAction("Go to line.me", "https://line.me"), linebot.NewPostbackAction("Say hello1", "hello こんにちは", "", ""))
-		columns = append(columns, linebot.NewCarouselColumn(imgUrl, details.CollectionName, "description", actions...))
+		artistName := details.ArtistName
+		titleName := details.Name
+
+		// Add Actions
+		actions = append(actions, linebot.NewMessageAction("Preview", "/details "+details.Id))
+		columns = append(columns, linebot.NewCarouselColumn(imgUrl, artistName, titleName, actions...))
 
 	}
 
