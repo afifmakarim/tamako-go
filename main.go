@@ -480,7 +480,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 	stdGlobalRank := defaultValue(osuStd[0].Pp_rank)
 
 	username := defaultValue(osuStd[0].Username)
-	country := osuStd[0].Country
+	country := defaultValue(osuStd[0].Country)
 	imageUrl := "https://a.ppy.sh/" + osuStd[0].User_id
 
 	maniaApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=3&k=1958afa9967f399f1cd22f52be34d93bcf755212")
