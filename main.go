@@ -296,21 +296,12 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			rand.Seed(time.Now().UnixNano())
 			randomInt := randomInt(0, 3)
 			return app.replyText(replyToken, ynmKeyword+"\n"+array[randomInt])
-		case "imagemap":
-			if _, err := app.bot.ReplyMessage(
-				replyToken,
-				linebot.NewImagemapMessage(
-					app.appBaseURL+"/static/rich",
-					"Imagemap alt text",
-					linebot.ImagemapBaseSize{Width: 1040, Height: 1040},
-					linebot.NewURIImagemapAction("LINE Store Manga", "https://store.line.me/family/manga/en", linebot.ImagemapArea{X: 0, Y: 0, Width: 520, Height: 520}),
-					linebot.NewURIImagemapAction("LINE Store Music", "https://store.line.me/family/music/en", linebot.ImagemapArea{X: 520, Y: 0, Width: 520, Height: 520}),
-					linebot.NewURIImagemapAction("LINE Store Play", "https://store.line.me/family/play/en", linebot.ImagemapArea{X: 0, Y: 520, Width: 520, Height: 520}),
-					linebot.NewMessageImagemapAction("URANAI!", "URANAI!", linebot.ImagemapArea{X: 520, Y: 520, Width: 520, Height: 520}),
-				),
-			).Do(); err != nil {
-				return err
-			}
+		case "chs":
+			explode := strings.Split(keyword, "-")
+			rand.Seed(time.Now().UnixNano())
+			randomInt := randomInt(0, len(explode))
+			random_str := explode[randomInt]
+			return app.replyText(replyToken, random_str)
 		case "imagemap video":
 			if _, err := app.bot.ReplyMessage(
 				replyToken,

@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 )
 
 type SteamResponse struct {
@@ -308,6 +309,15 @@ func hero_id_to_names(id string) string {
 
 func randomInt(min, max int) int {
 	return min + rand.Intn(max-min)
+}
+
+func ArrayRand(elements []interface{}) []interface{} {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	n := make([]interface{}, len(elements))
+	for i, v := range r.Perm(len(elements)) {
+		n[i] = elements[v]
+	}
+	return n
 }
 
 // func FlexGameJson(array []string) string {
