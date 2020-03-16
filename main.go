@@ -548,7 +548,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "` + osuStd.Pp_country_rank + `",
+						  "text": "aaaa",
 						  "size": "sm",
 						  "color": "#111111",
 						  "align": "end"
