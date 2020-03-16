@@ -302,7 +302,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			rand.Seed(time.Now().UnixNano())
 			randomInt := randomInt(0, len(explode))
 			random_str := explode[randomInt]
-			return app.replyText(replyToken, random_str)
+			return app.replyText(replyToken, "I choose "+random_str)
 		case "imagemap video":
 			if _, err := app.bot.ReplyMessage(
 				replyToken,
