@@ -625,7 +625,7 @@ func defaultImage(message string) string {
 
 func (app *TamakoBot) motwMessage(replyToken string) error {
 	var motwApi MotwApi
-	imgUrl := "https://cdn.dribbble.com/users/90627/screenshots/3171301/applemusiclogodribble.png"
+
 	motw := getData("https://rss.itunes.apple.com/api/v1/id/apple-music/top-songs/all/10/explicit.json")
 	json.Unmarshal([]byte(motw), &motwApi)
 	//var id []string
@@ -634,6 +634,7 @@ func (app *TamakoBot) motwMessage(replyToken string) error {
 	// Add Actions
 
 	for _, details := range motwApi.Feed.Results {
+		imgUrl := details.ArtworkUrl100
 		artistName := details.ArtistName
 		titleName := details.Name
 		id := details.Id
