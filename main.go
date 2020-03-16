@@ -468,16 +468,16 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 	var osuTaiko []OsuTaiko
 	var osuCtb []OsuCtb
 
+	if message == "" {
+		return app.replyText(replyToken, "osu! information not found")
+	}
+
 	// get osu standard api
 	stdApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=0&k=1958afa9967f399f1cd22f52be34d93bcf755212")
 	json.Unmarshal([]byte(stdApi), &osuStd)
 	stdAkurasi := defaultValue(osuStd[0].Accuracy)
 	stdCountryRank := defaultValue(osuStd[0].Pp_country_rank)
 	stdGlobalRank := defaultValue(osuStd[0].Pp_rank)
-
-	if message == "" {
-		return app.replyText(replyToken, "osu! information not found")
-	}
 
 	username := defaultValue(osuStd[0].Username)
 	country := osuStd[0].Country
