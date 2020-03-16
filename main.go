@@ -624,29 +624,31 @@ func defaultImage(message string) string {
 }
 
 func (app *TamakoBot) motwMessage(replyToken string) error {
-	// var motwApi MotwApi
-	// imgUrl := "https://cdn.dribbble.com/users/90627/screenshots/3171301/applemusiclogodribble.png"
-	// motw := getData("https://rss.itunes.apple.com/api/v1/id/apple-music/top-songs/all/10/explicit.json")
-	// json.Unmarshal([]byte(motw), &motwApi)
+	var motwApi MotwApi
+	imgUrl := "https://cdn.dribbble.com/users/90627/screenshots/3171301/applemusiclogodribble.png"
+	motw := getData("https://rss.itunes.apple.com/api/v1/id/apple-music/top-songs/all/10/explicit.json")
+	json.Unmarshal([]byte(motw), &motwApi)
+	var columns []*linebot.CarouselColumn
+	var actions []linebot.TemplateAction
+	// Add Actions
+	actions = append(actions, linebot.NewMessageAction("left", "left clicked"))
+	actions = append(actions, linebot.NewMessageAction("right", "right clicked"))
 
-	// carousels := []string{}
-	// for _, details := range motwApi.Feed.Results {
-	// 	carousel := linebot.NewCarouselColumn(
-	// 		imgUrl, details.CollectionName, "fuga",
-	// 		linebot.NewURIAction("Go to line.me", "https://line.me"),
-	// 		linebot.NewPostbackAction("Say hello1", "hello こんにちは", "", ""),
-	// 	)
-	// 	carousels = append(carousels, carousel)
-	// }
+	for _, details := range motwApi.Feed.Results {
+		//carousel = linebot.NewCarouselColumn(imgUrl, details.CollectionName, "fuga", linebot.NewURIAction("Go to line.me", "https://line.me"), linebot.NewPostbackAction("Say hello1", "hello こんにちは", "", ""))
+		columns = append(columns, linebot.NewCarouselColumn(imgUrl, details.CollectionName, "description", actions...))
 
-	// template := linebot.NewCarouselTemplate(carousels)
-	// if _, err := app.bot.ReplyMessage(
-	// 	replyToken,
-	// 	linebot.NewTemplateMessage("Carousel alt text", template),
-	// ).Do(); err != nil {
-	// 	return err
-	// }
-	return app.replyText(replyToken, "Video game information not found")
+	}
+
+	template := linebot.NewCarouselTemplate(columns...)
+	if _, err := app.bot.ReplyMessage(
+		replyToken,
+		linebot.NewTemplateMessage("Carousel alt text", template),
+	).Do(); err != nil {
+		return err
+	}
+	return nil
+	// return app.replyText(replyToken, "Video game information not found")
 }
 
 func (app *TamakoBot) gameMessage(message string, replyToken string) error {
