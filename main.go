@@ -471,6 +471,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 	// get osu standard api
 	stdApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=0&k=1958afa9967f399f1cd22f52be34d93bcf755212")
 	json.Unmarshal([]byte(stdApi), &osuStd)
+	stdAkurasi := defaultValue(osuStd.Accuracy)
 
 	maniaApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=0&k=1958afa9967f399f1cd22f52be34d93bcf755212")
 	json.Unmarshal([]byte(maniaApi), &osuMania)
@@ -588,7 +589,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "$3.33",
+						  "text": "` + stdAkurasi + `",
 						  "size": "sm",
 						  "color": "#111111",
 						  "align": "end"
