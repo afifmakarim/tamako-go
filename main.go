@@ -468,9 +468,9 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 	var osuTaiko []OsuTaiko
 	var osuCtb []OsuCtb
 
-	if message == "" {
-		return app.replyText(replyToken, "osu! information not found")
-	}
+	// if message == "" {
+	// 	return app.replyText(replyToken, "osu! information not found")
+	// }
 
 	// get osu standard api
 	stdApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=0&k=1958afa9967f399f1cd22f52be34d93bcf755212")
