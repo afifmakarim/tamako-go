@@ -631,13 +631,12 @@ func (app *TamakoBot) motwMessage(replyToken string) error {
 
 	var columns []*linebot.CarouselColumn
 	var actions []linebot.TemplateAction
-
+	// Add Actions
+	actions = append(actions, linebot.NewMessageAction("Preview", "/details "))
 	for _, details := range motwApi.Feed.Results {
 		artistName := details.ArtistName
 		titleName := details.Name
 
-		// Add Actions
-		actions = append(actions, linebot.NewMessageAction("Preview", "/details "))
 		columns = append(columns, linebot.NewCarouselColumn(imgUrl, artistName, titleName, actions...))
 
 	}
