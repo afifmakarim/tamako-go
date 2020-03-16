@@ -297,7 +297,8 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			randomInt := randomInt(0, 3)
 			return app.replyText(replyToken, ynmKeyword+"\n"+array[randomInt])
 		case "chs":
-			explode := strings.Split(keyword, "-")
+			chsKeyword := string(keyword[4:])
+			explode := strings.Split(chsKeyword, "-")
 			rand.Seed(time.Now().UnixNano())
 			randomInt := randomInt(0, len(explode))
 			random_str := explode[randomInt]
