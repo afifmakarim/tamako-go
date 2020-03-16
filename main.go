@@ -463,15 +463,15 @@ func defaultImage(message string) string {
 }
 
 func (app *TamakoBot) osuMessage(message string, replyToken string) error {
-	var osuStd OsuStd
-	var osuMania OsuMania
-	var osuTaiko OsuTaiko
-	var osuCtb OsuCtb
+	var osuStd []OsuStd
+	var osuMania []OsuMania
+	var osuTaiko []OsuTaiko
+	var osuCtb []OsuCtb
 
 	// get osu standard api
 	stdApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=0&k=1958afa9967f399f1cd22f52be34d93bcf755212")
 	json.Unmarshal([]byte(stdApi), &osuStd)
-	stdAkurasi := defaultValue(osuStd.Accuracy)
+	stdAkurasi := defaultValue(osuStd[0].Accuracy)
 
 	maniaApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=0&k=1958afa9967f399f1cd22f52be34d93bcf755212")
 	json.Unmarshal([]byte(maniaApi), &osuMania)
