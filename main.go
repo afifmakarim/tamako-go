@@ -1236,12 +1236,50 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 			  "layout": "horizontal",
 			  "contents": [
 				{
+				  "type": "image",
+				  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip7.jpg",
+				  "size": "5xl",
+				  "aspectMode": "cover",
+				  "aspectRatio": "150:196",
+				  "gravity": "center",
+				  "flex": 1
+				},
+				{
 				  "type": "box",
 				  "layout": "vertical",
 				  "contents": [
 					{
 					  "type": "image",
-					  "url": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/ca/cac299e3508304850499e776a9699bbafd7f1aa5_full.jpg",
+					  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip8.jpg",
+					  "size": "full",
+					  "aspectMode": "cover",
+					  "aspectRatio": "150:98",
+					  "gravity": "center"
+					},
+					{
+					  "type": "image",
+					  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip9.jpg",
+					  "size": "full",
+					  "aspectMode": "cover",
+					  "aspectRatio": "150:98",
+					  "gravity": "center"
+					}
+				  ],
+				  "flex": 1
+				}
+			  ]
+			},
+			{
+			  "type": "box",
+			  "layout": "horizontal",
+			  "contents": [
+				{
+				  "type": "box",
+				  "layout": "vertical",
+				  "contents": [
+					{
+					  "type": "image",
+					  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip13.jpg",
 					  "aspectMode": "cover",
 					  "size": "full"
 					}
@@ -1259,9 +1297,17 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 					  "contents": [
 						{
 						  "type": "span",
-						  "text": "Rojokundo-",
-						  "size": "lg",
-						  "weight": "bold"
+						  "text": "brown_05",
+						  "weight": "bold",
+						  "color": "#000000"
+						},
+						{
+						  "type": "span",
+						  "text": "     "
+						},
+						{
+						  "type": "span",
+						  "text": "I went to the Brown&Cony cafe in Tokyo and took a picture"
 						}
 					  ],
 					  "size": "sm",
@@ -1273,21 +1319,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 					  "contents": [
 						{
 						  "type": "text",
-						  "text": "Afif Makarim",
-						  "size": "sm",
-						  "color": "#bcbcbc"
-						}
-					  ],
-					  "spacing": "sm",
-					  "margin": "md"
-					},
-					{
-					  "type": "box",
-					  "layout": "baseline",
-					  "contents": [
-						{
-						  "type": "text",
-						  "text": "Online",
+						  "text": "1,140,753 Like",
 						  "size": "sm",
 						  "color": "#bcbcbc"
 						}
@@ -1300,52 +1332,9 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 			  ],
 			  "spacing": "xl",
 			  "paddingAll": "20px"
-			},
-			{
-			  "type": "box",
-			  "layout": "baseline",
-			  "spacing": "sm",
-			  "contents": [
-				{
-				  "type": "text",
-				  "text": "Library",
-				  "color": "#aaaaaa",
-				  "size": "sm",
-				  "flex": 3
-				},
-				{
-				  "type": "text",
-				  "text": "aaaaaaa",
-				  "wrap": true,
-				  "color": "#666666",
-				  "size": "sm",
-				  "flex": 5
-				}
-			  ]
-			},
-			{
-			  "type": "box",
-			  "layout": "baseline",
-			  "spacing": "sm",
-			  "contents": [
-				{
-				  "type": "text",
-				  "text": "Recent",
-				  "color": "#aaaaaa",
-				  "size": "sm",
-				  "flex": 3
-				},
-				{
-				  "type": "text",
-				  "text": "Miraina Tower",
-				  "wrap": true,
-				  "color": "#666666",
-				  "size": "sm",
-				  "flex": 5
-				}
-			  ]
 			}
-		  ]
+		  ],
+		  "paddingAll": "0px"
 		}
 	  }`
 
