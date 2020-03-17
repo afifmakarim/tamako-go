@@ -173,11 +173,11 @@ type OsuCtb struct {
 }
 
 type Responses struct {
-	Response Response
+	Game_count int
 }
 
-type Response struct {
-	Game_count int
+type GetResponse struct {
+	Response Responses
 }
 
 type SteamProfile struct {
