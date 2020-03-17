@@ -309,7 +309,7 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 				log.Print(err)
 			}
 		case "steam":
-			steamUsername := string(keyword[4:])
+			steamUsername := string(keyword[6:])
 			if err := app.steamMessage(steamUsername, replyToken); err != nil {
 				log.Print(err)
 			}
