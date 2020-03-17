@@ -1213,7 +1213,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	getGameCount := getData("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=7834436769DDB41F2D14A2F312377946&steamid=" + steam_64 + "&format=json")
 	json.Unmarshal([]byte(getGameCount), &gameCount)
 
-	return app.replyText(replyToken, steam.Response.Steamid)
+	return app.replyText(replyToken, string(steam.Response.Steamid))
 	//total_lib := gameCount.Game_count
 	// 	total_lib := "xx"
 	// 	getSteamProfile := getData("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=7834436769DDB41F2D14A2F312377946&steamids=" + steam_64)
