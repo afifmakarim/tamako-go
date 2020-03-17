@@ -1358,6 +1358,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 				"label": "action",
 				"uri": "http://linecorp.com/"
 			  },
+			  "style": "link"
 			}
 		  ]
 		}
