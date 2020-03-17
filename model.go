@@ -172,6 +172,22 @@ type OsuCtb struct {
 	Pp_country_rank string
 }
 
+type GameCount struct {
+	Game_count int
+}
+
+type SteamProfile struct {
+	Players []Player
+}
+
+type Player struct {
+	Personaname  string
+	Profileurl   string
+	Avatarfull   string
+	Realname     string
+	Profilestate int
+}
+
 func getData(url string) []byte {
 
 	resp, err := http.Get(url)
