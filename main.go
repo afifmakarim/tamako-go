@@ -1384,16 +1384,6 @@ func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
 			  "spacing": "sm",
 			  "contents": [
 				{
-				  "type": "button",
-				  "style": "link",
-				  "height": "sm",
-				  "action": {
-					"type": "uri",
-					"label": "Open Browser",
-					"uri": "http://sdasd.com"
-				  }
-				},
-				{
 				  "type": "spacer",
 				  "size": "sm"
 				}
