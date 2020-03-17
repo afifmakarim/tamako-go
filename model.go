@@ -181,7 +181,7 @@ type Responses struct {
 }
 
 type Res struct {
-	Respond SteamProfile
+	Response SteamProfile
 }
 
 type SteamProfile struct {
