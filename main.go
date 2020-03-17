@@ -1204,7 +1204,7 @@ func (app *TamakoBot) dotaMessage(message string, replyToken string) error {
 
 func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	var steam Steam
-	var gameCount GameCount
+	var gameCount Response
 	//var steamProfile SteamProfile
 	steamJson := getData("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=" + message)
 	json.Unmarshal([]byte(steamJson), &steam)

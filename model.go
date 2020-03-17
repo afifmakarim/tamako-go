@@ -172,7 +172,7 @@ type OsuCtb struct {
 	Pp_country_rank string
 }
 
-type GameCount struct {
+type Response struct {
 	Game_count int
 }
 
