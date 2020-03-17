@@ -1227,98 +1227,121 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	//get_state := "1"
 	jsonString := `{
 		"type": "bubble",
-		"hero": {
-		  "type": "image",
-		  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
-		  "size": "full",
-		  "aspectRatio": "1:1",
-		  "aspectMode": "cover",
-		  "action": {
-			"type": "uri",
-			"uri": "http://linecorp.com/"
-		  }
-		},
 		"body": {
 		  "type": "box",
 		  "layout": "vertical",
 		  "contents": [
 			{
-			  "type": "text",
-			  "text": "Brown Cafe",
-			  "weight": "bold",
-			  "size": "xl"
-			},
-			{
 			  "type": "box",
-			  "layout": "vertical",
-			  "margin": "lg",
-			  "spacing": "sm",
+			  "layout": "horizontal",
 			  "contents": [
 				{
 				  "type": "box",
-				  "layout": "baseline",
-				  "spacing": "sm",
+				  "layout": "vertical",
 				  "contents": [
 					{
-					  "type": "text",
-					  "text": "Place",
-					  "color": "#aaaaaa",
-					  "size": "sm",
-					  "flex": 1
-					},
-					{
-					  "type": "text",
-					  "text": "Miraina Tower, 4-1-6 Shinjuku, Tokyo",
-					  "wrap": true,
-					  "color": "#666666",
-					  "size": "sm",
-					  "flex": 5
+					  "type": "image",
+					  "url": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/ca/cac299e3508304850499e776a9699bbafd7f1aa5_full.jpg",
+					  "aspectMode": "cover",
+					  "size": "full"
 					}
-				  ]
+				  ],
+				  "cornerRadius": "100px",
+				  "width": "72px",
+				  "height": "72px"
 				},
 				{
 				  "type": "box",
-				  "layout": "baseline",
-				  "spacing": "sm",
+				  "layout": "vertical",
 				  "contents": [
 					{
 					  "type": "text",
-					  "text": "Time",
-					  "color": "#aaaaaa",
+					  "contents": [
+						{
+						  "type": "span",
+						  "text": "Rojokundo-",
+						  "size": "lg",
+						  "weight": "bold"
+						}
+					  ],
 					  "size": "sm",
-					  "flex": 1
+					  "wrap": true
 					},
 					{
-					  "type": "text",
-					  "text": "10:00 - 23:00",
-					  "wrap": true,
-					  "color": "#666666",
-					  "size": "sm",
-					  "flex": 5
+					  "type": "box",
+					  "layout": "baseline",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Afif Makarim",
+						  "size": "sm",
+						  "color": "#bcbcbc"
+						}
+					  ],
+					  "spacing": "sm",
+					  "margin": "md"
+					},
+					{
+					  "type": "box",
+					  "layout": "baseline",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Online",
+						  "size": "sm",
+						  "color": "#bcbcbc"
+						}
+					  ],
+					  "spacing": "sm",
+					  "margin": "md"
 					}
 				  ]
+				}
+			  ],
+			  "spacing": "xl",
+			  "paddingAll": "20px"
+			},
+			{
+			  "type": "box",
+			  "layout": "baseline",
+			  "spacing": "sm",
+			  "contents": [
+				{
+				  "type": "text",
+				  "text": "Library",
+				  "color": "#aaaaaa",
+				  "size": "sm",
+				  "flex": 3
 				},
 				{
-				  "type": "box",
-				  "layout": "baseline",
-				  "spacing": "sm",
-				  "contents": [
-					{
-					  "type": "text",
-					  "text": "Place",
-					  "color": "#aaaaaa",
-					  "size": "sm",
-					  "flex": 1
-					},
-					{
-					  "type": "text",
-					  "text": "Miraina Tower, 4-1-6 Shinjuku, Tokyo",
-					  "wrap": true,
-					  "color": "#666666",
-					  "size": "sm",
-					  "flex": 5
-					}
-				  ]
+				  "type": "text",
+				  "text": "10:00 - 23:00",
+				  "wrap": true,
+				  "color": "#666666",
+				  "size": "sm",
+				  "flex": 5
+				}
+			  ]
+			},
+			{
+			  "type": "box",
+			  "layout": "baseline",
+			  "spacing": "sm",
+			  "contents": [
+				{
+				  "type": "text",
+				  "text": "Recent",
+				  "color": "#aaaaaa",
+				  "size": "sm",
+				  "flex": 3
+				},
+				{
+				  "type": "text",
+				  "text": "Miraina Tower, 4-1-6 Shinjuku, Tokyo",
+				  "wrap": true,
+				  "color": "#666666",
+				  "size": "sm",
+				  "flex": 5
 				}
 			  ]
 			}
@@ -1327,20 +1350,16 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 		"footer": {
 		  "type": "box",
 		  "layout": "vertical",
-		  "spacing": "sm",
 		  "contents": [
 			{
 			  "type": "button",
-			  "style": "link",
-			  "height": "sm",
 			  "action": {
 				"type": "uri",
-				"label": "CALL",
-				"uri": "https://linecorp.com"
-			  }
+				"label": "action",
+				"uri": "http://linecorp.com/"
+			  },
 			}
-		  ],
-		  "flex": 0
+		  ]
 		}
 	  }`
 
