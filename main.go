@@ -479,7 +479,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 	username := osuStd[0].Username
 	imageUrl := "https://a.ppy.sh/" + osuStd[0].User_id
 
-	if len(osuStd) == 0 || message == "" {
+	if len(username) == 0 || message == "" {
 		return app.replyText(replyToken, "osu information not found")
 	}
 
