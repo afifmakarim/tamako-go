@@ -1218,9 +1218,9 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	total_lib := "xx"
 	getSteamProfile := getData("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=7834436769DDB41F2D14A2F312377946&steamids=" + steam_32)
 	json.Unmarshal([]byte(getSteamProfile), &steamProfile)
-	get_nickname := steamProfile.Players[0].Personaname
-	get_avatar := steamProfile.Players[0].Avatarfull
-	get_realname := steamProfile.Players[0].Personaname
+	get_nickname := defaultValue(steamProfile.Players[0].Personaname)
+	get_avatar := defaultValue(steamProfile.Players[0].Avatarfull)
+	get_realname := defaultValue(steamProfile.Players[0].Personaname)
 	//get_state := steamProfile.Players[0].Profilestate
 	get_state := "1"
 	jsonString := `{
