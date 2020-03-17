@@ -1215,167 +1215,167 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 
 	//return app.replyText(replyToken, string(gameCount.Response.Game_count))
 	//total_lib := gameCount.Game_count
-	//total_lib := "xx"
+	total_lib := "xx"
 	getSteamProfile := getData("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=7834436769DDB41F2D14A2F312377946&steamids=" + steam_32)
 	json.Unmarshal([]byte(getSteamProfile), &steamProfile)
 
-	return app.replyText(replyToken, steamProfile.Response.Players[0].Personaname)
-	// get_nickname := defaultValue(steamProfile.Players[0].Personaname)
-	// get_avatar := defaultValue(steamProfile.Players[0].Avatarfull)
-	// get_realname := defaultValue(steamProfile.Players[0].Personaname)
-	// //get_state := steamProfile.Players[0].Profilestate
-	// get_state := "1"
-	// jsonString := `{
-	// 	"type": "bubble",
-	// 	"body": {
-	// 	  "type": "box",
-	// 	  "layout": "vertical",
-	// 	  "contents": [
-	// 		{
-	// 		  "type": "box",
-	// 		  "layout": "horizontal",
-	// 		  "contents": [
-	// 			{
-	// 			  "type": "box",
-	// 			  "layout": "vertical",
-	// 			  "contents": [
-	// 				{
-	// 				  "type": "image",
-	// 				  "url": "` + get_avatar + `",
-	// 				  "aspectMode": "cover",
-	// 				  "size": "full"
-	// 				}
-	// 			  ],
-	// 			  "cornerRadius": "100px",
-	// 			  "width": "72px",
-	// 			  "height": "72px"
-	// 			},
-	// 			{
-	// 			  "type": "box",
-	// 			  "layout": "vertical",
-	// 			  "contents": [
-	// 				{
-	// 				  "type": "text",
-	// 				  "contents": [
-	// 					{
-	// 					  "type": "span",
-	// 					  "text": "` + get_nickname + `",
-	// 					  "size": "lg",
-	// 					  "weight": "bold"
-	// 					}
-	// 				  ],
-	// 				  "size": "sm",
-	// 				  "wrap": true
-	// 				},
-	// 				{
-	// 				  "type": "box",
-	// 				  "layout": "baseline",
-	// 				  "contents": [
-	// 					{
-	// 					  "type": "text",
-	// 					  "text": "` + get_realname + `",
-	// 					  "size": "sm",
-	// 					  "color": "#bcbcbc"
-	// 					}
-	// 				  ],
-	// 				  "spacing": "sm",
-	// 				  "margin": "md"
-	// 				},
-	// 				{
-	// 				  "type": "box",
-	// 				  "layout": "baseline",
-	// 				  "contents": [
-	// 					{
-	// 					  "type": "text",
-	// 					  "text": "` + get_state + `",
-	// 					  "size": "sm",
-	// 					  "color": "#bcbcbc"
-	// 					}
-	// 				  ],
-	// 				  "spacing": "sm",
-	// 				  "margin": "md"
-	// 				}
-	// 			  ]
-	// 			}
-	// 		  ],
-	// 		  "spacing": "xl",
-	// 		  "paddingAll": "20px"
-	// 		},
-	// 		{
-	// 		  "type": "box",
-	// 		  "layout": "baseline",
-	// 		  "spacing": "sm",
-	// 		  "contents": [
-	// 			{
-	// 			  "type": "text",
-	// 			  "text": "Library",
-	// 			  "color": "#aaaaaa",
-	// 			  "size": "sm",
-	// 			  "flex": 3
-	// 			},
-	// 			{
-	// 			  "type": "text",
-	// 			  "text": "` + total_lib + `",
-	// 			  "wrap": true,
-	// 			  "color": "#666666",
-	// 			  "size": "sm",
-	// 			  "flex": 5
-	// 			}
-	// 		  ]
-	// 		},
-	// 		{
-	// 		  "type": "box",
-	// 		  "layout": "baseline",
-	// 		  "spacing": "sm",
-	// 		  "contents": [
-	// 			{
-	// 			  "type": "text",
-	// 			  "text": "Recent",
-	// 			  "color": "#aaaaaa",
-	// 			  "size": "sm",
-	// 			  "flex": 3
-	// 			},
-	// 			{
-	// 			  "type": "text",
-	// 			  "text": "Miraina Tower, 4-1-6 Shinjuku, Tokyo",
-	// 			  "wrap": true,
-	// 			  "color": "#666666",
-	// 			  "size": "sm",
-	// 			  "flex": 5
-	// 			}
-	// 		  ]
-	// 		}
-	// 	  ]
-	// 	},
-	// 	"footer": {
-	// 	  "type": "box",
-	// 	  "layout": "vertical",
-	// 	  "contents": [
-	// 		{
-	// 		  "type": "button",
-	// 		  "action": {
-	// 			"type": "uri",
-	// 			"label": "action",
-	// 			"uri": "http://linecorp.com/"
-	// 		  },
-	// 		  "style": "primary"
-	// 		}
-	// 	  ]
-	// 	}
-	//   }`
+	//return app.replyText(replyToken, steamProfile.Response.Players[0].Personaname)
+	get_nickname := defaultValue(steamProfile.Response.Players[0].Personaname)
+	get_avatar := defaultValue(steamProfile.Response.Players[0].Avatarfull)
+	get_realname := defaultValue(steamProfile.Response.Players[0].Personaname)
+	//get_state := steamProfile.Players[0].Profilestate
+	get_state := "1"
+	jsonString := `{
+		"type": "bubble",
+		"body": {
+		  "type": "box",
+		  "layout": "vertical",
+		  "contents": [
+			{
+			  "type": "box",
+			  "layout": "horizontal",
+			  "contents": [
+				{
+				  "type": "box",
+				  "layout": "vertical",
+				  "contents": [
+					{
+					  "type": "image",
+					  "url": "` + get_avatar + `",
+					  "aspectMode": "cover",
+					  "size": "full"
+					}
+				  ],
+				  "cornerRadius": "100px",
+				  "width": "72px",
+				  "height": "72px"
+				},
+				{
+				  "type": "box",
+				  "layout": "vertical",
+				  "contents": [
+					{
+					  "type": "text",
+					  "contents": [
+						{
+						  "type": "span",
+						  "text": "` + get_nickname + `",
+						  "size": "lg",
+						  "weight": "bold"
+						}
+					  ],
+					  "size": "sm",
+					  "wrap": true
+					},
+					{
+					  "type": "box",
+					  "layout": "baseline",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "` + get_realname + `",
+						  "size": "sm",
+						  "color": "#bcbcbc"
+						}
+					  ],
+					  "spacing": "sm",
+					  "margin": "md"
+					},
+					{
+					  "type": "box",
+					  "layout": "baseline",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "` + get_state + `",
+						  "size": "sm",
+						  "color": "#bcbcbc"
+						}
+					  ],
+					  "spacing": "sm",
+					  "margin": "md"
+					}
+				  ]
+				}
+			  ],
+			  "spacing": "xl",
+			  "paddingAll": "20px"
+			},
+			{
+			  "type": "box",
+			  "layout": "baseline",
+			  "spacing": "sm",
+			  "contents": [
+				{
+				  "type": "text",
+				  "text": "Library",
+				  "color": "#aaaaaa",
+				  "size": "sm",
+				  "flex": 3
+				},
+				{
+				  "type": "text",
+				  "text": "` + total_lib + `",
+				  "wrap": true,
+				  "color": "#666666",
+				  "size": "sm",
+				  "flex": 5
+				}
+			  ]
+			},
+			{
+			  "type": "box",
+			  "layout": "baseline",
+			  "spacing": "sm",
+			  "contents": [
+				{
+				  "type": "text",
+				  "text": "Recent",
+				  "color": "#aaaaaa",
+				  "size": "sm",
+				  "flex": 3
+				},
+				{
+				  "type": "text",
+				  "text": "Miraina Tower, 4-1-6 Shinjuku, Tokyo",
+				  "wrap": true,
+				  "color": "#666666",
+				  "size": "sm",
+				  "flex": 5
+				}
+			  ]
+			}
+		  ]
+		},
+		"footer": {
+		  "type": "box",
+		  "layout": "vertical",
+		  "contents": [
+			{
+			  "type": "button",
+			  "action": {
+				"type": "uri",
+				"label": "action",
+				"uri": "http://linecorp.com/"
+			  },
+			  "style": "primary"
+			}
+		  ]
+		}
+	  }`
 
-	// contents, err := linebot.UnmarshalFlexMessageJSON([]byte(jsonString))
-	// if err != nil {
-	// 	return err
-	// }
-	// if _, err := app.bot.ReplyMessage(
-	// 	replyToken,
-	// 	linebot.NewFlexMessage("Manga Information", contents),
-	// ).Do(); err != nil {
-	// 	return err
-	// }
+	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(jsonString))
+	if err != nil {
+		return err
+	}
+	if _, err := app.bot.ReplyMessage(
+		replyToken,
+		linebot.NewFlexMessage("Manga Information", contents),
+	).Do(); err != nil {
+		return err
+	}
 
-	// return nil
+	return nil
 }
 
 func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
