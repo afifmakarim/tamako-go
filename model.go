@@ -172,12 +172,12 @@ type OsuCtb struct {
 	Pp_country_rank string
 }
 
-type Responses struct {
+type Response struct {
 	Game_count int
 }
 
-type GetResponse struct {
-	Response Responses
+type Responses struct {
+	Response Response
 }
 
 type SteamProfile struct {
