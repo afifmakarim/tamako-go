@@ -177,7 +177,7 @@ type Responses struct {
 }
 
 type Response struct {
-	Game_count int32
+	Game_count int
 }
 
 type SteamProfile struct {
