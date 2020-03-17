@@ -1204,7 +1204,7 @@ func (app *TamakoBot) dotaMessage(message string, replyToken string) error {
 
 func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	var steam Steam
-	var gameCount Response
+	var gameCount Responses
 	//var steamProfile SteamProfile
 	steamJson := getData("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=" + message)
 	json.Unmarshal([]byte(steamJson), &steam)
@@ -1213,7 +1213,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	getGameCount := getData("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=7834436769DDB41F2D14A2F312377946&steamid=" + steam_64 + "&format=json")
 	json.Unmarshal([]byte(getGameCount), &gameCount)
 
-	return app.replyText(replyToken, string(gameCount.Game_count))
+	return app.replyText(replyToken, string(gameCount.Response.Game_count))
 	//total_lib := gameCount.Game_count
 	// 	total_lib := "xx"
 	// 	getSteamProfile := getData("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=7834436769DDB41F2D14A2F312377946&steamids=" + steam_64)
