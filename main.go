@@ -1303,7 +1303,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "span",
-						  "text": "     "
+						  "text": "aa"
 						},
 						{
 						  "type": "span",
