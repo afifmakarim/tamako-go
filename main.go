@@ -1215,16 +1215,16 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 
 	//return app.replyText(replyToken, string(gameCount.Response.Game_count))
 	//total_lib := gameCount.Game_count
-	total_lib := "xx"
+	//total_lib := "xx"
 	getSteamProfile := getData("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=7834436769DDB41F2D14A2F312377946&steamids=" + steam_32)
 	json.Unmarshal([]byte(getSteamProfile), &steamProfile)
 
 	//return app.replyText(replyToken, steamProfile.Response.Players[0].Personaname)
-	get_nickname := defaultValue(steamProfile.Response.Players[0].Personaname)
-	get_avatar := defaultValue(steamProfile.Response.Players[0].Avatarfull)
-	get_realname := defaultValue(steamProfile.Response.Players[0].Personaname)
+	// get_nickname := defaultValue(steamProfile.Response.Players[0].Personaname)
+	// get_avatar := defaultValue(steamProfile.Response.Players[0].Avatarfull)
+	// get_realname := defaultValue(steamProfile.Response.Players[0].Personaname)
 	//get_state := steamProfile.Players[0].Profilestate
-	get_state := "1"
+	//get_state := "1"
 	jsonString := `{
 		"type": "bubble",
 		"body": {
@@ -1241,7 +1241,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 				  "contents": [
 					{
 					  "type": "image",
-					  "url": "` + get_avatar + `",
+					  "url": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/ca/cac299e3508304850499e776a9699bbafd7f1aa5_full.jpg",
 					  "aspectMode": "cover",
 					  "size": "full"
 					}
@@ -1259,7 +1259,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 					  "contents": [
 						{
 						  "type": "span",
-						  "text": "` + get_nickname + `",
+						  "text": "Rojokundo-",
 						  "size": "lg",
 						  "weight": "bold"
 						}
@@ -1273,7 +1273,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 					  "contents": [
 						{
 						  "type": "text",
-						  "text": "` + get_realname + `",
+						  "text": "Afif Makarim",
 						  "size": "sm",
 						  "color": "#bcbcbc"
 						}
@@ -1287,7 +1287,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 					  "contents": [
 						{
 						  "type": "text",
-						  "text": "` + get_state + `",
+						  "text": "Online",
 						  "size": "sm",
 						  "color": "#bcbcbc"
 						}
@@ -1315,7 +1315,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 				},
 				{
 				  "type": "text",
-				  "text": "` + total_lib + `",
+				  "text": "10:00 - 23:00",
 				  "wrap": true,
 				  "color": "#666666",
 				  "size": "sm",
