@@ -464,10 +464,6 @@ func defaultImage(message string) string {
 
 func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 
-	if message == "" {
-		return app.replyText(replyToken, "osu! information not found")
-	}
-
 	var osuStd []OsuStd
 	var osuMania []OsuMania
 	var osuTaiko []OsuTaiko
@@ -482,6 +478,10 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 
 	username := osuStd[0].Username
 	imageUrl := "https://a.ppy.sh/" + osuStd[0].User_id
+
+	if len(osuStd) == 0 || message == "" {
+		return app.replyText(replyToken, "osu information not found")
+	}
 
 	maniaApi := getData("https://osu.ppy.sh/api/get_user?u=" + message + "&m=3&k=1958afa9967f399f1cd22f52be34d93bcf755212")
 	json.Unmarshal([]byte(maniaApi), &osuMania)
