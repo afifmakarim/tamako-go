@@ -463,6 +463,11 @@ func defaultImage(message string) string {
 }
 
 func (app *TamakoBot) osuMessage(message string, replyToken string) error {
+
+	if message == "" {
+		return app.replyText(replyToken, "osu! information not found")
+	}
+
 	var osuStd []OsuStd
 	var osuMania []OsuMania
 	var osuTaiko []OsuTaiko
@@ -474,10 +479,6 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 	stdAkurasi := defaultValue(osuStd[0].Accuracy)
 	stdCountryRank := defaultValue(osuStd[0].Pp_country_rank)
 	stdGlobalRank := defaultValue(osuStd[0].Pp_rank)
-
-	if message == "" {
-		return app.replyText(replyToken, "osu! information not found")
-	}
 
 	username := osuStd[0].Username
 	imageUrl := "https://a.ppy.sh/" + osuStd[0].User_id
