@@ -1315,7 +1315,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 				},
 				{
 				  "type": "text",
-				  "text": "10:00 - 23:00",
+				  "text": "aaaaaaa",
 				  "wrap": true,
 				  "color": "#666666",
 				  "size": "sm",
@@ -1337,7 +1337,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 				},
 				{
 				  "type": "text",
-				  "text": "Miraina Tower, 4-1-6 Shinjuku, Tokyo",
+				  "text": "Miraina Tower",
 				  "wrap": true,
 				  "color": "#666666",
 				  "size": "sm",
