@@ -1205,7 +1205,7 @@ func (app *TamakoBot) dotaMessage(message string, replyToken string) error {
 func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	var steam Steam
 	var gameCount Responses
-	var steamProfile SteamProfile
+	var steamProfile Res
 	steamJson := getData("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=" + message)
 	json.Unmarshal([]byte(steamJson), &steam)
 	steam_32 := steam.Response.Steamid
@@ -1219,7 +1219,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	getSteamProfile := getData("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=7834436769DDB41F2D14A2F312377946&steamids=" + steam_32)
 	json.Unmarshal([]byte(getSteamProfile), &steamProfile)
 
-	return app.replyText(replyToken, steamProfile.Players[0].Personaname)
+	return app.replyText(replyToken, steamProfile.Respond.Players[0].Personaname)
 	// get_nickname := defaultValue(steamProfile.Players[0].Personaname)
 	// get_avatar := defaultValue(steamProfile.Players[0].Avatarfull)
 	// get_realname := defaultValue(steamProfile.Players[0].Personaname)

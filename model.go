@@ -180,6 +180,10 @@ type Responses struct {
 	Response Response
 }
 
+type Res struct {
+	Respond SteamProfile
+}
+
 type SteamProfile struct {
 	Players []Player
 }
