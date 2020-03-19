@@ -1229,11 +1229,11 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	get_realname := defaultValue(steamProfile.Response.Players[0].Realname)
 	get_state := strconv.Itoa(steamProfile.Response.Players[0].Profilestate)
 	get_game_1 := defaultValue(gameSteam.Response.Games[0].Name)
-	// get_game_1_hrs := defaultValue(strconv.Itoa(gameSteam.Games[0].Playtime_forever))
-	// get_game_2 := defaultValue(gameSteam.Games[1].Name)
-	// get_game_2_hrs := defaultValue(strconv.Itoa(gameSteam.Games[1].Playtime_forever))
-	// get_game_3 := defaultValue(gameSteam.Games[2].Name)
-	// get_game_3_hrs := defaultValue(strconv.Itoa(gameSteam.Games[2].Playtime_forever))
+	get_game_1_hrs := defaultValue(strconv.Itoa(gameSteam.Response.Games[0].Playtime_forever))
+	get_game_2 := defaultValue(gameSteam.Response.Games[1].Name)
+	get_game_2_hrs := defaultValue(strconv.Itoa(gameSteam.Response.Games[1].Playtime_forever))
+	get_game_3 := defaultValue(gameSteam.Response.Games[2].Name)
+	get_game_3_hrs := defaultValue(strconv.Itoa(gameSteam.Response.Games[2].Playtime_forever))
 	//get_state := "1"
 	jsonString := `{
 		"type": "carousel",
@@ -1325,7 +1325,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "500 hrs",
+						  "text": "` + get_game_1_hrs + `",
 						  "flex": 0,
 						  "margin": "md",
 						  "size": "xs",
@@ -1339,7 +1339,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 					  "contents": [
 						{
 						  "type": "text",
-						  "text": "Naruto Storm 4",
+						  "text": "` + get_game_2 + `",
 						  "size": "xs",
 						  "color": "#8c8c8c",
 						  "margin": "md",
@@ -1348,7 +1348,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "500 hrs",
+						  "text": "` + get_game_2_hrs + `",
 						  "flex": 0,
 						  "margin": "md",
 						  "size": "xs",
@@ -1362,7 +1362,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 					  "contents": [
 						{
 						  "type": "text",
-						  "text": "Naruto Storm 4",
+						  "text": "` + get_game_3 + `",
 						  "size": "xs",
 						  "color": "#8c8c8c",
 						  "margin": "md",
@@ -1371,7 +1371,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "500 hrs",
+						  "text": "` + get_game_2_hrs + `",
 						  "flex": 0,
 						  "margin": "md",
 						  "size": "xs",
