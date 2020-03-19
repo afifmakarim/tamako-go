@@ -1240,9 +1240,31 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 
 	for _, detailRecent := range gameSteam.Response.Games {
 		gameName := detailRecent.Name
-		gamePlaytime := detailRecent.Playtime_forever
-		ListRecent = append(ListRecent, gameName)
-		ListRecent = append(ListRecent, strconv.Itoa(gamePlaytime))
+		gamePlaytime := strconv.Itoa(detailRecent.Playtime_forever)
+		json_content := `{
+			"type": "box",
+			"layout": "baseline",
+			"contents": [
+			  {
+				"type": "text",
+				"text": "` + gameName + `",
+				"size": "xs",
+				"color": "#8c8c8c",
+				"margin": "md",
+				"flex": 1,
+				"wrap": true
+			  },
+			  {
+				"type": "text",
+				"text": "` + gamePlaytime + `",
+				"flex": 0,
+				"margin": "md",
+				"size": "xs",
+				"color": "#8c8c8c"
+			  }
+			]
+		  }`
+		ListRecent = append(ListRecent, json_content)
 	}
 	join_json := defaultValue(strings.Join(ListRecent, ", "))
 
@@ -1321,11 +1343,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 						}
 					  ]
 					},
-					{
-					  "type": "box",
-					  "layout": "baseline",
-					  "contents": [ %s ]
-					}
+					%s
 				  ]
 				}
 			  ],
