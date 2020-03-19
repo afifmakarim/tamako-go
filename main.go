@@ -1206,6 +1206,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	var steam Steam
 	var gameCount Responses
 	var steamProfile Res
+	var gameSteam Response
 	steamJson := getData("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=" + message)
 	json.Unmarshal([]byte(steamJson), &steam)
 	steam_32 := steam.Response.Steamid
@@ -1219,12 +1220,20 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	getSteamProfile := getData("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=7834436769DDB41F2D14A2F312377946&steamids=" + steam_32)
 	json.Unmarshal([]byte(getSteamProfile), &steamProfile)
 
+	getRecentGames := getData("https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=7834436769DDB41F2D14A2F312377946&steamid=" + steam_32 + "&count=3&format=json")
+	json.Unmarshal([]byte(getRecentGames), &gameSteam)
+
 	//return app.replyText(replyToken, steamProfile.Response.Players[0].Personaname)
 	get_nickname := defaultValue(steamProfile.Response.Players[0].Personaname)
 	get_avatar := defaultValue(steamProfile.Response.Players[0].Avatarfull)
-	get_realname := defaultValue(steamProfile.Response.Players[0].Personaname)
+	get_realname := defaultValue(steamProfile.Response.Players[0].Realname)
 	get_state := strconv.Itoa(steamProfile.Response.Players[0].Profilestate)
-
+	get_game_1 := defaultValue(gameSteam.Games[0].Name)
+	get_game_1_hrs := defaultValue(strconv.Itoa(gameSteam.Games[0].Playtime_forever))
+	get_game_2 := defaultValue(gameSteam.Games[1].Name)
+	get_game_2_hrs := defaultValue(strconv.Itoa(gameSteam.Games[1].Playtime_forever))
+	get_game_3 := defaultValue(gameSteam.Games[2].Name)
+	get_game_3_hrs := defaultValue(strconv.Itoa(gameSteam.Games[2].Playtime_forever))
 	//get_state := "1"
 	jsonString := `{
 		"type": "carousel",
@@ -1307,7 +1316,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 					  "contents": [
 						{
 						  "type": "text",
-						  "text": "Ark Survival Evolved",
+						  "text": "` + get_game_1 + `",
 						  "size": "xs",
 						  "color": "#8c8c8c",
 						  "margin": "md",
@@ -1316,7 +1325,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "500 hrs",
+						  "text": "` + get_game_1_hrs + `",
 						  "flex": 0,
 						  "margin": "md",
 						  "size": "xs",
@@ -1330,7 +1339,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 					  "contents": [
 						{
 						  "type": "text",
-						  "text": "Naruto Storm 4",
+						  "text": "` + get_game_2 + `",
 						  "size": "xs",
 						  "color": "#8c8c8c",
 						  "margin": "md",
@@ -1339,14 +1348,37 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "500 hrs",
+						  "text": "` + get_game_2_hrs + `",
 						  "flex": 0,
 						  "margin": "md",
 						  "size": "xs",
 						  "color": "#8c8c8c"
 						}
 					  ]
-					}
+					},
+					{
+						"type": "box",
+						"layout": "baseline",
+						"contents": [
+						  {
+							"type": "text",
+							"text": "` + get_game_3 + `",
+							"size": "xs",
+							"color": "#8c8c8c",
+							"margin": "md",
+							"flex": 1,
+							"wrap": true
+						  },
+						  {
+							"type": "text",
+							"text": "` + get_game_3_hrs + `",
+							"flex": 0,
+							"margin": "md",
+							"size": "xs",
+							"color": "#8c8c8c"
+						  }
+						]
+					  }
 				  ]
 				}
 			  ],

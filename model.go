@@ -174,6 +174,12 @@ type OsuCtb struct {
 
 type Response struct {
 	Game_count int
+	Games      []RecentGames
+}
+
+type RecentGames struct {
+	Name             string
+	Playtime_forever int
 }
 
 type Responses struct {
