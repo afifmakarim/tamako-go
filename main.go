@@ -1249,7 +1249,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 			  },
 			  {
 				"type": "text",
-				"text": "` + toHrs + `",
+				"text": "` + toHrs + ` hours",
 				"flex": 0,
 				"margin": "md",
 				"size": "xs",
