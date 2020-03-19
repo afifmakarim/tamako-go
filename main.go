@@ -1268,7 +1268,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	}
 	join_json := defaultValue(strings.Join(ListRecent, ", "))
 
-	resultz := fmt.Sprintf(`{
+	resultz := `{
 		"type": "carousel",
 		"contents": [
 		  {
@@ -1343,7 +1343,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 						}
 					  ]
 					},
-					%s
+					` + join_json + `
 				  ]
 				}
 			  ],
@@ -1368,7 +1368,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 			}
 		  }
 		]
-	  }`, join_json)
+	  }`
 	fmt.Println(join_json)
 	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(resultz))
 	if err != nil {
