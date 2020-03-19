@@ -1228,7 +1228,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	// get_avatar := defaultValue(steamProfile.Response.Players[0].Avatarfull)
 	//get_realname := defaultValue(steamProfile.Response.Players[0].Realname)
 	//get_state := strconv.Itoa(steamProfile.Response.Players[0].Profilestate)
-
+	get_profile := steamProfile.Response.Players[0].Profileurl
 	// get_game_1 := defaultValue(gameSteam.Response.Games[0].Name)
 	// get_game_1_hrs := defaultValue(strconv.Itoa(gameSteam.Response.Games[0].Playtime_forever))
 	// get_game_2 := defaultValue(gameSteam.Response.Games[1].Name)
@@ -1360,7 +1360,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 				  "action": {
 					"type": "uri",
 					"label": "Open Steam",
-					"uri": "http://linecorp.com/"
+					"uri": "` + get_profile + `"
 				  },
 				  "style": "primary",
 				  "color": "#1b2838"
