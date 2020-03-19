@@ -1224,201 +1224,148 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	json.Unmarshal([]byte(getRecentGames), &gameSteam)
 
 	//return app.replyText(replyToken, steamProfile.Response.Players[0].Personaname)
-	// get_nickname := defaultValue(steamProfile.Response.Players[0].Personaname)
-	// get_avatar := defaultValue(steamProfile.Response.Players[0].Avatarfull)
-	// get_realname := defaultValue(steamProfile.Response.Players[0].Realname)
-	// get_state := strconv.Itoa(steamProfile.Response.Players[0].Profilestate)
+	get_nickname := defaultValue(steamProfile.Response.Players[0].Personaname)
+	get_avatar := defaultValue(steamProfile.Response.Players[0].Avatarfull)
+	//get_realname := defaultValue(steamProfile.Response.Players[0].Realname)
+	//get_state := strconv.Itoa(steamProfile.Response.Players[0].Profilestate)
+
 	// get_game_1 := defaultValue(gameSteam.Response.Games[0].Name)
 	// get_game_1_hrs := defaultValue(strconv.Itoa(gameSteam.Response.Games[0].Playtime_forever))
-	get_game_2 := defaultValue(gameSteam.Response.Games[1].Name)
+	// get_game_2 := defaultValue(gameSteam.Response.Games[1].Name)
 	// get_game_2_hrs := defaultValue(strconv.Itoa(gameSteam.Response.Games[1].Playtime_forever))
 	// get_game_3 := defaultValue(gameSteam.Response.Games[2].Name)
 	// get_game_3_hrs := defaultValue(strconv.Itoa(gameSteam.Response.Games[2].Playtime_forever))
 	//get_state := "1"
-	// jsonString := `{
-	// 	"type": "carousel",
-	// 	"contents": [
-	// 	  {
-	// 		"type": "bubble",
-	// 		"size": "kilo",
-	// 		"hero": {
-	// 		  "type": "image",
-	// 		  "url": "` + get_avatar + `",
-	// 		  "size": "full",
-	// 		  "aspectMode": "cover",
-	// 		  "aspectRatio": "1:1"
-	// 		},
-	// 		"body": {
-	// 		  "type": "box",
-	// 		  "layout": "vertical",
-	// 		  "contents": [
-	// 			{
-	// 			  "type": "text",
-	// 			  "text": "` + get_nickname + `",
-	// 			  "weight": "bold",
-	// 			  "size": "md",
-	// 			  "wrap": true
-	// 			},
-	// 			{
-	// 			  "type": "box",
-	// 			  "layout": "baseline",
-	// 			  "contents": [
-	// 				{
-	// 				  "type": "text",
-	// 				  "text": "` + get_realname + `",
-	// 				  "size": "xs",
-	// 				  "color": "#8c8c8c",
-	// 				  "margin": "sm",
-	// 				  "flex": 0
-	// 				}
-	// 			  ]
-	// 			},
-	// 			{
-	// 			  "type": "box",
-	// 			  "layout": "baseline",
-	// 			  "contents": [
-	// 				{
-	// 				  "type": "text",
-	// 				  "text": "` + get_state + `",
-	// 				  "size": "xs",
-	// 				  "color": "#8c8c8c",
-	// 				  "margin": "md",
-	// 				  "flex": 0
-	// 				}
-	// 			  ]
-	// 			},
-	// 			{
-	// 			  "type": "box",
-	// 			  "layout": "vertical",
-	// 			  "contents": [
-	// 				{
-	// 				  "type": "spacer"
-	// 				},
-	// 				{
-	// 				  "type": "box",
-	// 				  "layout": "baseline",
-	// 				  "spacing": "sm",
-	// 				  "contents": [
-	// 					{
-	// 					  "type": "text",
-	// 					  "text": "Recent Played Game",
-	// 					  "wrap": true,
-	// 					  "color": "#111111",
-	// 					  "size": "xs",
-	// 					  "flex": 5,
-	// 					  "weight": "bold"
-	// 					}
-	// 				  ]
-	// 				},
-	// 				{
-	// 				  "type": "box",
-	// 				  "layout": "baseline",
-	// 				  "contents": [
-	// 					{
-	// 					  "type": "text",
-	// 					  "text": "` + get_game_1 + `",
-	// 					  "size": "xs",
-	// 					  "color": "#8c8c8c",
-	// 					  "margin": "md",
-	// 					  "flex": 1,
-	// 					  "wrap": true
-	// 					},
-	// 					{
-	// 					  "type": "text",
-	// 					  "text": "` + get_game_1_hrs + `",
-	// 					  "flex": 0,
-	// 					  "margin": "md",
-	// 					  "size": "xs",
-	// 					  "color": "#8c8c8c"
-	// 					}
-	// 				  ]
-	// 				},
-	// 				{
-	// 				  "type": "box",
-	// 				  "layout": "baseline",
-	// 				  "contents": [
-	// 					{
-	// 					  "type": "text",
-	// 					  "text": "` + get_game_2 + `",
-	// 					  "size": "xs",
-	// 					  "color": "#8c8c8c",
-	// 					  "margin": "md",
-	// 					  "flex": 1,
-	// 					  "wrap": true
-	// 					},
-	// 					{
-	// 					  "type": "text",
-	// 					  "text": "aaa",
-	// 					  "flex": 0,
-	// 					  "margin": "md",
-	// 					  "size": "xs",
-	// 					  "color": "#8c8c8c"
-	// 					}
-	// 				  ]
-	// 				},
-	// 				{
-	// 				  "type": "box",
-	// 				  "layout": "baseline",
-	// 				  "contents": [
-	// 					{
-	// 					  "type": "text",
-	// 					  "text": "aaaa",
-	// 					  "size": "xs",
-	// 					  "color": "#8c8c8c",
-	// 					  "margin": "md",
-	// 					  "flex": 1,
-	// 					  "wrap": true
-	// 					},
-	// 					{
-	// 					  "type": "text",
-	// 					  "text": "aaaa",
-	// 					  "flex": 0,
-	// 					  "margin": "md",
-	// 					  "size": "xs",
-	// 					  "color": "#8c8c8c"
-	// 					}
-	// 				  ]
-	// 				}
-	// 			  ]
-	// 			}
-	// 		  ],
-	// 		  "spacing": "sm",
-	// 		  "paddingAll": "13px"
-	// 		},
-	// 		"footer": {
-	// 		  "type": "box",
-	// 		  "layout": "vertical",
-	// 		  "contents": [
-	// 			{
-	// 			  "type": "button",
-	// 			  "action": {
-	// 				"type": "uri",
-	// 				"label": "Open Steam",
-	// 				"uri": "http://linecorp.com/"
-	// 			  },
-	// 			  "style": "primary",
-	// 			  "color": "#1b2838"
-	// 			}
-	// 		  ]
-	// 		}
-	// 	  }
-	// 	]
-	//   }`
+	ListRecent := []string{}
 
-	// contents, err := linebot.UnmarshalFlexMessageJSON([]byte(jsonString))
-	// if err != nil {
-	// 	return err
-	// }
-	// if _, err := app.bot.ReplyMessage(
-	// 	replyToken,
-	// 	linebot.NewFlexMessage("Manga Information", contents),
-	// ).Do(); err != nil {
-	// 	return err
-	// }
+	for _, detailRecent := range gameSteam.Response.Games {
+		gameName := detailRecent.Name
+		gamePlaytime := detailRecent.Playtime_forever
+		ListRecent = append(ListRecent, gameName)
+		ListRecent = append(ListRecent, strconv.Itoa(gamePlaytime))
+	}
+	join_json := defaultValue(strings.Join(ListRecent, ", "))
 
-	// return nil
-	fmt.Println("aaaaaaxxx " + get_game_2)
-	return app.replyText(replyToken, get_game_2)
+	resultz := fmt.Sprintf(`{
+		"type": "carousel",
+		"contents": [
+		  {
+			"type": "bubble",
+			"size": "kilo",
+			"hero": {
+			  "type": "image",
+			  "url": "%s",
+			  "size": "full",
+			  "aspectMode": "cover",
+			  "aspectRatio": "1:1"
+			},
+			"body": {
+			  "type": "box",
+			  "layout": "vertical",
+			  "contents": [
+				{
+				  "type": "text",
+				  "text": "%s",
+				  "weight": "bold",
+				  "size": "md",
+				  "wrap": true
+				},
+				{
+				  "type": "box",
+				  "layout": "baseline",
+				  "contents": [
+					{
+					  "type": "text",
+					  "text": "Afif Makarim",
+					  "size": "xs",
+					  "color": "#8c8c8c",
+					  "margin": "sm",
+					  "flex": 0
+					}
+				  ]
+				},
+				{
+				  "type": "box",
+				  "layout": "baseline",
+				  "contents": [
+					{
+					  "type": "text",
+					  "text": "Online",
+					  "size": "xs",
+					  "color": "#8c8c8c",
+					  "margin": "md",
+					  "flex": 0
+					}
+				  ]
+				},
+				{
+				  "type": "box",
+				  "layout": "vertical",
+				  "contents": [
+					{
+					  "type": "spacer"
+					},
+					{
+					  "type": "box",
+					  "layout": "baseline",
+					  "spacing": "sm",
+					  "contents": [
+						{
+						  "type": "text",
+						  "text": "Recent Played Game",
+						  "wrap": true,
+						  "color": "#111111",
+						  "size": "xs",
+						  "flex": 5,
+						  "weight": "bold"
+						}
+					  ]
+					},
+					{
+					  "type": "box",
+					  "layout": "baseline",
+					  "contents": [ %s ]
+					}
+				  ]
+				}
+			  ],
+			  "spacing": "sm",
+			  "paddingAll": "13px"
+			},
+			"footer": {
+			  "type": "box",
+			  "layout": "vertical",
+			  "contents": [
+				{
+				  "type": "button",
+				  "action": {
+					"type": "uri",
+					"label": "Open Steam",
+					"uri": "http://linecorp.com/"
+				  },
+				  "style": "primary",
+				  "color": "#1b2838"
+				}
+			  ]
+			}
+		  }
+		]
+	  }`, get_avatar, get_nickname, join_json)
+
+	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(resultz))
+	if err != nil {
+		return err
+	}
+	if _, err := app.bot.ReplyMessage(
+		replyToken,
+		linebot.NewFlexMessage("Manga Information", contents),
+	).Do(); err != nil {
+		return err
+	}
+
+	return nil
+	// fmt.Println("aaaaaaxxx " + get_game_2)
+	// return app.replyText(replyToken, get_game_2)
 }
 
 func (app *TamakoBot) mangaMessage(message string, replyToken string) error {
