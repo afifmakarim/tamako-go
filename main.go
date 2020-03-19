@@ -1240,7 +1240,8 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 
 	for _, detailRecent := range gameSteam.Response.Games {
 		gameName := detailRecent.Name
-		gamePlaytime := strconv.Itoa(detailRecent.Playtime_forever)
+		toHrs := strconv.Itoa(detailRecent.Playtime_forever / 60)
+		//gamePlaytime := strconv.Itoa(detailRecent.Playtime_forever)
 		json_content := `{
 			"type": "box",
 			"layout": "baseline",
@@ -1256,7 +1257,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 			  },
 			  {
 				"type": "text",
-				"text": "` + gamePlaytime + `",
+				"text": "` + toHrs + `",
 				"flex": 0,
 				"margin": "md",
 				"size": "xs",
