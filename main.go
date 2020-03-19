@@ -1204,38 +1204,30 @@ func (app *TamakoBot) dotaMessage(message string, replyToken string) error {
 
 func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	var steam Steam
-	var gameCount Responses
+	// var gameCount Responses
 	var steamProfile Res
 	var gameSteam Responses
 	steamJson := getData("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=" + message)
 	json.Unmarshal([]byte(steamJson), &steam)
 	steam_32 := steam.Response.Steamid
+	if len(steam_32) == 0 || message == "" {
+		return app.replyText(replyToken, "Steam information not found")
+	}
+	// getGameCount := getData("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=7834436769DDB41F2D14A2F312377946&steamid=" + steam_32 + "&format=json")
+	// json.Unmarshal([]byte(getGameCount), &gameCount)
 
-	getGameCount := getData("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=7834436769DDB41F2D14A2F312377946&steamid=" + steam_32 + "&format=json")
-	json.Unmarshal([]byte(getGameCount), &gameCount)
-
-	//return app.replyText(replyToken, string(gameCount.Response.Game_count))
-	//total_lib := strconv.Itoa(gameCount.Response.Game_count)
-	//total_lib := "xx"
 	getSteamProfile := getData("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=7834436769DDB41F2D14A2F312377946&steamids=" + steam_32)
 	json.Unmarshal([]byte(getSteamProfile), &steamProfile)
 
 	getRecentGames := getData("https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=7834436769DDB41F2D14A2F312377946&steamid=" + steam_32 + "&count=3&format=json")
 	json.Unmarshal([]byte(getRecentGames), &gameSteam)
 
-	//return app.replyText(replyToken, steamProfile.Response.Players[0].Personaname)
 	get_nickname := defaultValue(steamProfile.Response.Players[0].Personaname)
 	get_avatar := defaultValue(steamProfile.Response.Players[0].Avatarfull)
 	get_realname := defaultValue(steamProfile.Response.Players[0].Realname)
 	get_state := state_profile_steam(strconv.Itoa(steamProfile.Response.Players[0].Profilestate))
 	get_profile := steamProfile.Response.Players[0].Profileurl
-	// get_game_1 := defaultValue(gameSteam.Response.Games[0].Name)
-	// get_game_1_hrs := defaultValue(strconv.Itoa(gameSteam.Response.Games[0].Playtime_forever))
-	// get_game_2 := defaultValue(gameSteam.Response.Games[1].Name)
-	// get_game_2_hrs := defaultValue(strconv.Itoa(gameSteam.Response.Games[1].Playtime_forever))
-	// get_game_3 := defaultValue(gameSteam.Response.Games[2].Name)
-	// get_game_3_hrs := defaultValue(strconv.Itoa(gameSteam.Response.Games[2].Playtime_forever))
-	//get_state := "1"
+
 	ListRecent := []string{}
 
 	for _, detailRecent := range gameSteam.Response.Games {
@@ -1335,7 +1327,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 					  "contents": [
 						{
 						  "type": "text",
-						  "text": "Recent Played Game",
+						  "text": "Recently Played Games",
 						  "wrap": true,
 						  "color": "#111111",
 						  "size": "xs",
@@ -1377,7 +1369,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	}
 	if _, err := app.bot.ReplyMessage(
 		replyToken,
-		linebot.NewFlexMessage("Manga Information", contents),
+		linebot.NewFlexMessage("Steam Information", contents),
 	).Do(); err != nil {
 		return err
 	}
