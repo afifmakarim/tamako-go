@@ -1254,7 +1254,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 			"size": "kilo",
 			"hero": {
 			  "type": "image",
-			  "url": "%s",
+			  "url": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/ca/cac299e3508304850499e776a9699bbafd7f1aa5_full.jpg",
 			  "size": "full",
 			  "aspectMode": "cover",
 			  "aspectRatio": "1:1"
@@ -1265,7 +1265,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 			  "contents": [
 				{
 				  "type": "text",
-				  "text": "%s",
+				  "text": "aa",
 				  "weight": "bold",
 				  "size": "md",
 				  "wrap": true
@@ -1350,7 +1350,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 			}
 		  }
 		]
-	  }`, get_avatar, get_nickname, join_json)
+	  }`, join_json)
 
 	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(resultz))
 	if err != nil {
