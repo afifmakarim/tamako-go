@@ -375,13 +375,13 @@ func state_profile_steam(id string) string {
 
 	state := make(map[string]string)
 
-	state["0"] = "offline"
-	state["1"] = "online"
-	state["2"] = "busy"
-	state["3"] = "away"
-	state["4"] = "snooze"
-	state["5"] = "looking to trade"
-	state["6"] = "looking to play"
+	state["0"] = "Offline"
+	state["1"] = "Online"
+	state["2"] = "Busy"
+	state["3"] = "Away"
+	state["4"] = "Snooze"
+	state["5"] = "Looking to trade"
+	state["6"] = "Looking to play"
 
 	return state[id]
 }
