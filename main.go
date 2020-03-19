@@ -1226,46 +1226,79 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	//get_state := steamProfile.Players[0].Profilestate
 	//get_state := "1"
 	jsonString := `{
-		"type": "bubble",
-		"body": {
-		  "type": "box",
-		  "layout": "vertical",
-		  "contents": [
-			{
+		"type": "carousel",
+		"contents": [
+		  {
+			"type": "bubble",
+			"size": "kilo",
+			"hero": {
+			  "type": "image",
+			  "url": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/ca/cac299e3508304850499e776a9699bbafd7f1aa5_full.jpg",
+			  "size": "full",
+			  "aspectMode": "cover",
+			  "aspectRatio": "1:1"
+			},
+			"body": {
 			  "type": "box",
-			  "layout": "horizontal",
+			  "layout": "vertical",
 			  "contents": [
 				{
+				  "type": "text",
+				  "text": "Rojokundo-",
+				  "weight": "bold",
+				  "size": "md",
+				  "wrap": true
+				},
+				{
 				  "type": "box",
-				  "layout": "vertical",
+				  "layout": "baseline",
 				  "contents": [
 					{
-					  "type": "image",
-					  "url": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/ca/cac299e3508304850499e776a9699bbafd7f1aa5_full.jpg",
-					  "aspectMode": "cover",
-					  "size": "full"
+					  "type": "text",
+					  "text": "Afif Makarim",
+					  "size": "xs",
+					  "color": "#8c8c8c",
+					  "margin": "sm",
+					  "flex": 0
 					}
-				  ],
-				  "cornerRadius": "100px",
-				  "width": "72px",
-				  "height": "72px"
+				  ]
+				},
+				{
+				  "type": "box",
+				  "layout": "baseline",
+				  "contents": [
+					{
+					  "type": "text",
+					  "text": "Online",
+					  "size": "xs",
+					  "color": "#8c8c8c",
+					  "margin": "md",
+					  "flex": 0
+					}
+				  ]
 				},
 				{
 				  "type": "box",
 				  "layout": "vertical",
 				  "contents": [
 					{
-					  "type": "text",
+					  "type": "spacer"
+					},
+					{
+					  "type": "box",
+					  "layout": "baseline",
+					  "spacing": "sm",
 					  "contents": [
 						{
-						  "type": "span",
-						  "text": "Rojokundo-",
-						  "size": "lg",
+						  "type": "text",
+						  "text": "Recent Played Game",
+						  "wrap": true,
+						  "color": "#111111",
+						  "size": "xs",
+						  "flex": 5,
 						  "weight": "bold"
 						}
-					  ],
-					  "size": "sm",
-					  "wrap": true
+					  ]
 					},
 					{
 					  "type": "box",
@@ -1273,13 +1306,22 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 					  "contents": [
 						{
 						  "type": "text",
-						  "text": "Afif Makarim",
-						  "size": "sm",
-						  "color": "#bcbcbc"
+						  "text": "Ark Survival Evolved",
+						  "size": "xs",
+						  "color": "#8c8c8c",
+						  "margin": "md",
+						  "flex": 1,
+						  "wrap": true
+						},
+						{
+						  "type": "text",
+						  "text": "500 hrs",
+						  "flex": 0,
+						  "margin": "md",
+						  "size": "xs",
+						  "color": "#8c8c8c"
 						}
-					  ],
-					  "spacing": "sm",
-					  "margin": "md"
+					  ]
 					},
 					{
 					  "type": "box",
@@ -1287,66 +1329,47 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 					  "contents": [
 						{
 						  "type": "text",
-						  "text": "Online",
-						  "size": "sm",
-						  "color": "#bcbcbc"
+						  "text": "Naruto Storm 4",
+						  "size": "xs",
+						  "color": "#8c8c8c",
+						  "margin": "md",
+						  "flex": 1,
+						  "wrap": true
+						},
+						{
+						  "type": "text",
+						  "text": "500 hrs",
+						  "flex": 0,
+						  "margin": "md",
+						  "size": "xs",
+						  "color": "#8c8c8c"
 						}
-					  ],
-					  "spacing": "sm",
-					  "margin": "md"
+					  ]
 					}
 				  ]
 				}
 			  ],
-			  "spacing": "xl",
-			  "paddingAll": "20px"
-			},
-			{
-			  "type": "box",
-			  "layout": "baseline",
 			  "spacing": "sm",
+			  "paddingAll": "13px"
+			},
+			"footer": {
+			  "type": "box",
+			  "layout": "vertical",
 			  "contents": [
 				{
-				  "type": "text",
-				  "text": "Library",
-				  "color": "#aaaaaa",
-				  "size": "sm",
-				  "flex": 3
-				},
-				{
-				  "type": "text",
-				  "text": "aaaaaaa",
-				  "wrap": true,
-				  "color": "#666666",
-				  "size": "sm",
-				  "flex": 5
-				}
-			  ]
-			},
-			{
-			  "type": "box",
-			  "layout": "baseline",
-			  "spacing": "sm",
-			  "contents": [
-				{
-				  "type": "text",
-				  "text": "Recent",
-				  "color": "#aaaaaa",
-				  "size": "sm",
-				  "flex": 3
-				},
-				{
-				  "type": "text",
-				  "text": "Miraina Tower",
-				  "wrap": true,
-				  "color": "#666666",
-				  "size": "sm",
-				  "flex": 5
+				  "type": "button",
+				  "action": {
+					"type": "uri",
+					"label": "Open Steam",
+					"uri": "http://linecorp.com/"
+				  },
+				  "style": "primary",
+				  "color": "#111111"
 				}
 			  ]
 			}
-		  ]
-		}
+		  }
+		]
 	  }`
 
 	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(jsonString))
