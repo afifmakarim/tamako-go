@@ -1266,7 +1266,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 		  }`
 		ListRecent = append(ListRecent, json_content)
 	}
-	join_json := defaultValue(strings.Join(ListRecent, ", "))
+	join_json := strings.Join(ListRecent, ", ")
 
 	resultz := `{
 		"type": "carousel",
