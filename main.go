@@ -1206,7 +1206,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	var steam Steam
 	var gameCount Responses
 	var steamProfile Res
-	var gameSteam Response
+	var gameSteam Responses
 	steamJson := getData("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=7834436769DDB41F2D14A2F312377946&vanityurl=" + message)
 	json.Unmarshal([]byte(steamJson), &steam)
 	steam_32 := steam.Response.Steamid
@@ -1228,7 +1228,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	get_avatar := defaultValue(steamProfile.Response.Players[0].Avatarfull)
 	get_realname := defaultValue(steamProfile.Response.Players[0].Realname)
 	get_state := strconv.Itoa(steamProfile.Response.Players[0].Profilestate)
-	get_game_1 := defaultValue(gameSteam.Games[0].Name)
+	get_game_1 := defaultValue(gameSteam.Response.Games[0].Name)
 	// get_game_1_hrs := defaultValue(strconv.Itoa(gameSteam.Games[0].Playtime_forever))
 	// get_game_2 := defaultValue(gameSteam.Games[1].Name)
 	// get_game_2_hrs := defaultValue(strconv.Itoa(gameSteam.Games[1].Playtime_forever))
