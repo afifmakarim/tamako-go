@@ -1369,7 +1369,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 		  }
 		]
 	  }`, join_json)
-	fmt.Println(resultz)
+	fmt.Println(join_json)
 	contents, err := linebot.UnmarshalFlexMessageJSON([]byte(resultz))
 	if err != nil {
 		return err
