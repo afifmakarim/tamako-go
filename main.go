@@ -1223,7 +1223,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	get_nickname := defaultValue(steamProfile.Response.Players[0].Personaname)
 	get_avatar := defaultValue(steamProfile.Response.Players[0].Avatarfull)
 	get_realname := defaultValue(steamProfile.Response.Players[0].Personaname)
-	get_state := strconv.Itoa(steamProfile.Players[0].Profilestate)
+	get_state := strconv.Itoa(steamProfile.Response.Players[0].Profilestate)
 
 	//get_state := "1"
 	jsonString := `{
