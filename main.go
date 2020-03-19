@@ -1230,10 +1230,10 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	get_state := strconv.Itoa(steamProfile.Response.Players[0].Profilestate)
 	get_game_1 := defaultValue(gameSteam.Response.Games[0].Name)
 	get_game_1_hrs := defaultValue(strconv.Itoa(gameSteam.Response.Games[0].Playtime_forever))
-	get_game_2 := defaultValue(gameSteam.Response.Games[1].Name)
-	get_game_2_hrs := defaultValue(strconv.Itoa(gameSteam.Response.Games[1].Playtime_forever))
-	get_game_3 := defaultValue(gameSteam.Response.Games[2].Name)
-	get_game_3_hrs := defaultValue(strconv.Itoa(gameSteam.Response.Games[2].Playtime_forever))
+	// get_game_2 := defaultValue(gameSteam.Response.Games[1].Name)
+	// get_game_2_hrs := defaultValue(strconv.Itoa(gameSteam.Response.Games[1].Playtime_forever))
+	// get_game_3 := defaultValue(gameSteam.Response.Games[2].Name)
+	// get_game_3_hrs := defaultValue(strconv.Itoa(gameSteam.Response.Games[2].Playtime_forever))
 	//get_state := "1"
 	jsonString := `{
 		"type": "carousel",
@@ -1339,7 +1339,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 					  "contents": [
 						{
 						  "type": "text",
-						  "text": "` + get_game_2 + `",
+						  "text": "aaa",
 						  "size": "xs",
 						  "color": "#8c8c8c",
 						  "margin": "md",
@@ -1348,7 +1348,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "` + get_game_2_hrs + `",
+						  "text": "aaa",
 						  "flex": 0,
 						  "margin": "md",
 						  "size": "xs",
@@ -1362,7 +1362,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 					  "contents": [
 						{
 						  "type": "text",
-						  "text": "` + get_game_3 + `",
+						  "text": "aaaa",
 						  "size": "xs",
 						  "color": "#8c8c8c",
 						  "margin": "md",
@@ -1371,7 +1371,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "` + get_game_3_hrs + `",
+						  "text": "aaaa",
 						  "flex": 0,
 						  "margin": "md",
 						  "size": "xs",
