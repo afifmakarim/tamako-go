@@ -1224,10 +1224,10 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	json.Unmarshal([]byte(getRecentGames), &gameSteam)
 
 	//return app.replyText(replyToken, steamProfile.Response.Players[0].Personaname)
-	// get_nickname := defaultValue(steamProfile.Response.Players[0].Personaname)
-	// get_avatar := defaultValue(steamProfile.Response.Players[0].Avatarfull)
-	//get_realname := defaultValue(steamProfile.Response.Players[0].Realname)
-	//get_state := strconv.Itoa(steamProfile.Response.Players[0].Profilestate)
+	get_nickname := defaultValue(steamProfile.Response.Players[0].Personaname)
+	get_avatar := defaultValue(steamProfile.Response.Players[0].Avatarfull)
+	get_realname := defaultValue(steamProfile.Response.Players[0].Realname)
+	get_state := strconv.Itoa(steamProfile.Response.Players[0].Profilestate)
 	get_profile := steamProfile.Response.Players[0].Profileurl
 	// get_game_1 := defaultValue(gameSteam.Response.Games[0].Name)
 	// get_game_1_hrs := defaultValue(strconv.Itoa(gameSteam.Response.Games[0].Playtime_forever))
@@ -1277,7 +1277,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 			"size": "kilo",
 			"hero": {
 			  "type": "image",
-			  "url": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/ca/cac299e3508304850499e776a9699bbafd7f1aa5_full.jpg",
+			  "url": "` + get_avatar + `",
 			  "size": "full",
 			  "aspectMode": "cover",
 			  "aspectRatio": "1:1"
@@ -1288,7 +1288,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 			  "contents": [
 				{
 				  "type": "text",
-				  "text": "aa",
+				  "text": "` + get_nickname + `",
 				  "weight": "bold",
 				  "size": "md",
 				  "wrap": true
@@ -1299,7 +1299,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 				  "contents": [
 					{
 					  "type": "text",
-					  "text": "Afif Makarim",
+					  "text": "` + get_realname + `",
 					  "size": "xs",
 					  "color": "#8c8c8c",
 					  "margin": "sm",
@@ -1313,7 +1313,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 				  "contents": [
 					{
 					  "type": "text",
-					  "text": "Online",
+					  "text": "` + get_state + `",
 					  "size": "xs",
 					  "color": "#8c8c8c",
 					  "margin": "md",
