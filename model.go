@@ -371,6 +371,21 @@ func hero_id_to_names(id string) string {
 	return hero[id]
 }
 
+func state_profile_steam(id string) string {
+
+	state := make(map[string]string)
+
+	state["0"] = "offline"
+	state["1"] = "online"
+	state["2"] = "busy"
+	state["3"] = "away"
+	state["4"] = "snooze"
+	state["5"] = "looking to trade"
+	state["6"] = "looking to play"
+
+	return state[id]
+}
+
 func randomInt(min, max int) int {
 	return min + rand.Intn(max-min)
 }
