@@ -1417,7 +1417,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	// }
 
 	// return nil
-	fmt.Println("aaaaaaxxx "get_game_2)
+	fmt.Println("aaaaaaxxx " + get_game_2)
 	return app.replyText(replyToken, get_game_2)
 }
 
