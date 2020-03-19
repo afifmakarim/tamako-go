@@ -199,7 +199,7 @@ type Player struct {
 	Profileurl   string
 	Avatarfull   string
 	Realname     string
-	Profilestate int
+	Personastate int
 }
 
 func getData(url string) []byte {
