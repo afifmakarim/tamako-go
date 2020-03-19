@@ -1371,7 +1371,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 						},
 						{
 						  "type": "text",
-						  "text": "` + get_game_2_hrs + `",
+						  "text": "` + get_game_3_hrs + `",
 						  "flex": 0,
 						  "margin": "md",
 						  "size": "xs",
