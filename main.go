@@ -433,7 +433,7 @@ func (app *TamakoBot) handleSticker(message *linebot.StickerMessage, replyToken 
 
 func defaultValue(message string) string {
 
-	if message == "" {
+	if len(message) == 0 {
 		return "-"
 	}
 	potong := strings.ReplaceAll(message, "\n", "")
