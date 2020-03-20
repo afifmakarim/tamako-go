@@ -1231,8 +1231,8 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	ListRecent := []string{}
 
 	for _, detailRecent := range gameSteam.Response.Games {
-		gameName := detailRecent.Name
-		toHrs := strconv.Itoa(detailRecent.Playtime_forever / 60)
+		gameName := defaultValue(detailRecent.Name)
+		toHrs := defaultValue(strconv.Itoa(detailRecent.Playtime_forever / 60))
 		//gamePlaytime := strconv.Itoa(detailRecent.Playtime_forever)
 		json_content := `{
 			"type": "box",
