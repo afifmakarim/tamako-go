@@ -1264,6 +1264,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 			  }
 			]
 		  }`
+		fmt.Println("XXCSADACX " + json_content)
 		ListRecent = append(ListRecent, json_content)
 	}
 	join_json := strings.Join(ListRecent, ", ")
