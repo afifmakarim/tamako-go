@@ -1202,6 +1202,36 @@ func (app *TamakoBot) dotaMessage(message string, replyToken string) error {
 	return nil
 }
 
+func defaultJson(message string) string {
+	if len(message) > 0 {
+		return message
+	}
+	json_content := `{
+		"type": "box",
+		"layout": "baseline",
+		"contents": [
+		  {
+			"type": "text",
+			"text": "-",
+			"size": "xs",
+			"color": "#8c8c8c",
+			"margin": "md",
+			"flex": 1,
+			"wrap": true
+		  },
+		  {
+			"type": "text",
+			"text": "-",
+			"flex": 0,
+			"margin": "md",
+			"size": "xs",
+			"color": "#8c8c8c"
+		  }
+		]
+	  }`
+	return json_content
+}
+
 func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 	var steam Steam
 	// var gameCount Responses
@@ -1234,11 +1264,8 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 
 	for _, detailRecent := range gameSteam.Response.Games {
 
-		// gameName = defaultValue(detailRecent.Name)
-		// toHrs = defaultValue(strconv.Itoa(detailRecent.Playtime_forever / 60))
-		ss := detailRecent.Name
-		gameName = "s" + ss
-		toHrs = "xx"
+		gameName = defaultValue(detailRecent.Name)
+		toHrs = defaultValue(strconv.Itoa(detailRecent.Playtime_forever / 60))
 		//gamePlaytime := strconv.Itoa(detailRecent.Playtime_forever)
 
 		json_content := `{
@@ -1267,7 +1294,8 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 		fmt.Println("XXCSADACX " + json_content)
 		ListRecent = append(ListRecent, json_content)
 	}
-	join_json := strings.Join(ListRecent, ", ")
+	join_json := defaultJson(strings.Join(ListRecent, ", "))
+
 	fmt.Println("XSASDASAXSXA" + join_json)
 	resultz := `{
 		"type": "carousel",
