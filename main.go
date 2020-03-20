@@ -1234,7 +1234,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 		gameName := defaultValue(detailRecent.Name)
 		toHrs := defaultValue(strconv.Itoa(detailRecent.Playtime_forever / 60))
 		//gamePlaytime := strconv.Itoa(detailRecent.Playtime_forever)
-		fmt.Println("XSASDASAXSXA" + gameName)
+
 		json_content := `{
 			"type": "box",
 			"layout": "baseline",
@@ -1261,7 +1261,7 @@ func (app *TamakoBot) steamMessage(message string, replyToken string) error {
 		ListRecent = append(ListRecent, json_content)
 	}
 	join_json := strings.Join(ListRecent, ", ")
-
+	fmt.Println("XSASDASAXSXA" + join_json)
 	resultz := `{
 		"type": "carousel",
 		"contents": [
