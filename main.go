@@ -934,8 +934,10 @@ func (app *TamakoBot) urbanMessage(message string, replyToken string) error {
 	definition := urbanApi.List[0].Definition
 	example := urbanApi.List[0].Example
 
+	fmt.Println("ASDCASDA " + word)
+
 	if len(urbanApi.List) > 0 {
-		// fmt.Println("ASDCASDA", len(urbanApi.List))
+
 		slang := "Word : " + word + "\nDefinition : " + definition + "\n\nExample : " + example
 		if _, err := app.bot.ReplyMessage(replyToken, linebot.NewTextMessage(slang)).Do(); err != nil {
 			return err
@@ -945,6 +947,7 @@ func (app *TamakoBot) urbanMessage(message string, replyToken string) error {
 		return app.replyText(replyToken, "Slang words not found")
 	}
 	return nil
+
 }
 
 func (app *TamakoBot) motwMessage(replyToken string) error {
