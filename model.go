@@ -202,6 +202,16 @@ type Player struct {
 	Personastate int
 }
 
+type UrbanApi struct {
+	List []Lists
+}
+
+type Lists struct {
+	Definition string
+	Word       string
+	Example    string
+}
+
 func getData(url string) []byte {
 
 	resp, err := http.Get(url)
@@ -224,6 +234,25 @@ func Request(url string, contentType string) []byte {
 		log.Fatal(err)
 	}
 	req.Header.Set("User-Agent", contentType)
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	//fmt.Println(body)
+	return body
+}
+
+func RequestMashape(url string) []byte {
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	req.Header.Set("X-Mashape-Key", "fwx7jEDlMlmshhIVORiiHcodhetxp1Tv9vsjsn0ZMUT0CXNAfp")
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		log.Fatal(err)

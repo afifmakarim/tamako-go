@@ -313,6 +313,11 @@ func (app *TamakoBot) handleText(message *linebot.TextMessage, replyToken string
 			if err := app.steamMessage(steamUsername, replyToken); err != nil {
 				log.Print(err)
 			}
+		case "urban":
+			urbanUsername := string(keyword[6:])
+			if err := app.urbanMessage(urbanUsername, replyToken); err != nil {
+				log.Print(err)
+			}
 		case "bye":
 			switch source.Type {
 			case linebot.EventSourceTypeUser:
@@ -917,6 +922,21 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 
 	return nil
 
+}
+
+func (app *TamakoBot) urbanMessage(message string, replyToken string) error {
+	var urbanApi UrbanApi
+	urban := RequestMashape("https://mashape-community-urban-dictionary.p.mashape.com/define?term=" + message)
+	json.Unmarshal([]byte(urban), &urbanApi)
+
+	word := urbanApi.List[0].Word
+	definition := urbanApi.List[0].Definition
+	example := urbanApi.List[0].Example
+	slang := "Word : " + word + "Definition : " + definition + "\nExample : " + example
+	if _, err := app.bot.ReplyMessage(replyToken, linebot.NewTextMessage(slang)).Do(); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (app *TamakoBot) motwMessage(replyToken string) error {
