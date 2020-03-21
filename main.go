@@ -925,6 +925,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 }
 
 func (app *TamakoBot) urbanMessage(message string, replyToken string) error {
+
 	var urbanApi UrbanApi
 	urban := RequestMashape("https://mashape-community-urban-dictionary.p.mashape.com/define?term=" + message)
 	json.Unmarshal([]byte(urban), &urbanApi)
@@ -932,6 +933,11 @@ func (app *TamakoBot) urbanMessage(message string, replyToken string) error {
 	word := urbanApi.List[0].Word
 	definition := urbanApi.List[0].Definition
 	example := urbanApi.List[0].Example
+
+	if len(message) == 0 || len(word) == 0 {
+		return app.replyText(replyToken, "Slang words not found")
+	}
+
 	slang := "Word : " + word + "\nDefinition : " + definition + "\n\nExample : " + example
 	if _, err := app.bot.ReplyMessage(replyToken, linebot.NewTextMessage(slang)).Do(); err != nil {
 		return err
