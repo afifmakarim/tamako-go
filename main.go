@@ -927,7 +927,7 @@ func (app *TamakoBot) osuMessage(message string, replyToken string) error {
 func (app *TamakoBot) urbanMessage(message string, replyToken string) error {
 
 	var urbanApi UrbanApi
-	urban := RequestMashape("https://mashape-community-urban-dictionary.p.mashape.com/define?term=" + message)
+	urban := RequestMashape("https://mashape-community-urban-dictionary.p.mashape.com/define?term=" + Rawurlencode(message))
 	json.Unmarshal([]byte(urban), &urbanApi)
 
 	word := urbanApi.List[0].Word
