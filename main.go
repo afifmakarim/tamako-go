@@ -934,7 +934,7 @@ func (app *TamakoBot) urbanMessage(message string, replyToken string) error {
 	definition := urbanApi.List[0].Definition
 	example := urbanApi.List[0].Example
 
-	if len(message) == 0 || len(word) == 0 {
+	if len(message) == 0 || len(urbanApi.List) == 0 {
 		return app.replyText(replyToken, "Slang words not found")
 	}
 
