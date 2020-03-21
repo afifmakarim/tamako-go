@@ -935,8 +935,8 @@ func (app *TamakoBot) urbanMessage(message string, replyToken string) error {
 	example := urbanApi.List[0].Example
 
 	fmt.Println("ASDCASDA " + word)
-	// intMap[0] != ""
-	if urbanApi.List[0].Word != "" {
+
+	if len(urbanApi.List) > 0 {
 
 		slang := "Word : " + word + "\nDefinition : " + definition + "\n\nExample : " + example
 		if _, err := app.bot.ReplyMessage(replyToken, linebot.NewTextMessage(slang)).Do(); err != nil {
